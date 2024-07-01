@@ -526,3 +526,6 @@ C:\Users\setha\Documents\Capstone\LiftOff-Capstone\Itinerary-Designer\Itinerary-
 C:\Users\setha\Documents\Capstone\LiftOff-Capstone\Itinerary-Designer\Itinerary-Designer\obj\Debug\net8.0\ref\Itinerary-Designer.dll
 C:\Users\Kkruz\OneDrive\Documents\LaunchCode Capstone\LiftOff-Capstone\Itinerary-Designer\bin\Debug\net8.0\MySqlConnector.dll
 C:\Users\Kkruz\OneDrive\Documents\LaunchCode Capstone\LiftOff-Capstone\Itinerary-Designer\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\Kkruz\OneDrive\Documents\LaunchCode Capstone\LiftOff-Capstone\Itinerary-Designer\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Kkruz\OneDrive\Documents\LaunchCode Capstone\LiftOff-Capstone\Itinerary-Designer\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Kkruz\OneDrive\Documents\LaunchCode Capstone\LiftOff-Capstone\Itinerary-Designer\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
