@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Itinerary-Designer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d150a973bd25bb404658092326a395ea9c4c5462")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5563d5c60d9df33a401668eba74d84052db16b1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Itinerary-Designer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Itinerary-Designer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
