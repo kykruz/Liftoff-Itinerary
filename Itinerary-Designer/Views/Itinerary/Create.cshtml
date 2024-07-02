@@ -1,47 +1,32 @@
 @using CheckOptionViewModel
 
 @* @{
-  ViewData["Title"] = "Itinerary Creation Page";
+ViewData["Title"] = "Itinerary Creation Page";
 } *@
 
-<h1>Checkbox Options</h1>
+<h1>Checkbox Form With Api Options</h1>
 
 @if (Model != null && Model.Count != null && Model.Count == 0)
 {
-    <p>No optionss found.</p>
+  <p>No options found.</p>
 }
 
 else if (Model != null && Model.Count != null && Model.Count > 0)
 {
   <form method="post">
-    @for (int i = 0; i < Model.Options.Count; i++)
+    @foreach (CheckOption option in Model)
     {
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="@Model.Options[i].Name" value="" aria-label="..." />
-        <label for="@Model.Options[i].Name">@Model.Options[i].Name</label><br>
-      </div>
+      <input class="form-check-input" type="checkbox" id="@Model.CheckOption.Name" value="" aria-label="..." />
+      <label for="@Model.CheckOption.Name">@Model.CheckOption.Name</label>
+      <br>
     }
   </form>
 }
 
 else
 {
-    <p>Model is null or Model.Count is null.</p>
+  <p>Model is null or Model.Count is null.</p>
 }
+<button type="submit">Submit</button>
 
-
- @* <div>
-      <a asp-controller="Itinerary" asp-action="Create">Add Itinerary</a>
-    </div> *@
-
-  @* for each instead of just for above ?? *@
 @* to view this page we want to go to Itinerary/Create *@
-
-@* <div>
-<input class="form-check-input" type="checkbox" id="checkboxl3" value="" aria-label="..." />
-<label for="checkbox13">Option 3</label><br>
-</div> *@
-
-@*
-<input type="checkbox" asp-for="SelectedOptionIds" value="@Model.Options[i].Id" />
-<label>@Model.Options[i].Name</label> *@
