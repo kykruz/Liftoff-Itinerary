@@ -6,3 +6,44 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<form asp-action="ConvertCurrency" method="post">
+    <div class="form-group">
+        <label for="fromCurrency">From Currency:</label>
+        <input type="text" class="form-control" id="fromCurrency" name="fromCurrency" required>
+    </div>
+    <div class="form-group">
+        <label for="toCurrency">To Currency:</label>
+        <input type="text" class="form-control" id="toCurrency" name="toCurrency" required>
+    </div>
+    <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" class="form-control" id="amount" name="amount" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Convert</button>
+</form>
+
+@if (ViewData["ConvertedAmount"] != null)
+{
+    <div class="alert alert-success mt-3">
+        Converted Amount: @ViewData["ConvertedAmount"]
+    </div>
+}
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        Error: @ViewData["Error"]
+    </div>
+}
+
+
+
+
+
+
+
+
+
+
+
+C

@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 public class MemberController : Controller
 {
-    private readonly ApplicationDbContext _context; // Replace with your DbContext
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IdentityDbContext _context;
+    private readonly UserManager<TripUser> _userManager;
 
-    public MemberController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+    public MemberController(IdentityDbContext context, UserManager<TripUser> userManager)
     {
         _context = context;
         _userManager = userManager;
