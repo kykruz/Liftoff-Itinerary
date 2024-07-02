@@ -6,12 +6,7 @@ ViewData["Title"] = "Itinerary Creation Page";
 
 <h1>Checkbox Form With Api Options</h1>
 
-@if (Model != null && Model.Count != null && Model.Count == 0)
-{
-  <p>No options found.</p>
-}
-
-else if (Model != null && Model.Count != null && Model.Count > 0)
+@if (Model.Count > 0)
 {
   <form method="post">
     @foreach (CheckOption option in Model)
@@ -22,10 +17,9 @@ else if (Model != null && Model.Count != null && Model.Count > 0)
     }
   </form>
 }
-
 else
 {
-  <p>Model is null or Model.Count is null.</p>
+  <p>Model is null, Model.Count is null, or model is empty.</p>
 }
 <button type="submit">Submit</button>
 
