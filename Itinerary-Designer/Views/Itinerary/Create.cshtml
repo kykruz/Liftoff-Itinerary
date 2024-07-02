@@ -1,20 +1,47 @@
-@{
-ViewData["Title"] = "Itinerary Creation Page";
+@using CheckOptionViewModel
+
+@* @{
+  ViewData["Title"] = "Itinerary Creation Page";
+} *@
+
+<h1>Checkbox Options</h1>
+
+@if (Model != null && Model.Count != null && Model.Count == 0)
+{
+    <p>No optionss found.</p>
 }
 
-@* I THINK need to install bootstrap in to here to use ViewData ??*@
+else if (Model != null && Model.Count != null && Model.Count > 0)
+{
+  <form method="post">
+    @for (int i = 0; i < Model.Options.Count; i++)
+    {
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="@Model.Options[i].Name" value="" aria-label="..." />
+        <label for="@Model.Options[i].Name">@Model.Options[i].Name</label><br>
+      </div>
+    }
+  </form>
+}
 
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" id="checkbox11" value="" aria-label="..." />
-   <label for="checkbox11">Option 1</label><br>
-</div>
+else
+{
+    <p>Model is null or Model.Count is null.</p>
+}
 
-<div>
-  <input class="form-check-input" type="checkbox" id="checkboxl2" value="" aria-label="..."/>
-   <label for="checkbox12">Option 2</label><br>
-</div>
 
-<div>
-  <input class="form-check-input" type="checkbox" id="checkboxl3" value="" aria-label="..."/>
-   <label for="checkbox13">Option 3</label><br>
-</div>
+ @* <div>
+      <a asp-controller="Itinerary" asp-action="Create">Add Itinerary</a>
+    </div> *@
+
+  @* for each instead of just for above ?? *@
+@* to view this page we want to go to Itinerary/Create *@
+
+@* <div>
+<input class="form-check-input" type="checkbox" id="checkboxl3" value="" aria-label="..." />
+<label for="checkbox13">Option 3</label><br>
+</div> *@
+
+@*
+<input type="checkbox" asp-for="SelectedOptionIds" value="@Model.Options[i].Id" />
+<label>@Model.Options[i].Name</label> *@
