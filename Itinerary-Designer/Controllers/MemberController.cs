@@ -1,13 +1,18 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using YourProject;
+using YourProject.ViewModels;
+using Trips.Data;
 
 public class MemberController : Controller
 {
-    private readonly IdentityDbContext _context;
+    private readonly TripDbContext _context;
     private readonly UserManager<TripUser> _userManager;
 
-    public MemberController(IdentityDbContext context, UserManager<TripUser> userManager)
+    public MemberController(TripDbContext context, UserManager<TripUser> userManager)
     {
         _context = context;
         _userManager = userManager;
@@ -16,8 +21,23 @@ public class MemberController : Controller
     // Action to display comments
     public IActionResult Comments()
     {
-        var comments = _context.Comments.Include(c => c.User).ToList(); // Load comments from database
-        return View(comments);
+        var comments = _context.Comments
+            .Include(c => c.User)
+            .Select(c => new CommentViewModel
+            {
+                CommentId = c.CommentId,
+                Content = c.Content,
+                UserName = c.User.UserName,
+                CreatedAt = c.CreatedAt
+            })
+            .ToList();
+
+        var viewModel = new ReviewViewModel
+        {
+            Comments = comments
+        };
+
+        return View(viewModel);
     }
 
     // Action to add a comment
@@ -43,31 +63,4 @@ public class MemberController : Controller
 
         return RedirectToAction(nameof(Comments));
     }
-
-    // Action to display pictures (similar to the Reviews)
-    public IActionResult Pictures()
-    {
-        // Load pictures from database
-        var pictures = _context.Pictures.Include(p => p.User).ToList();
-        return View(pictures);
-    }
-
-    // Action to upload a picture
-    [HttpPost]
-    public async Task<IActionResult> UploadPicture(IFormFile file)
-    {
-        var user = await _userManager.GetUserAsync(User);
-
-        if (user == null)
-        {
-            return RedirectToAction("Login", "Account");
-        }
-
-        // Save picture to the database or file system
-
-
-        return RedirectToAction(nameof(Pictures));
-    }
-
-  
 }
