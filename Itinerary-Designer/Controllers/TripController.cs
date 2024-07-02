@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Trips.Models;
-using Trip_Designer.Data;
+using Trips.Data;
 
 namespace Itinerary_Designer.Controllers;
 

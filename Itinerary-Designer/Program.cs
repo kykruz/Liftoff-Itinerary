@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Trip_Designer.Data;
+using Trips.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Itinerary_Designer;
-using Trip_Designer.Data;
+using Trips.Data;
 using Trips.Models;
 using Itinerary.Models;
 

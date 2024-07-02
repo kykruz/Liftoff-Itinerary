@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Itinerary.Models;
 
-namespace Trip_Designer.Data
+namespace Trips.Data
 {
     public class TripDbContext : IdentityDbContext <IdentityUser, IdentityRole, string>
     {
