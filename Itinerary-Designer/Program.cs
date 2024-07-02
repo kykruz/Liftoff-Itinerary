@@ -17,6 +17,9 @@ builder.Services.AddDbContext<TripDbContext>(options => options.UseSqlServer(con
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<TripDbContext>();
 
+// Add ExchangeRatesApiService to the services container
+builder.Services.AddTransient<ExchangeRatesApiService>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
