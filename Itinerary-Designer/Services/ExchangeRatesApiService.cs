@@ -7,7 +7,7 @@ namespace YourProject.Services
     public class ExchangeRatesApiService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _apiKey = "API Key HERE";
+        private readonly string _apiKey = "osBudYFRdkNVt6966P10CnRGMpEDIZK3";
         private readonly string _baseUrl = "https://api.exchangeratesapi.io/";
 
         public ExchangeRatesApiService()
