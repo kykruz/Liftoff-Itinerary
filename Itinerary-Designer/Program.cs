@@ -9,9 +9,20 @@ var connectionString = "server=localhost;user=designer;password=K9l0m15?/;databa
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 37));
 builder.Services.AddRazorPages();
 
+builder.Services.AddDbContext<TripDbContext>(dbContextOptions => dbContextOptions.UseMySql(connectionString, serverVersion));
+//--- end of connection syntax
 
-// var connectionString = builder.Configuration.GetConnectionString("ItineraryDbContextConnection");builder.Services.AddDbContext<EventDbContext>(options => options.UseSqlServer(connectionString));builder.Services.AddDefaultIdentity<IdentityUser>
-// (options => optionsSignInRequireConfirmedAccount = true).AddEntityFrameworkStores<ItineraryDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>
+(options =>
+{
+   options.SignIn.RequireConfirmedAccount = false;
+   options.Password.RequireDigit = false;
+   options.Password.RequiredLength = 8;
+   options.Password.RequireNonAlphanumeric = false;
+   options.Password.RequireUppercase = false;
+   options.Password.RequireLowercase = false;
+}).AddEntityFrameworkStores<TripDbContext>();
+
 
 builder.Services.AddDbContext<TripDbContext>(options => options.UseSqlServer(connectionString));
 
