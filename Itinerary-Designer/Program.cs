@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Itinerary_Designer.Data;
+using Trip_Designer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +13,9 @@ builder.Services.AddRazorPages();
 // var connectionString = builder.Configuration.GetConnectionString("ItineraryDbContextConnection");builder.Services.AddDbContext<EventDbContext>(options => options.UseSqlServer(connectionString));builder.Services.AddDefaultIdentity<IdentityUser>
 // (options => optionsSignInRequireConfirmedAccount = true).AddEntityFrameworkStores<ItineraryDbContext>();
 
-builder.Services.AddDbContext<ItineraryDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<TripDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ItineraryDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<TripDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
