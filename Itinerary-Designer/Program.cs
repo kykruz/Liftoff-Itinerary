@@ -26,7 +26,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>
 
 builder.Services.AddDbContext<TripDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<TripDbContext>();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
