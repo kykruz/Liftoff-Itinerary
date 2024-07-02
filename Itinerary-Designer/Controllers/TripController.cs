@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Trips.Models;
 using Trips.Data;
 
-namespace Itinerary_Designer.Controllers;
+namespace Itinerary.Controllers;
 
 public class ItineraryController : Controller
 {

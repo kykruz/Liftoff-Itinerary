@@ -6,6 +6,11 @@ namespace Itinerary.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        /*
+        rm description
+        calendar
+        EventsSelected
+        */
 
         public int Id { get; set; }
         private static int nextId = 1;

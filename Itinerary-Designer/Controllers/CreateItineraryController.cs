@@ -1,7 +1,7 @@
-using Itinerary_Designer.ViewModels;
+using Itinerary.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Itinerary_Designer.Controllers;
+namespace Itinerary.Controllers;
 
 public class CreateItineraryController : Controller
 {

@@ -1,4 +1,4 @@
-namespace Itinerary_Designer.ViewModels;
+namespace Itinerary.ViewModels;
 
 public class CreateItineraryViewModel
 {
