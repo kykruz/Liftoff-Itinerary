@@ -4,7 +4,7 @@ namespace Trips.Models
 {
     public class Trip
     {
-        public string ItineraryName { get; set; }
+        public string TripName { get; set; }
 
         public int PeopleCount { get; set; }
 
@@ -22,7 +22,7 @@ namespace Trips.Models
 
         public Trip(string tripname)
         {
-            ItineraryName = tripname;
+            TripName = tripname;
             Id = nextId;
             nextId++;
         }
@@ -35,4 +35,3 @@ namespace Trips.Models
 }
 
 
-// https://github.com/Carolista/CodingEventsCSharp/tree/models

@@ -2,7 +2,7 @@
 @using Trips.Data;
 @using Trips.Controllers;
 @model List<LocationData>;
-@* Make the model a list?
+@* 
 Build viewmodel
 Add DTO *@
 @* @model CheckOptionViewModel *@
@@ -18,14 +18,15 @@ ViewData["Title"] = "Itinerary Creation Page";
   <form method="post" asp-controller="Trip" asp-action="Create">
     @foreach (LocationData location in Model)
     {
-      <p>@location.Name</p>
+      <input type="checkbox"  name="selectedLocations">
+      <label for="LocationDatas">@location.Name @location.Address @location.Category @location.PricePerPerson @location.Description @location.Phone</label>
     }
   </form>
 }
 
 else
 {
-  <p>Model is null, Model.Count is null, or model is empty.</p>
+  <p>No Locations available</p>
 }
 <button type="submit">Submit</button>
  
