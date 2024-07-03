@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240702163748_firstMigration")]
-    partial class firstMigration
+    [Migration("20240703152711_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,13 +37,28 @@ namespace Itinerary_Designer.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("PricePerPerson")
+                        .HasColumnType("double");
+
                     b.HasKey("Id");
 
-                    b.ToTable("LocationData");
+                    b.ToTable("LocationDatas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

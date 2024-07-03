@@ -2,8 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Itinerary_Designer.Models;
 
-namespace Itinerary_Designer.Controllers;
-
+namespace Itinerary.Controllers;
+// branchstuff
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

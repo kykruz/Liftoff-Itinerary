@@ -1,4 +1,5 @@
 using System;
+using Exchange.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
@@ -26,7 +27,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>
 
 builder.Services.AddDbContext<TripDbContext>(options => options.UseSqlServer(connectionString));
 
-
+builder.Services.AddTransient<ExchangeRatesApiService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
