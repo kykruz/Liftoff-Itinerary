@@ -1,5 +1,5 @@
 
-namespace Review.Models;
+namespace Reviews.Models;
 
 public class Review
 {
