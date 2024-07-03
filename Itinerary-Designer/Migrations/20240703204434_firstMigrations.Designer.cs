@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240703152711_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20240703204434_firstMigrations")]
+    partial class firstMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -261,6 +261,34 @@ namespace Itinerary_Designer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Reviews.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("PostedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("Trips.Models.Trip", b =>
                 {
                     b.Property<int>("Id")
@@ -272,14 +300,14 @@ namespace Itinerary_Designer.Migrations
                     b.Property<double>("CalculatedCost")
                         .HasColumnType("double");
 
-                    b.Property<string>("ItineraryName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<int>("PeopleCount")
                         .HasColumnType("int");
 
                     b.Property<string>("SelectedEvents")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TripName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
