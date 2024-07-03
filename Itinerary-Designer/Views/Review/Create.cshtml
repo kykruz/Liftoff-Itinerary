@@ -1,18 +1,21 @@
-@model IEnumerable<Itinerary_Designer.ViewModels.ReviewViewModel>
+@using Reviews.Models;
 
-<h2>Review Maker</h2>
+@model IEnumerable<Review>
+
+
+<h2>Review</h2>
 
 @foreach (var review in Model)
 {
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">@review.UserName</h5>
-            <p class="card-text">@review.Content</p>
-            <p class="card-text"><small class="text-muted">@review.CreatedAt</small></p>
+            <h5 class="card-title">@review.Author</h5>
+            <p class="card-text">@review.Title</p>
+            <p class="card-text"><small class="text-muted">@review.Content</small></p>
         </div>
     </div>
-}
-
+ }
+@*
 @if (User.Identity.IsAuthenticated)
 {
     <h3>Add a Comment</h3>
@@ -26,4 +29,4 @@
 else
 {
     <p>You need to <a asp-action="Login" asp-controller="Account">login</a> to leave a comment.</p>
-}
+} *@
