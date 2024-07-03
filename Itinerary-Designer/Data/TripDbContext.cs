@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Itinerary.Models;
+using ReviewViewModel.Models;
 
 namespace Trips.Data
 {
@@ -12,6 +13,7 @@ namespace Trips.Data
     {
         public DbSet<Trip> Itineraries {get; set;}
         public DbSet<LocationData> LocationData {get; set;}
+        public DbSet<Comment> Comments { get; set; }
           public TripDbContext(DbContextOptions<TripDbContext> options) : base(options)
         {
         }

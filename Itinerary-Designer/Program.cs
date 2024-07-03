@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
+using YourProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<TripDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<TripDbContext>();
+
+var commentConnectionString = "server=localhost;user=designer;password=K9l0m15?/;database=comments"; // Adjust this connection string as needed
+builder.Services.AddDbContext<TripDbContext>(options =>
+    options.UseMySql(commentConnectionString, serverVersion));
 
 // Add ExchangeRatesApiService to the services container
 builder.Services.AddTransient<ExchangeRatesApiService>();

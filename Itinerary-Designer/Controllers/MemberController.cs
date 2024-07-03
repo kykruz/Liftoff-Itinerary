@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using YourProject;
-using YourProject.ViewModels;
+using Itinerary_Designer;
+using Itinerary_Designer.Models;
 using Trips.Data;
 
 public class MemberController : Controller
 {
-    private readonly TripDbContext _context;
+    private readonly CommentDbContext _context;
     private readonly UserManager<TripUser> _userManager;
 
-    public MemberController(TripDbContext context, UserManager<TripUser> userManager)
+    public MemberController(CommentDbContext context, UserManager<TripUser> userManager)
     {
         _context = context;
         _userManager = userManager;
