@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Itinerary_Designer.Models;
 
 namespace Itinerary.Controllers;
-// branchstuff
+// branchstuf
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
