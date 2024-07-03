@@ -1,4 +1,5 @@
 using System;
+using Itinerary;
 
 namespace ReviewViewModel.Models
 {
@@ -9,6 +10,6 @@ namespace ReviewViewModel.Models
         public string UserId { get; set; }
         public DateTime CreatedAt { get; set; }
         
-        public virtual TripUser User { get; set; }
+        //public virtual TripUser User { get; set; }
     }
 }
