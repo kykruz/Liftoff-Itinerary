@@ -2,7 +2,7 @@
 @using Trips.Data;
 @using Trips.Controllers;
 @model List<LocationData>;
-@* 
+@*
 Build viewmodel
 Add DTO *@
 @* @model CheckOptionViewModel *@
@@ -18,8 +18,39 @@ ViewData["Title"] = "Itinerary Creation Page";
   <form method="post" asp-controller="Trip" asp-action="Create">
     @foreach (LocationData location in Model)
     {
-      <input type="checkbox"  name="selectedLocations">
-      <label for="LocationDatas"><label for="location-name-@location.Id">Name</label>@location.Name <label for="location-address-@location.Id">Address</label>@location.Address <label for="location-category-@location.Id">Category</label>@location.Category <label for="location-price-@location.Id">Price Per Person</label>@location.PricePerPerson <label for="location-description-@location.Id">Description</label>@location.Description <label for="location-phone-@location.Id">Phone</label>@location.Phone</label>
+      <input type="checkbox" name="selectedLocations">
+      @* <label for="LocationDatas"> *@
+      
+      <label for="location-name-@location.Id">Name: </label>@location.Name
+
+      <br>
+      
+      <label for="location-address-@location.Id">Address: </label>
+
+      @location.Address
+
+      <br>
+      <label for="location-category-@location.Id">Category: </label>
+
+      @location.Category
+
+      <br> 
+      <label for="location-price-@location.Id"> Price Per Person: </label>
+
+      @location.PricePerPerson
+
+      <br> 
+      <label for="location-description-@location.Id">Description: </label>
+
+      @location.Description
+
+      <br> <label
+          for="location-phone-@location.Id">Phone: </label>
+
+      @location.Phone
+
+
+      @* </label> *@
     }
   </form>
 }
@@ -29,6 +60,6 @@ else
   <p>No Locations available</p>
 }
 <button type="submit">Submit</button>
- 
+
 
 @* to view this page we want to go to Itinerary/Create *@
