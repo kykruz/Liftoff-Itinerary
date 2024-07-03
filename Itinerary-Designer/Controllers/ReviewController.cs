@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Reviews.Models;
 using Trips.Data;
 
@@ -20,6 +21,17 @@ public class ReviewController : Controller
     public IActionResult Create()
     {
         return View();
+    }
+    public async Task<IActionResult> Create(Review post)
+    {
+        if(ModelState.IsValid)
+        {
+            post.PostedDate = DateTime.Now;
+            context.Reviews.Add(post);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(post);
     }
     public IActionResult Edit()
     {
