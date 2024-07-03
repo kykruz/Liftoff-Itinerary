@@ -11,6 +11,8 @@ namespace Trips.Models
         public double CalculatedCost { get; set; }
         public List<string> SelectedEvents { get; set; } = new List<string>();
 
+        //  public List<int> SelectedLocationIds { get; set; }
+
         public int Id { get; set; }
         private static int nextId = 1;
 
