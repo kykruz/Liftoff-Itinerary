@@ -41,7 +41,7 @@ namespace Trips.Controllers
             return RedirectToAction("Success");
         }
 
-    
+        
         public IActionResult Success()
         {
             return View();
