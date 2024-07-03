@@ -2,7 +2,7 @@
 @using Trips.Data;
 @using Trips.Controllers;
 @model List<LocationData>;
-@* 
+@*
 Build viewmodel
 Add DTO *@
 @* @model CheckOptionViewModel *@
@@ -16,11 +16,45 @@ ViewData["Title"] = "Itinerary Creation Page";
 @if (Model.Count > 0)
 {
   <form method="post" asp-controller="Trip" asp-action="Create">
-    @foreach (LocationData location in Model)
-    {
-      <input type="checkbox"  name="selectedLocations">
-      <label for="LocationDatas">@location.Name @location.Address @location.Category @location.PricePerPerson @location.Description @location.Phone</label>
-    }
+   @foreach (LocationData location in Model)
+{
+    <div class="location">
+        <input type="checkbox" name="selectedLocations" id="location-checkbox-@location.Id">
+        <label for="location-checkbox-@location.Id">Select</label>
+
+        <div class="location-details">
+            <div class="location-item">
+                <label for="location-name-@location.Id">Name:</label>
+                <span id="location-name-@location.Id">@location.Name</span>
+            </div>
+
+            <div class="location-item">
+                <label for="location-address-@location.Id">Address:</label>
+                <span id="location-address-@location.Id">@location.Address</span>
+            </div>
+
+            <div class="location-item">
+                <label for="location-category-@location.Id">Category:</label>
+                <span id="location-category-@location.Id">@location.Category</span>
+            </div>
+
+            <div class="location-item">
+                <label for="location-price-@location.Id">Price Per Person:</label>
+                <span id="location-price-@location.Id">@location.PricePerPerson</span>
+            </div>
+
+            <div class="location-item">
+                <label for="location-description-@location.Id">Description:</label>
+                <span id="location-description-@location.Id">@location.Description</span>
+            </div>
+
+            <div class="location-item">
+                <label for="location-phone-@location.Id">Phone:</label>
+                <span id="location-phone-@location.Id">@location.Phone</span>
+            </div>
+        </div>
+    </div>
+}
   </form>
 }
 
@@ -29,6 +63,6 @@ else
   <p>No Locations available</p>
 }
 <button type="submit">Submit</button>
- 
+
 
 @* to view this page we want to go to Itinerary/Create *@

@@ -13,7 +13,7 @@ namespace Trips.Data
     public class TripDbContext : IdentityDbContext <IdentityUser, IdentityRole, string>
     {
         public DbSet<Trip> Itineraries {get; set;}
-        public DbSet<LocationData> LocationData {get; set;}
+        public DbSet<LocationData> LocationDatas {get; set;}
         public DbSet<Review> Reviews { get; set; }
           public TripDbContext(DbContextOptions<TripDbContext> options) : base(options)
         {
