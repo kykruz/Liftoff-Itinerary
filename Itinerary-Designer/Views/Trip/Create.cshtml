@@ -7,7 +7,8 @@
 
 @if (Model.Count > 0)
 {
-  <form method="post" asp-controller="Trip" asp-action="Create">
+  <form method="post" asp-controller="Trip" asp-action="Create" id="checkboxForm">
+    <input type="text" id="tripName" placeholder="Enter a name for your trip!"><br><br>
    @foreach (LocationData location in Model)
    {
       <div class="location">
@@ -49,6 +50,23 @@
    }
    <button type="submit" asp-action="Success">Submit</button>
   </form>
+
+       <script>
+            // Get the name entered by the user
+            var tripName = document.getElementById('tripName').value;
+
+            // Get all checked items (example)
+            var checkedItems = [];
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+            checkboxes.forEach(function(checkbox) {
+                checkedItems.push(checkbox.value);
+            });
+
+            // Example: Output the name and selected items (for demonstration)
+            console.log('Trip Name:', tripName);
+            console.log('Selected Locations:', checkedItems);
+        });
+    </script>
 }
 else
 {
