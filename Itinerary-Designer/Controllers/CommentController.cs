@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Itinerary_Designer;
 using Itinerary_Designer.Models;
 using Trips.Data;
+using ReviewViewModel.Models;
 
-public class MemberController : Controller
+public class CommentController : Controller
 {
-    private readonly CommentDbContext _context;
+    private readonly TripDbContext _context;
     private readonly UserManager<TripUser> _userManager;
 
-    public MemberController(CommentDbContext context, UserManager<TripUser> userManager)
+    public CommentController(TripDbContext context, UserManager<TripUser> userManager)
     {
         _context = context;
         _userManager = userManager;
@@ -23,7 +24,7 @@ public class MemberController : Controller
     {
         var comments = _context.Comments
             .Include(c => c.User)
-            .Select(c => new CommentViewModel
+            .Select(c => new ReviewViewModel
             {
                 CommentId = c.CommentId,
                 Content = c.Content,

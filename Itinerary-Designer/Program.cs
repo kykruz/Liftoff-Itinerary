@@ -7,20 +7,25 @@ using YourProject.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = "server=localhost;user=designer;password=K9l0m15?/;database=itinerary";
-var serverVersion = new MySqlServerVersion(new Version(8, 0, 37));
-builder.Services.AddRazorPages();
 
+var serverVersion = new MySqlServerVersion(new Version(8, 0, 37));
+
+builder.Services.AddRazorPages();
 
 // var connectionString = builder.Configuration.GetConnectionString("ItineraryDbContextConnection");builder.Services.AddDbContext<EventDbContext>(options => options.UseSqlServer(connectionString));builder.Services.AddDefaultIdentity<IdentityUser>
 // (options => optionsSignInRequireConfirmedAccount = true).AddEntityFrameworkStores<ItineraryDbContext>();
 
 builder.Services.AddDbContext<TripDbContext>(options => options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<TripDbContext>();
+builder
+    .Services.AddDefaultIdentity<IdentityUser>(options =>
+        options.SignIn.RequireConfirmedAccount = true
+    )
+    .AddEntityFrameworkStores<TripDbContext>();
 
 var commentConnectionString = "server=localhost;user=designer;password=K9l0m15?/;database=comments"; // Adjust this connection string as needed
 builder.Services.AddDbContext<TripDbContext>(options =>
-    options.UseMySql(commentConnectionString, serverVersion));
+    options.UseMySql(commentConnectionString, serverVersion)
+);
 
 // Add ExchangeRatesApiService to the services container
 builder.Services.AddTransient<ExchangeRatesApiService>();
@@ -50,8 +55,6 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
