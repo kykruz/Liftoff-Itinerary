@@ -55,7 +55,7 @@ namespace Itinerary_Designer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LocationData");
+                    b.ToTable("LocationDatas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -2,20 +2,19 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Trips.Models;
 using Trips.Data;
+using Itinerary.Models;
 
-namespace Itinerary.Controllers;
+namespace Trips.Controllers
+{
 
-public class ItineraryController : Controller
+public class TripController : Controller
 {
     private TripDbContext context;
 
-    //   [HttpGet]
-    //     public IActionResult Index()
-    //     {
-    //         List<Employer> Employer = context.Employers.ToList();
-    //         return View(Employer);
-    //     }
-    public ItineraryController() { }
+    public TripController(TripDbContext dbContext)
+    {
+        context = dbContext;
+    }
 
     public IActionResult Index()
     {
@@ -23,10 +22,12 @@ public class ItineraryController : Controller
         return View(Itinerary);
     }
 
+    //
     [HttpGet]
     public IActionResult Create()
     {
-        return View();
+        List<LocationData> locationDatas = context.LocationDatas.ToList();
+        return View(locationDatas);
     }
 
     [HttpPost]
@@ -37,4 +38,5 @@ public class ItineraryController : Controller
         // gotta come back later and make sure this really directs somewhere
         return Redirect("/");
     }
+}
 }

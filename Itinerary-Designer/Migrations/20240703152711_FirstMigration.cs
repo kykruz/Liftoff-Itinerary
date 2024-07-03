@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Itinerary_Designer.Migrations
 {
     /// <inheritdoc />
-    public partial class firstMigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -89,7 +89,7 @@ namespace Itinerary_Designer.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "LocationData",
+                name: "LocationDatas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -108,7 +108,7 @@ namespace Itinerary_Designer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LocationData", x => x.Id);
+                    table.PrimaryKey("PK_LocationDatas", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -299,7 +299,7 @@ namespace Itinerary_Designer.Migrations
                 name: "Itineraries");
 
             migrationBuilder.DropTable(
-                name: "LocationData");
+                name: "LocationDatas");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -1,20 +1,33 @@
-@{
+@using Itinerary.Models
+@using Trips.Data;
+@using Trips.Controllers;
+@model Itinerary;
+@* Make the model a list?
+Build viewmodel
+Add DTO *@
+@* @model CheckOptionViewModel *@
+
+@* @{
 ViewData["Title"] = "Itinerary Creation Page";
+} *@
+
+<h1>Checkbox Form With Api Options</h1>
+
+@if (Model.LocationDatas.Count > 0)
+{
+  <form method="post">
+    @foreach (LocationData location in Model.LocationDatas)
+    {
+      
+    }
+  </form>
 }
 
-@* I THINK need to install bootstrap in to here to use ViewData ??*@
+else
+{
+  <p>Model is null, Model.Count is null, or model is empty.</p>
+}
+<button type="submit">Submit</button>
+ 
 
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" id="checkbox11" value="" aria-label="..." />
-   <label for="checkbox11">Option 1</label><br>
-</div>
-
-<div>
-  <input class="form-check-input" type="checkbox" id="checkboxl2" value="" aria-label="..."/>
-   <label for="checkbox12">Option 2</label><br>
-</div>
-
-<div>
-  <input class="form-check-input" type="checkbox" id="checkboxl3" value="" aria-label="..."/>
-   <label for="checkbox13">Option 3</label><br>
-</div>
+@* to view this page we want to go to Itinerary/Create *@

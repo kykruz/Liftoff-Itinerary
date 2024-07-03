@@ -27,14 +27,14 @@ namespace Itinerary_Designer.Controllers.Api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LocationData>>> GetLocationData()
         {
-            return await _context.LocationData.ToListAsync();
+            return await _context.LocationDatas.ToListAsync();
         }
 
         // GET: api/LocationApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<LocationData>> GetLocationData(int id)
         {
-            var locationData = await _context.LocationData.FindAsync(id);
+            var locationData = await _context.LocationDatas.FindAsync(id);
 
             if (locationData == null)
             {
@@ -80,7 +80,7 @@ namespace Itinerary_Designer.Controllers.Api
         [HttpPost]
         public async Task<ActionResult<LocationData>> PostLocationData(LocationData locationData)
         {
-            _context.LocationData.Add(locationData);
+            _context.LocationDatas.Add(locationData);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLocationData", new { id = locationData.Id }, locationData);
@@ -90,13 +90,13 @@ namespace Itinerary_Designer.Controllers.Api
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLocationData(int id)
         {
-            var locationData = await _context.LocationData.FindAsync(id);
+            var locationData = await _context.LocationDatas.FindAsync(id);
             if (locationData == null)
             {
                 return NotFound();
             }
 
-            _context.LocationData.Remove(locationData);
+            _context.LocationDatas.Remove(locationData);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -104,7 +104,7 @@ namespace Itinerary_Designer.Controllers.Api
 
         private bool LocationDataExists(int id)
         {
-            return _context.LocationData.Any(e => e.Id == id);
+            return _context.LocationDatas.Any(e => e.Id == id);
         }
     }
 }

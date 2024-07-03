@@ -1,4 +1,5 @@
 
+
 namespace Itinerary.Models;
 
 public class LocationData
@@ -23,5 +24,8 @@ public class LocationData
         Phone = phone;
     }
 
-
+    public static implicit operator List<object>(LocationData v)
+    {
+        throw new NotImplementedException();
+    }
 }
