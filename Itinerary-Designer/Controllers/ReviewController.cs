@@ -22,6 +22,7 @@ public class ReviewController : Controller
     {
         return View();
     }
+    [HttpPost]
     public async Task<IActionResult> Create(Review post)
     {
         if(ModelState.IsValid)
