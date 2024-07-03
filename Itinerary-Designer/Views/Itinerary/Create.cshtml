@@ -1,7 +1,10 @@
 @using Itinerary.Models
 @using Trips.Data;
 @using Trips.Controllers;
-
+@model Itinerary;
+@* Make the model a list?
+Build viewmodel
+Add DTO *@
 @* @model CheckOptionViewModel *@
 
 @* @{
@@ -10,14 +13,12 @@ ViewData["Title"] = "Itinerary Creation Page";
 
 <h1>Checkbox Form With Api Options</h1>
 
-@if (locationDatas.Count > 0)
+@if (Model.LocationDatas.Count > 0)
 {
   <form method="post">
-    @foreach (LocationData location in locationDatas)
+    @foreach (LocationData location in Model.LocationDatas)
     {
-      <input class="form-check-input" type="checkbox" id="@Model.CheckOption.Name" value="" aria-label="..." />
-      <label for="@Model.CheckOption.Name">@Model.CheckOption.Name</label>
-      <br>
+      
     }
   </form>
 }
@@ -27,6 +28,6 @@ else
   <p>Model is null, Model.Count is null, or model is empty.</p>
 }
 <button type="submit">Submit</button>
-    using Microsoft.CodeAnalysis;
+ 
 
 @* to view this page we want to go to Itinerary/Create *@

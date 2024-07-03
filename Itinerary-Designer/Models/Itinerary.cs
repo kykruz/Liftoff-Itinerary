@@ -4,11 +4,12 @@ namespace Itinerary.Models
 {
     public class Itinerary
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-
         public int Id { get; set; }
         private static int nextId = 1;
+        public string Name { get; set; }
+        public List<LocationData> LocationDatas {get; set;}
+
+
 
         public Itinerary ()
         {
@@ -16,10 +17,10 @@ namespace Itinerary.Models
             nextId++;
         }
 
-        public Itinerary (string name, string description)
+        public Itinerary (string name, List<LocationData> locationData)
         {
             Name = name;
-            Description = description;
+            LocationDatas = locationData;
             Id = nextId;
             nextId++;
         }
