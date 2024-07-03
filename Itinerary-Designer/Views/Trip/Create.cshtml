@@ -19,7 +19,7 @@ ViewData["Title"] = "Itinerary Creation Page";
     @foreach (LocationData location in Model)
     {
       <input type="checkbox"  name="selectedLocations">
-      <label for="LocationDatas">@location.Name @location.Address @location.Category @location.PricePerPerson @location.Description @location.Phone</label>
+      <label for="LocationDatas">Name: @location.Name Address: @location.Address @location.Category @location.PricePerPerson @location.Description @location.Phone</label>
     }
   </form>
 }
