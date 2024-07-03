@@ -9,12 +9,12 @@ namespace Itinerary_Designer.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly ExchangeRatesApiService _exchangeRatesApi;
+    //private readonly ExchangeRatesApiService _exchangeRatesApi;
 
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-        _exchangeRatesApi = new ExchangeRatesApiService(); //initalizing
+        //_exchangeRatesApi = new ExchangeRatesApiService(); //initalizing
     }
 
     public IActionResult Index()
