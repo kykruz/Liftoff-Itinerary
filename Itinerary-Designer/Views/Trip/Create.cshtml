@@ -19,7 +19,7 @@ ViewData["Title"] = "Itinerary Creation Page";
     @foreach (LocationData location in Model)
     {
       <input type="checkbox" name="selectedLocations">
-      @* <label for="LocationDatas"> *@
+      <label for="LocationDatas">
       
       <label for="location-name-@location.Id">Name: </label>@location.Name
 
@@ -50,7 +50,7 @@ ViewData["Title"] = "Itinerary Creation Page";
       @location.Phone
 
 
-      @* </label> *@
+      </label>
     }
   </form>
 }
