@@ -3,7 +3,7 @@ using Exchange.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
-using Exchange.Services;
+// using Exchange.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,13 +25,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>
    options.Password.RequireLowercase = false;
 }).AddEntityFrameworkStores<TripDbContext>();
 
-
-builder.Services.AddDbContext<TripDbContext>(options => options.UseSqlServer(connectionString));
-builder
-    .Services.AddDefaultIdentity<IdentityUser>(options =>
-        options.SignIn.RequireConfirmedAccount = true
-    )
-    .AddEntityFrameworkStores<TripDbContext>();
 
 var commentConnectionString = "server=localhost;user=designer;password=K9l0m15?/;database=comments"; // Adjust this connection string as needed
 builder.Services.AddDbContext<TripDbContext>(options =>
