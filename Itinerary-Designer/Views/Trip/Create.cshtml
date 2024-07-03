@@ -1,7 +1,7 @@
 @using Itinerary.Models
 @using Trips.Data;
 @using Trips.Controllers;
-@model Itinerary;
+@model List<LocationData>;
 @* Make the model a list?
 Build viewmodel
 Add DTO *@
@@ -13,12 +13,12 @@ ViewData["Title"] = "Itinerary Creation Page";
 
 <h1>Checkbox Form With Api Options</h1>
 
-@if (Model.LocationDatas.Count > 0)
+@if (Model.Count > 0)
 {
-  <form method="post">
-    @foreach (LocationData location in Model.LocationDatas)
+  <form method="post" asp-controller="Trip" asp-action="Create">
+    @foreach (LocationData location in Model)
     {
-      
+      <p>@location.Name</p>
     }
   </form>
 }

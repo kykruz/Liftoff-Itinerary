@@ -24,6 +24,7 @@ public class TripController : Controller
 
     //
     [HttpGet]
+    [Route("Itinerary/Create")]
     public IActionResult Create()
     {
         List<LocationData> locationDatas = context.LocationDatas.ToList();
