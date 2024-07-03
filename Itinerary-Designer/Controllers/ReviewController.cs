@@ -20,7 +20,8 @@ public class ReviewController : Controller
     }
     public IActionResult Create()
     {
-        return View();
+        List<Review> reviews = context.Reviews.ToList();
+        return View(reviews);
     }
     [HttpPost]
     public async Task<IActionResult> Create(Review post)
