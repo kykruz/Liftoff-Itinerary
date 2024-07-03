@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
-using YourProject.Services;
+using Exchange.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
