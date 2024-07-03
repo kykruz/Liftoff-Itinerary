@@ -18,7 +18,7 @@ ViewData["Title"] = "Itinerary Creation Page";
   <form method="post" asp-controller="Trip" asp-action="Create">
     @foreach (LocationData location in Model)
     {
-      <input type="checkbox" name="selectedLocations">
+      <input type="checkbox" class="form-check-input" name="selectedLocations">
       <label for="LocationDatas">
       
       <label for="location-name-@location.Id">Name: </label>@location.Name
