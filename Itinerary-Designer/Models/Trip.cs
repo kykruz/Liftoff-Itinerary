@@ -25,8 +25,7 @@ namespace Trips.Models
         public Trip(string tripname)
         {
             TripName = tripname;
-            Id = nextId;
-            nextId++;
+           
         }
 
         public override int GetHashCode()
