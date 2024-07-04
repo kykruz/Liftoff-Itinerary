@@ -24,10 +24,13 @@ namespace Trips.Controllers
         //
         [HttpGet]
         [Route("Itinerary/Create")]
-        public IActionResult Create()
-        {
-            List<LocationData> locationDatas = context.LocationDatas.ToList();
-            return View(locationDatas);
+        public IActionResult Create(string tripName, List<int> selectedLocations)
+      {
+            // Handle the form submission
+            // Save tripName and selectedLocations to the database if needed
+
+            // Pass the selected locations to the Success view
+            return RedirectToAction("Success", new { tripName = tripName, selectedLocations = selectedLocations });
         }
 
         [HttpPost]
@@ -42,19 +45,30 @@ namespace Trips.Controllers
         }
 
         
-        public IActionResult Success()
+        public IActionResult Success(string tripName, List<int> selectedLocations)
         {
-            return View();
-        }
+            // Retrieve the location details based on the selected IDs if needed
+            var selectedLocationDetails = new List<LocationData>();
+            foreach (var locationId in selectedLocations)
+            {
+                // Replace this with actual data retrieval logic
+                var location = new LocationData
+                {
+                    Id = locationId,
+                    Name = "Location Name " + locationId,
+                    Address = "Location Address " + locationId,
+                    Category = "Category " + locationId,
+                    PricePerPerson = 100 + locationId,
+                    Description = "Description " + locationId,
+                    Phone = "Phone " + locationId
+                };
+                selectedLocationDetails.Add(location);
+            }
 
-        
-        [HttpPost]
-        public IActionResult Delete()
-        {
-            // ViewBag.events = EventData.GetAll();
+            ViewBag.TripName = tripName;
+            ViewBag.SelectedLocations = selectedLocationDetails;
 
-            // gotta come back later and make sure this really directs somewhere
-            return Redirect("/");
+            return View("Success");
         }
     }
 }

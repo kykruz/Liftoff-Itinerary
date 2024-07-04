@@ -1,7 +1,39 @@
+@using Itinerary.Models
+@using Trips.Data;
+@using Trips.Controllers;
+@model List<LocationData>;
+
 @{
     ViewData["Title"] = "Success";
 }
 
-@* @model List<Itinerary_Designer.Models.> *@
-<h1>Form Submission Successful</h1>
-<p>Your selected locations have been processed successfully.</p>
+@{
+    ViewBag.Title = "Success";
+    var tripName = ViewBag.TripName as string;
+    var selectedLocations = ViewBag.SelectedLocations;  // Retrieve selectedLocations from ViewBag
+}
+
+<h1>Success!</h1>
+
+<h2>Current Trips</h2>
+
+@if (selectedLocations != null && selectedLocations.Count > 0)
+{
+    <h3>Selected Locations</h3>
+    <ul>
+        @foreach (var location in selectedLocations)
+        {
+            <li>
+                <strong>Name:</strong> @location.Name <br />
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No locations were selected.</p>
+}
+
+<div>
+    <a asp-controller="Trip" asp-action="Create">Create a Trip</a>
+</div>
