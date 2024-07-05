@@ -31,20 +31,24 @@ namespace Trips.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(List<int> selectedLocations)
+        public IActionResult Create(int[] locationIds)
         {
-            if (selectedLocations != null && selectedLocations.Any())
+            foreach (int locationId in locationIds)
             {
-                // Process the selected locations
-                // For example, save them to the database or perform other actions
+                LocationData location = context.LocationDatas.Find(locationId);
+                context.LocationDatas.Add(location);
             }
-            return RedirectToAction("Success");
+
+            context.SaveChanges();
+
+            return Redirect("Success");
         }
 
         
         public IActionResult Success()
         {
-            return View();
+            List<LocationData> locationDatas = context.LocationDatas.ToList();
+            return View(locationDatas);
         }
 
         

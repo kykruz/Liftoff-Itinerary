@@ -9,26 +9,26 @@
 
 @{
     ViewBag.Title = "Success";
-    var tripName = ViewBag.TripName as string;
-    var selectedLocations = ViewBag.SelectedLocations;  // Retrieve selectedLocations from ViewBag
+
 }
 
 <h1>Success!</h1>
 
 <h2>Current Trips</h2>
 
-@if (selectedLocations != null && selectedLocations.Count > 0)
-{
     <h3>Selected Locations</h3>
+ 
+
     <ul>
-        @foreach (var location in selectedLocations)
+        @foreach (LocationData location in Model)
         {
             <li>
-                <strong>Name:</strong> @location.Name <br />
+                <label for="location-name-@location.Id">Name:</label>
+                <span id="location-name-@location.Id">@location.Name</span>
             </li>
         }
     </ul>
-}
+
 else
 {
     <p>No locations were selected.</p>
