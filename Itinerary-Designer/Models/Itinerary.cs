@@ -8,7 +8,7 @@ namespace Itineraries.Models
         public int Id { get; set; }
         private static int nextId = 1;
         public string Name { get; set; }
-        public List<LocationData> LocationDatas {get; set;}
+        public LocationData LocationDatas {get; set;}
 
 
 
@@ -18,7 +18,7 @@ namespace Itineraries.Models
             nextId++;
         }
 
-        public Itinerary (string name, List<LocationData> locationData)
+        public Itinerary (string name, LocationData locationData)
         {
             Name = name;
             LocationDatas = locationData;

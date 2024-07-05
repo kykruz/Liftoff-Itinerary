@@ -19,7 +19,7 @@ namespace Trips.Controllers
 
         public IActionResult Index()
         {
-            List<Trip> Itinerary = context.Itineraries.ToList();
+            List<Itinerary> Itinerary = context.Itineraries.ToList();
             return View(Itinerary);
         }
 
@@ -37,11 +37,11 @@ namespace Trips.Controllers
         {
             if(ModelState.IsValid)
             {
-                LocationData locationData = context.LocationDatas.Find(createItineraryViewModel.Id);
+                LocationData theLocationData = context.LocationDatas.Find(createItineraryViewModel.Id);
                 Itinerary itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
-                    LocationDatas = locationData
+                    LocationDatas = theLocationData
                 };
 
                 context.Itineraries.Add(itinerary);
@@ -51,13 +51,7 @@ namespace Trips.Controllers
 
             return Redirect("Success");
             }
-            // foreach (int locationId in locationIds)
-            // {
-            //     LocationData location = context.LocationDatas.Find(locationId);
-            //     context.LocationDatas.Add(location);
-            // }
-
-            context.SaveChanges();
+           
             return View(createItineraryViewModel);
         }
 
