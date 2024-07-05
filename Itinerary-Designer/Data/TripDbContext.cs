@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Itinerary.Models;
 using Reviews.Models;
+using Ratings.Models;
 
 
 namespace Trips.Data
@@ -15,6 +16,8 @@ namespace Trips.Data
         public DbSet<Trip> Itineraries {get; set;}
         public DbSet<LocationData> LocationDatas {get; set;}
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
           public TripDbContext(DbContextOptions<TripDbContext> options) : base(options)
         {
         }

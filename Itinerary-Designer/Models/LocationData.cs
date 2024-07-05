@@ -12,6 +12,8 @@ public class LocationData
     public double PricePerPerson {get; set; }
     public string Description { get; set; }
     public string Phone { get; set; }
+
+    public bool IsSelected {get;set;}
     
     public LocationData(int id, string name, string address, string category, double pricePerPerson, string description, string phone)
     {
