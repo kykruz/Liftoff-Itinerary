@@ -43,26 +43,26 @@ public class ReviewController : Controller
         }
         return View(reviews);
     }
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> AddComment(int id, Comment comment)
-    {
-        var review = await context.Reviews.FindAsync(id);
-        if (review == null)
-        {
-            return NotFound();
-        }
+    // [HttpPost]
+    // [ValidateAntiForgeryToken]
+    // public async Task<IActionResult> AddComment(int id, Comment comment)
+    // {
+    //     var review = await context.Reviews.FindAsync(id);
+    //     if (review == null)
+    //     {
+    //         return NotFound();
+    //     }
 
-        if (ModelState.IsValid)
-        {
-            comment.PostedDate = DateTime.Now;
-            comment.ReviewId = id;
-            context.Add(comment);
-            await context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        return View(review);
-    }
+    //     if (ModelState.IsValid)
+    //     {
+    //         comment.PostedDate = DateTime.Now;
+    //         comment.ReviewId = id;
+    //         context.Add(comment);
+    //         await context.SaveChangesAsync();
+    //         return RedirectToAction(nameof(Index));
+    //     }
+    //     return View(review);
+    // }
 
     public IActionResult Edit()
     {

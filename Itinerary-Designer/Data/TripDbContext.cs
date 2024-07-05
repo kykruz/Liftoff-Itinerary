@@ -15,7 +15,7 @@ namespace Trips.Data
         public DbSet<Trip> Itineraries { get; set; }
         public DbSet<LocationData> LocationDatas { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        // public DbSet<Comment> Comments { get; set; }
 
         public TripDbContext(DbContextOptions<TripDbContext> options)
             : base(options) { }

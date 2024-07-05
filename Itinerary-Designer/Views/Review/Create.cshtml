@@ -1,4 +1,15 @@
-@model Reviews.Models.Review
+@using Reviews.Models;
+
+@model List<IEnumerable<Review>>
+
+<form asp-controller="Review" asp-action="Create">
+<input type="text">
+<label for="content"></label>
+<input type="submit" asp-action="Index">
+
+</form>
+
+@* @model Reviews.Models.Review
 
 <form asp-action="Create" asp-controller="Review" method="post">
     <div class="form-group">
@@ -14,9 +25,7 @@
         <textarea class="form-control" id="content" name="Content" rows="3" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Submit Review</button>
-</form>
-
-
+</form> *@
 
 
 
