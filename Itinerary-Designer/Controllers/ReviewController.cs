@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Reviews.Models;
 using Trips.Data;
+using static Reviews.Models.Review;
 
 namespace Reviews.Controllers;
 
@@ -16,7 +17,7 @@ public class ReviewController : Controller
     }
     public IActionResult Index()
     {
-        var reviews = context.Reviews.ToList();
+        var reviews = context.Reviews.Include(r => r.Comments).ToList();
         return View(reviews);
     }
     public IActionResult Create()
@@ -29,7 +30,7 @@ public class ReviewController : Controller
     {
         if(ModelState.IsValid)
         {
-            try
+    
             {
             reviews.PostedDate = DateTime.Now;
 
@@ -39,13 +40,30 @@ public class ReviewController : Controller
             return RedirectToAction(nameof(Index));
 
             }
-            catch (DbUpdateException ex)
-            {
-                ModelState.AddModelError("", "Unable to save changes. Try Again, and if the problem persists, see your system administrator.");
-            }
         }
         return View(reviews);
     }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddComment(int id, Comment comment)
+    {
+        var review = await context.Reviews.FindAsync(id);
+        if (review == null)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            comment.PostedDate = DateTime.Now;
+            comment.ReviewId = id;
+            context.Add(comment);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(review);
+    }
+
     public IActionResult Edit()
     {
         return View();
