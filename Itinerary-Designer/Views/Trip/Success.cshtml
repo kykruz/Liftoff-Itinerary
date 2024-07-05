@@ -22,10 +22,12 @@
     <ul>
         @foreach (LocationData location in Model)
         {
+           
             <li>
                 <label for="location-name-@location.Id">Name:</label>
                 <span id="location-name-@location.Id">@location.Name</span>
             </li>
+            }
         }
     </ul>
 
