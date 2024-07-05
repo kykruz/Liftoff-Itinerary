@@ -1,7 +1,6 @@
-@using Reviews.Models;
-@model List<Review>;
+@model List<Reviews.Models.Review>
 
-<h2>Review Post</h2>
+<h2>Review Posts</h2>
 
 <a asp-action="Create">Create New Post</a>
 
@@ -12,5 +11,20 @@
         <p>@review.Content</p>
         <p>Author: @review.Author</p>
         <p>Date: @review.PostedDate</p>
+
+        <h4>Comments:</h4>
+        @foreach (var comment in review.Comments)
+        {
+            <p>@comment.Content - Posted on @comment.PostedDate</p>
+        }
+
+        <form asp-action="AddComment" asp-controller="Review" method="post">
+            <input type="hidden" asp-for="@review.Id" />
+            <div class="form-group">
+                <label for="commentContent">Add a Comment:</label>
+                <textarea class="form-control" id="commentContent" name="Content" rows="2" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Comment</button>
+        </form>
     </div>
 }
