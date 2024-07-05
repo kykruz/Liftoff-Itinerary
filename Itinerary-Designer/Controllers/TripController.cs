@@ -40,6 +40,7 @@ namespace Trips.Controllers
                 LocationData theLocationData = context.LocationDatas.Find(createItineraryViewModel.Id);
                 Itinerary itinerary = new Itinerary
                 {
+                    Id = createItineraryViewModel.Id,
                     Name = createItineraryViewModel.Name,
                     LocationDatas = theLocationData
                 };
