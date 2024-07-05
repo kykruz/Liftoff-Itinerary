@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using CreateItinerary.ViewModel;
 using Itinerary.Models;
 using Microsoft.AspNetCore.Mvc;
 using Trips.Data;
@@ -31,17 +32,22 @@ namespace Trips.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(int[] locationIds)
+        public IActionResult Create(CreateItineraryViewModel createItineraryViewModel)
         {
-            foreach (int locationId in locationIds)
+            if(ModelState.IsValid)
             {
-                LocationData location = context.LocationDatas.Find(locationId);
-                context.LocationDatas.Add(location);
-            }
 
-            context.SaveChanges();
 
             return Redirect("Success");
+            }
+            // foreach (int locationId in locationIds)
+            // {
+            //     LocationData location = context.LocationDatas.Find(locationId);
+            //     context.LocationDatas.Add(location);
+            // }
+
+            context.SaveChanges();
+            return View(createItineraryViewModel);
         }
 
         

@@ -30,10 +30,10 @@ namespace Itinerary.Models
             return Name;
         }
 
-        // public override bool Equals(object? obj)
-        // {
-        //     return obj is Event @event && Id == @event.Id;
-        // }
+        public override bool Equals(object? obj)
+        {
+            return obj is LocationData @location && Id == @location.Id;
+        }
 
         public override int GetHashCode()
         {
