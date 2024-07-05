@@ -1,10 +1,11 @@
 using System.Diagnostics;
 using System.Linq.Expressions;
+using Exchange.Services;
 using Itinerary_Designer.Models;
 using Microsoft.AspNetCore.Mvc;
-using Exchange.Services;
 
 namespace Itinerary.Controllers;
+
 // branchstuf
 public class HomeController : Controller
 {
@@ -19,7 +20,12 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        var userViewModel = new UserViewModel
+        {
+            Username = User.Identity.IsAuthenticated ? User.Identity.Name : "Guest"
+        };
+
+        return View(userViewModel);
     }
 
     public IActionResult Privacy()

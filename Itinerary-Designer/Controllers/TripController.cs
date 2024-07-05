@@ -24,51 +24,41 @@ namespace Trips.Controllers
         //
         [HttpGet]
         [Route("Itinerary/Create")]
-        public IActionResult Create(string tripName, List<int> selectedLocations)
-      {
-            // Handle the form submission
-            // Save tripName and selectedLocations to the database if needed
-
-            // Pass the selected locations to the Success view
-            return RedirectToAction("Success", new { tripName = tripName, selectedLocations = selectedLocations });
+        public IActionResult Create()
+        {
+            List<LocationData> locationDatas = context.LocationDatas.ToList();
+            return View(locationDatas);
         }
 
         [HttpPost]
-        public IActionResult Create(List<int> selectedLocations)
+        public IActionResult Create(int[] locationIds)
         {
-            if (selectedLocations != null && selectedLocations.Any())
+            foreach (int locationId in locationIds)
             {
-                // Process the selected locations
-                // For example, save them to the database or perform other actions
+                LocationData location = context.LocationDatas.Find(locationId);
+                context.LocationDatas.Add(location);
             }
-            return RedirectToAction("Success");
+
+            context.SaveChanges();
+
+            return Redirect("Success");
         }
 
         
-        public IActionResult Success(string tripName, List<int> selectedLocations)
+        public IActionResult Success()
         {
-            // Retrieve the location details based on the selected IDs if needed
-            var selectedLocationDetails = new List<LocationData>();
-            foreach (var locationId in selectedLocations)
-            {
-                // Replace this with actual data retrieval logic
-                var location = new LocationData
-                {
-                    Id = locationId,
-                    Name = "Location Name " + locationId,
-                    Address = "Location Address " + locationId,
-                    Category = "Category " + locationId,
-                    PricePerPerson = 100 + locationId,
-                    Description = "Description " + locationId,
-                    Phone = "Phone " + locationId
-                };
-                selectedLocationDetails.Add(location);
-            }
+            List<LocationData> locationDatas = context.LocationDatas.ToList();
+            return View(locationDatas);
+        }
 
-            ViewBag.TripName = tripName;
-            ViewBag.SelectedLocations = selectedLocationDetails;
+        
+        [HttpPost]
+        public IActionResult Delete()
+        {
+            // ViewBag.events = EventData.GetAll();
 
-            return View("Success");
+            // gotta come back later and make sure this really directs somewhere
+            return Redirect("/");
         }
     }
 }

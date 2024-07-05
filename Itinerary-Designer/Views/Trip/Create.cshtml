@@ -7,8 +7,7 @@
 
 @if (Model.Count > 0)
 {
-  <form method="post" asp-controller="Trip" asp-action="Create" id="checkboxForm">
-    <input type="text" id="tripName" placeholder="Enter a name for your trip!"><br><br>
+  <form method="post" asp-controller="Trip" asp-action="Create">
    @foreach (LocationData location in Model)
    {
       <div class="location">
@@ -50,28 +49,12 @@
    }
    <button type="submit" asp-action="Success">Submit</button>
   </form>
-
-       <script>
-            // Get the name entered by the user
-            var tripName = document.getElementById('tripName').value;
-
-            // Get all checked items (example)
-            var checkedItems = [];
-            var selectedLocations = document.querySelectorAll('input[type=checkbox]:checked');
-            checkboxes.forEach(function(checkbox) {
-                checkedItems.push(checkbox.value);
-            });
-            @* this is not going to get the value from the value="" but it is getting the value of eveyrthing contained in the checkbox? *@
-
-            // Example: Output the name and selected items (for demonstration)
-            console.log('Trip Name:', tripName);
-            console.log('Selected Locations:', checkedItems);
-        });
-    </script>
 }
 else
 {
   <p>No Locations available</p>
 }
+
+
 
 @* to view this page we want to go to Itinerary/Create *@
