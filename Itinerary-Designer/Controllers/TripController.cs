@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using CreateItinerary.ViewModel;
-using Itinerary.Models;
+using Itineraries.Models;
+using LocationDatay.Models;
 using Microsoft.AspNetCore.Mvc;
 using Trips.Data;
 using Trips.Models;
@@ -36,7 +37,17 @@ namespace Trips.Controllers
         {
             if(ModelState.IsValid)
             {
+                LocationData locationData = context.LocationDatas.Find(createItineraryViewModel.Id);
+                Itinerary itinerary = new Itinerary
+                {
+                    Name = createItineraryViewModel.Name,
+                    LocationDatas = locationData
+                };
 
+                context.Itineraries.Add(itinerary);
+                context.SaveChanges();
+
+            
 
             return Redirect("Success");
             }

@@ -10,7 +10,7 @@ namespace Trips.Models
         public int PeopleCount { get; set; }
 
         public double CalculatedCost { get; set; }
-        public List<SelectListItem> Itineraries { get; set; } = new List<SelectListItem>();
+        public List<SelectListItem>? Itineraries { get; set; } = new List<SelectListItem>();
 
       
 

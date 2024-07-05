@@ -1,6 +1,7 @@
 using System;
+using LocationDatay.Models;
 
-namespace Itinerary.Models
+namespace Itineraries.Models
 {
     public class Itinerary
     {

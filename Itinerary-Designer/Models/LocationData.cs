@@ -1,6 +1,6 @@
 
 
-namespace Itinerary.Models;
+namespace LocationDatay.Models;
 
 public class LocationData
 {
