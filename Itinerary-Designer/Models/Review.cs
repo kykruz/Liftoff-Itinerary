@@ -25,4 +25,13 @@ public class Review
         Author = author;
         Content = content;
     }
+    public class Comment
+    {
+        public int Id { get; set;}
+        public required string Content { get; set;}
+        public DateTime PostedDate { get; set;}
+        public int ReviewId { get; set;}
+        public required Review Review { get; set;}
+    }
+    
 }
