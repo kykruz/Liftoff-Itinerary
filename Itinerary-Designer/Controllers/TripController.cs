@@ -23,13 +23,14 @@ namespace Trips.Controllers
             return View(Itinerary);
         }
 
-        //
+        
         [HttpGet]
         [Route("Itinerary/Create")]
         public IActionResult Create()
         {
             List<LocationData> locationDatas = context.LocationDatas.ToList();
-            return View(locationDatas);
+            CreateItineraryViewModel createItineraryViewModel = new(locationDatas);
+            return View(createItineraryViewModel);
         }
 
         [HttpPost]
@@ -37,10 +38,9 @@ namespace Trips.Controllers
         {
             if(ModelState.IsValid)
             {
-                LocationData theLocationData = context.LocationDatas.Find(createItineraryViewModel.Id);
+                LocationData theLocationData = context.LocationDatas.Find(createItineraryViewModel);
                 Itinerary itinerary = new Itinerary
                 {
-                    Id = createItineraryViewModel.Id,
                     Name = createItineraryViewModel.Name,
                     LocationDatas = theLocationData
                 };
