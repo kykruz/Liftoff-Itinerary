@@ -30,4 +30,9 @@ public class LocationData
     {
         throw new NotImplementedException();
     }
+
+    internal LocationData Where(Func<object, object> value)
+    {
+        throw new NotImplementedException();
+    }
 }

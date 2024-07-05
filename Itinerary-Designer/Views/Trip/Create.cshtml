@@ -11,7 +11,7 @@
    @foreach (LocationData location in Model)
    {
       <div class="location">
-          <input type="checkbox" class="form-check-input" name="selectedLocations" value="@location.Id" id="location-checkbox-@location.Id">
+          <input type="checkbox" class="form-check-input" name="selectedLocations" value="@location.Id" id="location-checkbox-@location.Id" asp-for="@location.IsSelected">
           <label for="location-checkbox-@location.Id">Select</label>
 
           <div class="location-details">

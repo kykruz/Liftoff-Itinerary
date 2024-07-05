@@ -47,6 +47,7 @@ namespace Trips.Controllers
         
         public IActionResult Success()
         {
+            
             List<LocationData> locationDatas = context.LocationDatas.ToList();
             return View(locationDatas);
         }
