@@ -41,7 +41,5 @@ namespace Itinerary.Models
         }
     }
 
-    public class Event
-    {
-    }
+   
 }
