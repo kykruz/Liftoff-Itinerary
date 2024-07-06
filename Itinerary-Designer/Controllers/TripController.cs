@@ -38,6 +38,8 @@ namespace Trips.Controllers
         {
             if(ModelState.IsValid)
             {
+            //      var selectedLocations = _context.LocationDatas
+            // .Where(loc => viewModel.SelectedLocationIds.Contains(loc.Id))
                 LocationData theLocationData = context.LocationDatas.Find(createItineraryViewModel);
                 Itinerary itinerary = new Itinerary
                 {
