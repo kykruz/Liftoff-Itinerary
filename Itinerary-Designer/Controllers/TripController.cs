@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Trips.Data;
 using Trips.Models;
 
-namespace Trips.Controllers
+namespace Itineraryy.Controllers
 {
-    public class TripController : Controller
+    public class ItineraryController : Controller
     {
         private TripDbContext context;
 
-        public TripController(TripDbContext dbContext)
+        public ItineraryController(TripDbContext dbContext)
         {
             context = dbContext;
         }
@@ -25,7 +25,7 @@ namespace Trips.Controllers
 
         
         [HttpGet]
-        [Route("Itinerary/Create")]
+        
         public IActionResult Create()
         {
           
@@ -34,13 +34,12 @@ namespace Trips.Controllers
         }
 
         [HttpPost]
-        [Route("Itinerary/Create")]
+        
         public IActionResult Create(CreateItineraryViewModel createItineraryViewModel)
         {
             if(ModelState.IsValid)
             {
-            //      var selectedLocations = _context.LocationDatas
-            // .Where(loc => viewModel.SelectedLocationIds.Contains(loc.Id))
+          
                 Itinerary itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
@@ -52,7 +51,7 @@ namespace Trips.Controllers
             return Redirect("/Success");
             }
            
-            return View("Itinerary/Create", createItineraryViewModel);
+            return View("Create", createItineraryViewModel);
         }
 
         
