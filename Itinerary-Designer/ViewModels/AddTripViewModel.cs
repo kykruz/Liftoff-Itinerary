@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Itinerary.ViewModel;
+namespace Trips.ViewModel;
 
 public class AddTripViewModel
 {

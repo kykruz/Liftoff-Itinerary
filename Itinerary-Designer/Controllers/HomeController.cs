@@ -4,9 +4,6 @@ using Exchange.Services;
 using Itinerary_Designer.Models;
 using Microsoft.AspNetCore.Mvc;
 
-<<<<<<< HEAD
-namespace Itinerary.Controllers;
-
 namespace Trips.Controllers;
 // branchstuf
 public class HomeController : Controller
