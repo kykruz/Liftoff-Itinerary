@@ -44,7 +44,8 @@ namespace Trips.Controllers
                 Itinerary itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
-                    LocationDatas = theLocationData
+                    LocationDatas = theLocationData,
+                    SelectedId = selectedId,
                 };
 
                 context.Itineraries.Add(itinerary);
