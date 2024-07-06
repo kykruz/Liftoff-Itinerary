@@ -10,6 +10,9 @@ namespace Trips.Models
         // public LocationData LocationDatas {get; set;}
 
 
+        // snatch cat itinerary model
+
+
 
       
         public Itinerary() {}
