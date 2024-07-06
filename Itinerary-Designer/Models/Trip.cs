@@ -15,16 +15,14 @@ namespace Trips.Models
       
 
         public int Id { get; set; }
-        private static int nextId = 1;
+        
 
-        public Trip()
-        {
-            Id = nextId;
-            nextId++;
-        }
+        public Trip() {}
+        
 
-        public Trip(string tripname)
+        public Trip(int id, string tripname)
         {
+            Id = id;
             TripName = tripname;
            
         }
