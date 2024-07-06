@@ -22,7 +22,24 @@ namespace Itinerary_Designer.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Itinerary.Models.LocationData", b =>
+            modelBuilder.Entity("Itineraries.Models.Itinerary", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Itineraries");
+                });
+
+            modelBuilder.Entity("LocationDatay.Models.LocationData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -306,33 +323,6 @@ namespace Itinerary_Designer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("Trips.Models.Trip", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("CalculatedCost")
-                        .HasColumnType("double");
-
-                    b.Property<int>("PeopleCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SelectedEvents")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("TripName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Itineraries");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

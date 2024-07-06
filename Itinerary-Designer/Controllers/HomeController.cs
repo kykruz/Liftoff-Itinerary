@@ -4,8 +4,12 @@ using Exchange.Services;
 using Itinerary_Designer.Models;
 using Microsoft.AspNetCore.Mvc;
 
+<<<<<<< HEAD
 namespace Itinerary.Controllers;
 
+=======
+namespace Home.Controllers;
+>>>>>>> 242aaf4faf6094b7cd97d143bc71900f63efb9e6
 // branchstuf
 public class HomeController : Controller
 {

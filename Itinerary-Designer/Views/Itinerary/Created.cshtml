@@ -1,17 +1,19 @@
-@using Itinerary.Models
+@* @using CreateItinerary.ViewModel
+@using Itineraries.Models;
+@using LocationDatay.Models;
 @using Trips.Data;
 @using Trips.Controllers;
-@model List<LocationData>;
+@model CreateItineraryViewModel;
 
 <h1>Checkbox Form With Api Options</h1>
 
-@if (Model.Count > 0)
+@if (Model.AvailableLocations.Count > 0)
 {
-  <form method="post" asp-controller="Trip" asp-action="Create">
-   @foreach (LocationData location in Model)
+  <form  asp-controller="Trip" asp-action="Create" method="post">
+   @foreach (var location in Model.AvailableLocations)
    {
       <div class="location">
-          <input type="checkbox" class="form-check-input" name="selectedLocations" value="@location.Id" id="location-checkbox-@location.Id" asp-for="@location.IsSelected">
+          <input type="checkbox" class="form-check-input" name="selectedLocations" value="@location.Id" id="location-checkbox-@location.Id" asp-for="@Itinerary">
           <label for="location-checkbox-@location.Id">Select</label>
 
           <div class="location-details">
@@ -50,11 +52,8 @@
    <button type="submit" asp-action="Success">Submit</button>
   </form>
 }
-else
-{
-  <p>No Locations available</p>
-}
 
 
 
-@* to view this page we want to go to Itinerary/Create *@
+
+to view this page we want to go to Itinerary/Create *@

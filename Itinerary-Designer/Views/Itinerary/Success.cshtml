@@ -1,8 +1,9 @@
-@using Itinerary.Models
+@using Itineraries.Models
+@using LocationDatay.Models;
 @using Trips.Data;
-@using Trips.Controllers;
+@using Itineraryy.Controllers;
 @model List<LocationData>;
-@* dont *@
+
 @{
     ViewData["Title"] = "Success";
 }
@@ -18,7 +19,7 @@
 
     <h3>Selected Locations</h3>
  
-
+@* 
     <ul>
         @foreach (LocationData location in Model)
         {
@@ -29,7 +30,7 @@
             </li>
             }
         }
-    </ul>
+    </ul> *@
 
 else
 {
@@ -37,5 +38,5 @@ else
 }
 
 <div>
-    <a asp-controller="Trip" asp-action="Create">Create a Trip</a>
+    <a asp-controller="Itinerary" asp-action="Create">Create a Trip</a>
 </div>
