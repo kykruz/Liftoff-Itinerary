@@ -4,10 +4,7 @@ using Trips.Models;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Itineraries.Models;
-using Reviews.Models;
-using Ratings.Models;
-using LocationDatay.Models;
+using Trips.Models;
 
 
 namespace Trips.Data

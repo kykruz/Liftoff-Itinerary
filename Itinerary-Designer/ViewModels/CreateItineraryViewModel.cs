@@ -1,8 +1,7 @@
-﻿using Itineraries.Models;
-using LocationDatay.Models;
+﻿using Trips.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CreateItinerary.ViewModel;
+namespace Trips.ViewModel;
 
 public class CreateItineraryViewModel
 {
