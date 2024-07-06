@@ -48,7 +48,7 @@ namespace Itineraryy.Controllers
                 context.Itineraries.Add(itinerary);
                 context.SaveChanges();
 
-            return Redirect("/Success");
+            return Redirect("Success");
             }
            
             return View("Create", createItineraryViewModel);
