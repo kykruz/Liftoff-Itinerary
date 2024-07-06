@@ -28,35 +28,31 @@ namespace Trips.Controllers
         [Route("Itinerary/Create")]
         public IActionResult Create()
         {
-            List<LocationData> locationDatas = context.LocationDatas.ToList();
-            CreateItineraryViewModel createItineraryViewModel = new(locationDatas);
+          
+            CreateItineraryViewModel createItineraryViewModel = new CreateItineraryViewModel();
             return View(createItineraryViewModel);
         }
 
         [HttpPost]
+        [Route("Itinerary/Create")]
         public IActionResult Create(CreateItineraryViewModel createItineraryViewModel)
         {
             if(ModelState.IsValid)
             {
             //      var selectedLocations = _context.LocationDatas
             // .Where(loc => viewModel.SelectedLocationIds.Contains(loc.Id))
-                LocationData theLocationData = context.LocationDatas.Find(createItineraryViewModel);
                 Itinerary itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
-                    LocationDatas = theLocationData,
-                    SelectedId = selectedId,
+                    
                 };
-
                 context.Itineraries.Add(itinerary);
                 context.SaveChanges();
 
-            
-
-            return Redirect("Success");
+            return Redirect("/Success");
             }
            
-            return View(createItineraryViewModel);
+            return View("Itinerary/Create", createItineraryViewModel);
         }
 
         

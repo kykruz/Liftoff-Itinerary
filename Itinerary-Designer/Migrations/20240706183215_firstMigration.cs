@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Itinerary_Designer.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class firstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -66,6 +66,21 @@ namespace Itinerary_Designer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Itineraries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Itineraries", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -256,28 +271,6 @@ namespace Itinerary_Designer.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "Itineraries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LocationDatasId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Itineraries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Itineraries_LocationDatas_LocationDatasId",
-                        column: x => x.LocationDatasId,
-                        principalTable: "LocationDatas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -314,11 +307,6 @@ namespace Itinerary_Designer.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Itineraries_LocationDatasId",
-                table: "Itineraries",
-                column: "LocationDatasId");
         }
 
         /// <inheritdoc />
@@ -343,6 +331,9 @@ namespace Itinerary_Designer.Migrations
                 name: "Itineraries");
 
             migrationBuilder.DropTable(
+                name: "LocationDatas");
+
+            migrationBuilder.DropTable(
                 name: "Ratings");
 
             migrationBuilder.DropTable(
@@ -353,9 +344,6 @@ namespace Itinerary_Designer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "LocationDatas");
         }
     }
 }

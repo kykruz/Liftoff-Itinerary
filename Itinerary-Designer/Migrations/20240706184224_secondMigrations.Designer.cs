@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240706162643_first")]
-    partial class first
+    [Migration("20240706184224_secondMigrations")]
+    partial class secondMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,16 +33,11 @@ namespace Itinerary_Designer.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("LocationDatasId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LocationDatasId");
 
                     b.ToTable("Itineraries");
                 });
@@ -331,17 +326,6 @@ namespace Itinerary_Designer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("Itineraries.Models.Itinerary", b =>
-                {
-                    b.HasOne("LocationDatay.Models.LocationData", "LocationDatas")
-                        .WithMany()
-                        .HasForeignKey("LocationDatasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LocationDatas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

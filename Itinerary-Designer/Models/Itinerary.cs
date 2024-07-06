@@ -5,19 +5,18 @@ namespace Itineraries.Models
 {
     public class Itinerary
     {
-        public int Id { get; set; }
-    
+        public int? Id { get; set; }
         public string Name { get; set; }
-        public LocationData LocationDatas {get; set;}
+        // public LocationData LocationDatas {get; set;}
 
 
 
       
         public Itinerary() {}
-        public Itinerary (string name, LocationData locationData)
+        public Itinerary (string name)
         {
             Name = name;
-            LocationDatas = locationData;
+            // LocationDatas = locationData;
         }
 
         public override string ToString()

@@ -1,62 +1,11 @@
 @using CreateItinerary.ViewModel;
-
 @model CreateItineraryViewModel;
 
 <form asp-controller="Trip" asp-action="Create" method="post">
     <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        @foreach (var location in Model.AvailableLocations)
-   {
-      <div class="location">
-          <input type="checkbox" class="form-check-input" name="selectedLocations" value="@location.Id" id="location-checkbox-@location.Id">
-          <label for="location-checkbox-@location.Id">Select</label>
-
-          <div class="location-details">
-              <div class="location-item">
-                  <label for="location-name-@location.Id">Name:</label>
-                  <span id="location-name-@location.Id">@location.Name</span>
-              </div>
-
-              <div class="location-item">
-                  <label for="location-address-@location.Id">Address:</label>
-                  <span id="location-address-@location.Id">@location.Address</span>
-              </div>
-
-              <div class="location-item">
-                  <label for="location-category-@location.Id">Category:</label>
-                  <span id="location-category-@location.Id">@location.Category</span>
-              </div>
-
-              <div class="location-item">
-                  <label for="location-price-@location.Id">Price Per Person:</label>
-                  <span id="location-price-@location.Id">@location.PricePerPerson</span>
-              </div>
-
-              <div class="location-item">
-                  <label for="location-description-@location.Id">Description:</label>
-                  <span id="location-description-@location.Id">@location.Description</span>
-              </div>
-
-              <div class="location-item">
-                  <label for="location-phone-@location.Id">Phone:</label>
-                  <span id="location-phone-@location.Id">@location.Phone</span>
-              </div>
-          </div>
-      </div>
-   }
-    </div>
-    <div class="form-group">
-        <label asp-for="SelectedId" >Contact Email</label>
-        <input asp-for="SelectedId " class="form-control" />
-        <span asp-validation-for="SelectedId" class="text-danger"></span>
-    </div>
-    @* <div class="form-group">
-        <label asp-for="AvailableLocations">Event Type</label>
-        <select asp-for="AvailableLocations" ></select>
-    </div> *@
-    <input type="submit" asp-action="Success" value="Submit Itinerary" />
+    <input type="submit" value="submit"/>
 </form>
