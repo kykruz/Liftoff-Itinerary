@@ -1,3 +1,5 @@
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Reviews.Models;
 
@@ -6,10 +8,13 @@ public class Review
     public int Id { get; set; }
     private int nextId { get; set; } = 1;
     public string Title { get; set; }
+    [Required]
     public string Author { get; set; }
+    [Required]
     public string Content { get; set; }
+    [Display(Name = "Posted Date")]
     public DateTime PostedDate { get; set; }
-    //public string? Comments { get; set; }
+    
 
     // public int Rating { get; set; }
     // public bool IsAproved { get; set; }
@@ -33,7 +38,6 @@ public class Review
     //     public required string Content { get; set;}
     //     public DateTime PostedDate { get; set;}
     //     public int ReviewId { get; set;}
-    //     public required Review Review { get; set;}
     // }
     
 }

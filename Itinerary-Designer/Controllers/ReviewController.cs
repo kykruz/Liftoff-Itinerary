@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Reviews.Models;
+using Reviews.ViewModels;
 using Trips.Data;
-using static Reviews.Models.Review;
+
 
 namespace Reviews.Controllers;
 
@@ -18,7 +19,8 @@ public class ReviewController : Controller
     public IActionResult Index()
     {
         var reviews = context.Reviews.ToList();
-        return View(reviews);
+        var viewModel = new ReviewViewModel { Reviews = reviews };
+        return View(viewModel);
     }
     public IActionResult Create()
     {
