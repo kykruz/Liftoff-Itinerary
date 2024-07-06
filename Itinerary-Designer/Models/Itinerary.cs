@@ -7,16 +7,15 @@ namespace Trips.Models
     {
         public int? Id { get; set; }
         public string Name { get; set; }
-        // public LocationData LocationDatas {get; set;}
-
-
+        public List<int> LocationIds {get; set;}
+        public DateTime Date {get; set;}
 
       
         public Itinerary() {}
         public Itinerary (string name)
         {
             Name = name;
-            // LocationDatas = locationData;
+            
         }
 
         public override string ToString()
