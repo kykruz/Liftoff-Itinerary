@@ -6,7 +6,6 @@ namespace Reviews.Models;
 public class Review
 {
     public int Id { get; set; }
-    private int nextId { get; set; } = 1;
     public string Title { get; set; }
     [Required]
     public string Author { get; set; }
@@ -17,8 +16,6 @@ public class Review
     
     public Review()
     {
-        Id = nextId;
-        nextId++;
         PostedDate = DateTime.UtcNow;
     }
     public Review(string title, string author, string content)
