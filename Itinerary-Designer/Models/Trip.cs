@@ -20,11 +20,9 @@ namespace Trips.Models
         public Trip() {}
         
 
-        public Trip(int id, string tripname)
+        public Trip(string tripname)
         {
-            Id = id;
             TripName = tripname;
-           
         }
 
         public override int GetHashCode()
