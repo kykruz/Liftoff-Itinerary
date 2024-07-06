@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Reviews.Models;
+using Trips.Models;
 using Trips.Data;
 
-namespace Reviews.Controllers;
+namespace Trips.Controllers;
 
 public class ReviewController : Controller
 {

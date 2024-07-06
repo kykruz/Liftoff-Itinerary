@@ -1,12 +1,11 @@
 using System.Diagnostics;
-using CreateItinerary.ViewModel;
-using Itineraries.Models;
-using LocationDatay.Models;
+using Trips.ViewModel;
+using Trips.Models;
 using Microsoft.AspNetCore.Mvc;
 using Trips.Data;
 using Trips.Models;
 
-namespace Itineraryy.Controllers
+namespace Trips.Controllers
 {
     public class ItineraryController : Controller
     {
