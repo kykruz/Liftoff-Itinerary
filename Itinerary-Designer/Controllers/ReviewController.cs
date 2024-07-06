@@ -17,7 +17,7 @@ public class ReviewController : Controller
     }
     public IActionResult Index()
     {
-        var reviews = context.Reviews.Include(r => r.Comments).ToList();
+        var reviews = context.Reviews.ToList();
         return View(reviews);
     }
     public IActionResult Create()

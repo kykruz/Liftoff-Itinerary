@@ -9,7 +9,7 @@ public class Review
     public string Author { get; set; }
     public string Content { get; set; }
     public DateTime PostedDate { get; set; }
-    public object Comments { get; internal set; }
+    //public string? Comments { get; set; }
 
     // public int Rating { get; set; }
     // public bool IsAproved { get; set; }
