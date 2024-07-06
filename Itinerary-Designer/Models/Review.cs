@@ -15,11 +15,6 @@ public class Review
     [Display(Name = "Posted Date")]
     public DateTime PostedDate { get; set; }
     
-
-    // public int Rating { get; set; }
-    // public bool IsAproved { get; set; }
-    // public bool IsDeleted { get; set; }
-
     public Review()
     {
         Id = nextId;
@@ -32,12 +27,5 @@ public class Review
         Author = author;
         Content = content;
     }
-    // public class Comment
-    // {
-    //     public int Id { get; set;}
-    //     public required string Content { get; set;}
-    //     public DateTime PostedDate { get; set;}
-    //     public int ReviewId { get; set;}
-    // }
     
 }
