@@ -15,8 +15,8 @@ public class ReviewController : Controller
     }
     public IActionResult Index()
     {
-        var posts = context.Reviews.ToList();
-        return View(posts);
+        var post = context.Reviews.ToList();
+        return View(post);
     }
     public IActionResult Create()
     {

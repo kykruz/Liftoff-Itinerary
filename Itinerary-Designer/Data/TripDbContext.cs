@@ -1,12 +1,7 @@
-using System;
-using Itinerary.Models;
+using Itineraries.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Itineraries.Models;
 using Reviews.Models;
 using Ratings.Models;
 using LocationDatay.Models;

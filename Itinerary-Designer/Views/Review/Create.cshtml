@@ -1,15 +1,19 @@
+@using System;
+@using System.ComponentModel.DataAnnotations;
 @using Reviews.Models;
 
-@model IEnumerable<Review>
+@model List<Review>
 
+<form asp-controller="Review" asp-action="Create" method="post">
+    <div>
 
+<label asp-for="@Title"></label>
+<input type="text" class="form-control"/>
+<span asp-validation-for="@Content" class="text-danger"></span>
+</div>
+<input type="submit" value="submit">
+</form>
 
-@*
-<form asp-controller="..." asp-action"..."">
-<input type="text" (more here)>
-<label><label/>
-<input type="submit"...>
-</form>*@
 
 
 
