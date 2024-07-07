@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Trips.Models;
 using Trips.Data;
+using Trips.ViewModels;
 
 namespace Trips.Controllers;
 
@@ -15,24 +16,41 @@ public class ReviewController : Controller
     }
     public IActionResult Index()
     {
-        var posts = context.Reviews.ToList();
-        return View(posts);
+        var review = context.Reviews.ToList();
+        var reviewViewModel = review.Select(r => new ReviewViewModel
+        {
+            Author = r.Author,
+
+        }).ToList();
+        return View(reviewViewModel);
     }
+    [HttpGet]
+    [Route("Review/Create")]
     public IActionResult Create()
     {
-        return View();
+        ReviewViewModel reviewViewModel = new ReviewViewModel();
+        return View(reviewViewModel);
     }
     [HttpPost]
-    public async Task<IActionResult> Create(Review post)
+    [Route("Review/Create")]
+    public IActionResult Create(ReviewViewModel reviewViewModel)
     {
         if(ModelState.IsValid)
         {
-            post.PostedDate = DateTime.Now;
-            context.Reviews.Add(post);
-            await context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            Review review = new Review
+            {
+                Author = reviewViewModel.Author,
+                Content = reviewViewModel.Content,
+                PostedDate = DateTime.Now,
+                Title = reviewViewModel.Title
+            };
+            
+            context.Reviews.Add(review);
+            context.SaveChanges();
+
+            return Redirect("Create");
         }
-        return View(post);
+        return View("Create", reviewViewModel);
     }
     public IActionResult Edit()
     {

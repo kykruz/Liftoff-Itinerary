@@ -31,7 +31,7 @@ public class RatingController : Controller
     [HttpPost]
     public async Task<IActionResult> Rate(int itemId, int stars)
     {
-        var rating = new Rating
+        Rating rating = new Rating
         {
             ItemId = itemId,
             Stars = stars

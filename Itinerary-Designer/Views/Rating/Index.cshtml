@@ -1,12 +1,11 @@
-@using Trips.Models;
-@model Rating
-
 @{
     ViewBag.Title = "Rating";
     int itemId = ViewBag.ItemId;
     double averageRating = ViewBag.AverageRating;
 }
-
+<div>
+<h1>Please rate your experience with us!</h1>
+</div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,11 +24,20 @@
     </style>
 </head>
 <body>
-    <div class="rating">
-        @for (int i = 1; i <= 5; i++)
-        {
-            <a asp-action="Rate" asp-route-itemId="@itemId" asp-route-stars="@i" class="star @(i <= averageRating ? "selected" : "")">&#9733;</a>
-        }
+    <div>
+        <h3>Our customers average rated experience: @averageRating</h3>
     </div>
+
+    <form method="post" asp-controller="Rating" asp-action="Rate">
+        <input type="hidden" name="itemId" value="@itemId" />
+        <div class="rating">
+            @for (int i = 1; i <= 5; i++)
+            {
+                <input type="radio" id="star-@i" name="stars" value="@i" class="star @(i <= averageRating ? "selected" : "")" />
+                <label for="star-@i">&#9733;</label>
+            }
+        </div>
+        <button type="submit">Submit Your Rating</button>
+    </form>
 </body>
 </html>
