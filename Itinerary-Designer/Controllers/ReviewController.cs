@@ -37,6 +37,8 @@ public class ReviewController : Controller
         {
             var review = new Review
             {
+                Content = viewModel.Content,
+                Title = viewModel.Title,
                 Author = viewModel.Author,
                 PostedDate = DateTime.Now
             };

@@ -16,5 +16,15 @@ namespace Trips.Data
           public TripDbContext(DbContextOptions<TripDbContext> options) : base(options)
         {
         }
+
+         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<LocationData>()
+                .HasOne(ld => ld.Itinerary)
+                .WithMany(i => i.LocationDatas);
+                
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -1,41 +1,19 @@
-@using Trips.Models
-@using Trips.Data;
-@using Trips.Controllers;
-@model List<LocationData>;
+@model List<Trips.Models.Itinerary>
 
-@{
-    ViewData["Title"] = "Success";
-}
+<h2>Created Itineraries</h2>
 
-@{
-    ViewBag.Title = "Success";
-
-}
-
-<h1>Success!</h1>
-
-<h2>Current Trips</h2>
-
-    <h3>Selected Locations</h3>
- 
-@* 
+@if (Model != null && Model.Count > 0)
+{
     <ul>
-        @foreach (LocationData location in Model)
+        @foreach (var itinerary in Model)
         {
-           
             <li>
-                <label for="location-name-@location.Id">Name:</label>
-                <span id="location-name-@location.Id">@location.Name</span>
+                <a asp-controller="Itinerary" asp-action="ViewLocations" asp-route-itineraryId="@itinerary.Id">@itinerary.Name</a>
             </li>
-            }
         }
-    </ul> *@
-
+    </ul>
+}
 else
 {
-    <p>No locations were selected.</p>
+    <p>No itineraries created yet.</p>
 }
-
-<div>
-    <a asp-controller="Itinerary" asp-action="Create">Create a Trip</a>
-</div>
