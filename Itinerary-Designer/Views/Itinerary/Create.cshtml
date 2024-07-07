@@ -14,8 +14,8 @@
         {
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="location_@location.Id" value="@location.Id" />
-                    @location.Name
+                    <input type="checkbox" name="location_@location.Id" value="@location.Id" asp-for="Model.LocationIds" />
+                    @location.Name 
                 </label>
             </div>
         }
