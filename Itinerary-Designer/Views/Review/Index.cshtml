@@ -1,17 +1,18 @@
 @using Trips.Models;
+@using Trips.ViewModels
 
-@model IEnumerable<Review>;
+@model List<ReviewViewModel>;
 
 <h2>Review Post</h2>
 
 <a asp-action="Create">Create New Post</a>
 
-@foreach (var post in Model)
+@foreach (var review in Model)
 {
     <div>
-        <h3>@post.Title</h3>
-        <p>@post.Content</p>
-        <p>Author: @post.Author</p>
-        <p>Date: @post.PostedDate</p>
+        <h3>@review.Author</h3>
+        <p>@review.Content</p>
+        <p>Author: @review.Author</p>
+        <p>Date: @review.PostedDate</p>
     </div>
-}
+}    

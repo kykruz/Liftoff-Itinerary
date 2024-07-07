@@ -10,9 +10,8 @@ public class LocationData
     public string Description { get; set; }
     public string Phone { get; set; }
 
-  
-
     public List<ItineraryLocationData> ItineraryLocationDatas { get; set; } = new List<ItineraryLocationData>();
+
 
     public LocationData(
         int id,

@@ -3,6 +3,7 @@ using Exchange.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
+
 // using Exchange.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,10 +27,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>
 }).AddEntityFrameworkStores<TripDbContext>();
 
 
-var commentConnectionString = "server=localhost;user=designer;password=K9l0m15?/;database=comments"; // Adjust this connection string as needed
-builder.Services.AddDbContext<TripDbContext>(options =>
-    options.UseMySql(commentConnectionString, serverVersion)
-);
+// var commentConnectionString = "server=localhost;user=designer;password=K9l0m15?/;database=comments";
+
+//  // Adjust this connection string as needed
+
+// builder.Services.AddDbContext<TripDbContext>(options =>
+//     options.UseMySql(commentConnectionString, serverVersion)
+// );
 
 builder.Services.AddTransient<ExchangeRatesApiService>();
 
