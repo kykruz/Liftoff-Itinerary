@@ -9,10 +9,6 @@ public class LocationData
     public double PricePerPerson { get; set; }
     public string Description { get; set; }
     public string Phone { get; set; }
-
-  
-
-    
     public Itinerary? Itinerary { get; set; }
 
     public LocationData(
