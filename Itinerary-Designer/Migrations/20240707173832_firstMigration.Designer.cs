@@ -12,7 +12,7 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240706220343_firstMigration")]
+    [Migration("20240707173832_firstMigration")]
     partial class firstMigration
     {
         /// <inheritdoc />
@@ -386,9 +386,11 @@ namespace Itinerary_Designer.Migrations
 
             modelBuilder.Entity("Trips.Models.LocationData", b =>
                 {
-                    b.HasOne("Trips.Models.Itinerary", null)
+                    b.HasOne("Trips.Models.Itinerary", "Itinerary")
                         .WithMany("LocationDatas")
                         .HasForeignKey("ItineraryId");
+
+                    b.Navigation("Itinerary");
                 });
 
             modelBuilder.Entity("Trips.Models.Itinerary", b =>
