@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using Reviews.ViewModels;
+using Trips.ViewModels;
 using Trips.Models;
 
-namespace Reviews.ViewModels
+namespace Trips.ViewModels
 {
     public class ReviewViewModel
     {
         public string? Author { get; set; }
         public List<Review>? Reviews { get; set; }
-        public string? Title { get; set; }
+        public string? Content { get; set; }
     }
     
 }
