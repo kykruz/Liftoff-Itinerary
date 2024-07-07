@@ -6,15 +6,17 @@ namespace Trips.Models
     public class Itinerary
     {
         public int? Id { get; set; }
-        public string Name { get; set; }
-        public List<int> LocationIds {get; set;}
-        public DateTime Date {get; set;}
+        public string? Name { get; set; }
+        public List<int>? LocationIds {get; set;}
+        public DateTime? Date {get; set;}
 
       
         public Itinerary() {}
-        public Itinerary (string name)
+        public Itinerary (string name, List<int> locationIds, DateTime date)
         {
             Name = name;
+            LocationIds = locationIds;
+            Date = date;
             
         }
 
