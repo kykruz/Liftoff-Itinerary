@@ -39,36 +39,26 @@ namespace Trips.Controllers
                 var itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
-                    LocationDatas = createItineraryViewModel
-                        .AvailableLocations.Where(l => l.IsSelected)
-                        .Select(l => new LocationData
-                        {
-                           Id = l.Id,
-                            Name = l.Name,
-                            Address = l.Address,
-                            Category = l.Category,
-                            PricePerPerson = l.PricePerPerson,
-                            Description = l.Description,
-                            Phone = l.Phone,
-                            
-                        })
+                    LocationDatas = context
+                        .LocationDatas.Where(ld =>
+                            createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
+                        )
                         .ToList()
                 };
 
-              
                 context.Itineraries.Add(itinerary);
                 context.SaveChanges();
 
                 return RedirectToAction("Success");
             }
 
-       
+            // If ModelState is not valid, return the view with errors
+            createItineraryViewModel.AvailableLocations = context.LocationDatas.ToList();
             return View(createItineraryViewModel);
         }
 
         public IActionResult Success()
         {
-       
             List<Itinerary> itineraries = context
                 .Itineraries.Include(i => i.LocationDatas)
                 .ToList();

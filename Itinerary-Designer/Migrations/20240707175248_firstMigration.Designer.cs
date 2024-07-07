@@ -12,7 +12,7 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240707173832_firstMigration")]
+    [Migration("20240707175248_firstMigration")]
     partial class firstMigration
     {
         /// <inheritdoc />
@@ -261,9 +261,6 @@ namespace Itinerary_Designer.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("IsSelected")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("ItineraryId")
                         .HasColumnType("int");

@@ -263,7 +263,6 @@ namespace Itinerary_Designer.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Phone = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsSelected = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ItineraryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

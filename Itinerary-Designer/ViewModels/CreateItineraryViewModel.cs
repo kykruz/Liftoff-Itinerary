@@ -1,4 +1,4 @@
-﻿﻿using Trips.Models;
+﻿using Trips.Models;
 
 public class CreateItineraryViewModel
 {
