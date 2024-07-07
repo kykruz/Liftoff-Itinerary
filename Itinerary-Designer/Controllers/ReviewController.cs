@@ -25,30 +25,32 @@ public class ReviewController : Controller
         return View(reviewViewModel);
     }
     [HttpGet]
+    [Route("Review/Create")]
     public IActionResult Create()
     {
         ReviewViewModel reviewViewModel = new ReviewViewModel();
         return View(reviewViewModel);
     }
     [HttpPost]
-    public async Task<IActionResult> Create(ReviewViewModel viewModel)
+    [Route("Review/Create")]
+    public IActionResult Create(ReviewViewModel reviewViewModel)
     {
         if(ModelState.IsValid)
         {
-            var review = new Review
+            Review review = new Review
             {
-                Content = viewModel.Content,
-                Title = viewModel.Title,
-                Author = viewModel.Author,
-                PostedDate = DateTime.Now
+                Author = reviewViewModel.Author,
+                Content = reviewViewModel.Content,
+                PostedDate = DateTime.Now,
+                Title = reviewViewModel.Title
             };
             
             context.Reviews.Add(review);
             context.SaveChanges();
 
-            return Redirect("Index");
+            return Redirect("Create");
         }
-        return View(viewModel);
+        return View("Create", reviewViewModel);
     }
     public IActionResult Edit()
     {
