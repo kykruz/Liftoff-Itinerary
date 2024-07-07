@@ -7,11 +7,8 @@ namespace Trips.Models
     {
         public int? Id { get; set; }
         public string Name { get; set; }
-       
+        
         public List<LocationData> LocationDatas { get; set; } = new List<LocationData>();
-
-
-
 
         public Itinerary() {}
         public Itinerary (string name, List<LocationData> locationData)
