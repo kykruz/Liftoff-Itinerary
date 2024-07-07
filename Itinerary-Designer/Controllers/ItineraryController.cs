@@ -39,11 +39,6 @@ namespace Trips.Controllers
                 var itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
-<<<<<<< HEAD
-                    // LocationIds = 
-                    Date = DateTime.Now
-                    
-=======
                     LocationDatas = createItineraryViewModel
                         .AvailableLocations.Where(l => l.IsSelected)
                         .Select(l => new LocationData
@@ -53,7 +48,6 @@ namespace Trips.Controllers
                             
                         })
                         .ToList()
->>>>>>> 299a9c6639ab41965db78165498f34991e540838
                 };
 
               
