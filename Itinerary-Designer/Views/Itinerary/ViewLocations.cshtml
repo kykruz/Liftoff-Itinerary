@@ -2,19 +2,18 @@
 
 <h2>Locations for Itinerary: @Model.Name</h2>
 
-@if (Model.LocationDatas != null && Model.LocationDatas.Any())
+@if (Model.ItineraryLocationDatas != null && Model.ItineraryLocationDatas.Any())
 {
     <ul>
-        @foreach (var location in Model.LocationDatas)
+        @foreach (var il in Model.ItineraryLocationDatas)
         {
             <li>
-                <strong>@location.Name</strong>
-                <p>@location.Description</p>
-                <p>Address: @location.Address</p>
-                <p>Category: @location.Category</p>
-                <p>Phone Number: @location.Phone</p>
-                <p>Price Per Person: $@location.PricePerPerson</p>
-                
+                <strong>@il.LocationData.Name</strong>
+                <p>@il.LocationData.Description</p>
+                <p>Address: @il.LocationData.Address</p>
+                <p>Category: @il.LocationData.Category</p>
+                <p>Phone Number: @il.LocationData.Phone</p>
+                <p>Price Per Person: $@il.LocationData.PricePerPerson</p>
             </li>
         }
     </ul>

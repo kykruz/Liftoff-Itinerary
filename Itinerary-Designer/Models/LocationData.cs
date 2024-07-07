@@ -12,8 +12,7 @@ public class LocationData
 
   
 
-    
-    public Itinerary? Itinerary { get; set; }
+    public List<ItineraryLocationData> ItineraryLocationDatas { get; set; } = new List<ItineraryLocationData>();
 
     public LocationData(
         int id,
