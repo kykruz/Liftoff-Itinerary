@@ -26,6 +26,10 @@ public class LocationData
         Phone = phone;
     }
 
+    public LocationData()
+        {
+        }
+
     public static implicit operator List<object>(LocationData v)
     {
         throw new NotImplementedException();

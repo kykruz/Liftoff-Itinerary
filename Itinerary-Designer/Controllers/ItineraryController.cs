@@ -1,7 +1,6 @@
 using System.Diagnostics;
-using Trips.ViewModel;
-using Trips.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
 
@@ -22,48 +21,76 @@ namespace Trips.Controllers
             return View(Itinerary);
         }
 
-        
         [HttpGet]
-        
         public IActionResult Create()
         {
-          
-            CreateItineraryViewModel createItineraryViewModel = new CreateItineraryViewModel();
-            return View(createItineraryViewModel);
+            var viewModel = new CreateItineraryViewModel();
+            viewModel.AvailableLocations = context.LocationDatas.ToList();
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        
         public IActionResult Create(CreateItineraryViewModel createItineraryViewModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-          
-                Itinerary itinerary = new Itinerary
+                // Create new Itinerary instance
+                var itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
+<<<<<<< HEAD
                     // LocationIds = 
                     Date = DateTime.Now
                     
+=======
+                    LocationDatas = createItineraryViewModel
+                        .AvailableLocations.Where(l => l.IsSelected)
+                        .Select(l => new LocationData
+                        {
+                            Id = l.Id,
+                            Name = l.Name,
+                            
+                        })
+                        .ToList()
+>>>>>>> 299a9c6639ab41965db78165498f34991e540838
                 };
+
+              
                 context.Itineraries.Add(itinerary);
                 context.SaveChanges();
 
-            return Redirect("Success");
+                return RedirectToAction("Success");
             }
-           
-            return View("Create", createItineraryViewModel);
+
+       
+            return View(createItineraryViewModel);
         }
 
-        
         public IActionResult Success()
         {
-            
-            List<LocationData> locationDatas = context.LocationDatas.ToList();
-            return View(locationDatas);
+       
+            List<Itinerary> itineraries = context
+                .Itineraries.Include(i => i.LocationDatas)
+                .ToList();
+
+            return View(itineraries);
         }
 
-        
+        public IActionResult ViewLocations(int itineraryId)
+        {
+            Itinerary itinerary = context
+                .Itineraries.Include(i => i.LocationDatas)
+                .FirstOrDefault(i => i.Id == itineraryId);
+
+            if (itinerary == null)
+            {
+                return NotFound();
+            }
+
+            return View(itinerary);
+        }
+
         [HttpPost]
         public IActionResult Delete()
         {
