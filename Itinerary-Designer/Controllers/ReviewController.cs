@@ -17,7 +17,12 @@ public class ReviewController : Controller
     public IActionResult Index()
     {
         var review = context.Reviews.ToList();
-        return View(review);
+        var reviewViewModel = review.Select(r => new ReviewViewModel
+        {
+            Author = r.Author,
+
+        }).ToList();
+        return View(reviewViewModel);
     }
     [HttpGet]
     public IActionResult Create()
@@ -37,7 +42,7 @@ public class ReviewController : Controller
             };
             
             context.Reviews.Add(review);
-            await context.SaveChangesAsync();
+            context.SaveChanges();
 
             return Redirect("Index");
         }
