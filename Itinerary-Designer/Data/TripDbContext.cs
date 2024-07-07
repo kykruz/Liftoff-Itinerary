@@ -1,10 +1,7 @@
-using Itineraries.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Reviews.Models;
-using Ratings.Models;
-using LocationDatay.Models;
+using Trips.Models;
 
 
 namespace Trips.Data

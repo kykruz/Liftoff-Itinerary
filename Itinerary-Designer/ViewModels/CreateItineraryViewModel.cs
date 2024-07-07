@@ -1,40 +1,22 @@
-﻿using Itineraries.Models;
-using LocationDatay.Models;
+﻿using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Common;
+using Trips.Models;
 
-namespace CreateItinerary.ViewModel;
+namespace Trips.ViewModel;
 
 public class CreateItineraryViewModel
 {
     public string Name { get; set; }
-   
-    // public List<SelectListItem>? LocationDatas { get; set; }
-    // public List<int> SelectedId {get; set;}
-    // public List<LocationData> AvailableLocations {get; set;}
+    public List<int> LocationIds { get; set; }
+    public DateTime Date { get; set; }
 
-    public CreateItineraryViewModel()
+    public CreateItineraryViewModel(DateTime date, string name, List<int> locationids)
     {
-
+        LocationIds = locationids;
+        Date = date;
+        Name = name;
     }
 
-    // public CreateItineraryViewModel(List<LocationData> availableLocations)
-    // {
-      
-    //     AvailableLocations = availableLocations;
-      
-    //     //  LocationDatas = new List<SelectListItem>();
-
-    //     //     foreach (var location in locationDatas)
-    //     //     {
-    //     //         LocationDatas.Add(
-    //     //             new SelectListItem
-    //     //             {
-    //     //                 Value = location.Id.ToString(),
-    //     //                 Text = location.Name
-    //     //             }
-    //     //         ); ;
-    //     //     }
-
-    // }
-    
+    public CreateItineraryViewModel() { }
 }

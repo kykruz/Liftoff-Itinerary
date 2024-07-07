@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Reviews.Models;
+namespace Trips.Models;
 
 public class Review
 {

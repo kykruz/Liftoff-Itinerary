@@ -1,6 +1,6 @@
 
 
-namespace LocationDatay.Models;
+namespace Trips.Models;
 
 public class LocationData
 {

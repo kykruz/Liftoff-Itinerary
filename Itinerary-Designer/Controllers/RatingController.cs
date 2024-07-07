@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Ratings.Models;
+using Trips.Models;
 using Trips.Data;
-namespace RatingsController.Controllers;
+namespace TripsController.Controllers;
 
 public class RatingController : Controller
 {

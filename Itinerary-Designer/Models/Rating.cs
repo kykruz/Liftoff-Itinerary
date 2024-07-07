@@ -1,4 +1,4 @@
-namespace Ratings.Models;
+namespace Trips.Models;
 
 public class Rating 
 {

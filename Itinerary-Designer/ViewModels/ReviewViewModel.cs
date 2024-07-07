@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using Reviews.Models;
+using Reviews.ViewModels;
+using Trips.Models;
 
 namespace Reviews.ViewModels
 {
