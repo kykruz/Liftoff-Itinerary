@@ -1,0 +1,24 @@
+@* @using Trips.Data;
+@using Trips.Models;
+@model Trips.Models.Itinerary
+
+<h2>Locations for Itinerary: @Model.Name</h2>
+
+@if (Model.LocationDatas != null && Model.LocationDatas.Any())
+{
+    <ul>
+        @foreach (var location in Model.LocationDatas)
+        {
+            <li>
+                <strong>@location.Name</strong>
+                <p>@location.Address</p>
+                <p>Category: @location.Category</p>
+                <!-- Add other properties of LocationData as needed -->
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No locations found for this itinerary.</p>
+} *@
