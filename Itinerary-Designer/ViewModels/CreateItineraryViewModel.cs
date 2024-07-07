@@ -7,9 +7,10 @@ namespace Trips.ViewModel;
 
 public class CreateItineraryViewModel
 {
-    public string Name { get; set; }
-    public List<int> LocationIds { get; set; }
+    public string? Name { get; set; }
+    public List<int>? LocationIds { get; set; }
     public DateTime Date { get; set; }
+    //Made these null - Jak
 
     public CreateItineraryViewModel(DateTime date, string name, List<int> locationids)
     {

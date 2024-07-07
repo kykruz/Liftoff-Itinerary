@@ -6,11 +6,11 @@ namespace Trips.Models;
 public class Review
 {
     public int Id { get; set; }
-    public string Title { get; set; }
+    public string? Title { get; set; }
     [Required]
-    public string Author { get; set; }
+    public string? Author { get; set; }
     [Required]
-    public string Content { get; set; }
+    public string? Content { get; set; }
     [Display(Name = "Posted Date")]
     public DateTime PostedDate { get; set; }
     
