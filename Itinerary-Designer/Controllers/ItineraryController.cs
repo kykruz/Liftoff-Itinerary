@@ -27,7 +27,7 @@ namespace Trips.Controllers
         {
             string userId = GetCurrentUserId();
 
-            var itineraries = await context
+            List<Itinerary> itineraries = await context
                 .Itineraries.Where(i => i.UserId == userId)
                 .ToListAsync();
 
@@ -37,7 +37,7 @@ namespace Trips.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var viewModel = new CreateItineraryViewModel();
+            CreateItineraryViewModel viewModel = new CreateItineraryViewModel();
 
             viewModel.AvailableLocations = context.LocationDatas.ToList();
 
@@ -51,13 +51,13 @@ namespace Trips.Controllers
             {
                 string userId = GetCurrentUserId();
 
-                var selectedLocationDatas = await context
+                List<LocationData> selectedLocationDatas = await context
                     .LocationDatas.Where(ld =>
                         createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
                     )
                     .ToListAsync();
 
-                var itinerary = new Itinerary
+                Itinerary itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
                     UserId = userId,
@@ -81,7 +81,7 @@ namespace Trips.Controllers
         {
             string userId = GetCurrentUserId();
 
-            var itineraries = await context
+            List<Itinerary> itineraries = await context
                 .Itineraries.Where(i => i.UserId == userId)
                 .Include(i => i.ItineraryLocationDatas)
                 .ThenInclude(il => il.LocationData)
@@ -94,7 +94,7 @@ namespace Trips.Controllers
         {
             string userId = GetCurrentUserId();
 
-            var itinerary = await context
+            Itinerary itinerary = await context
                 .Itineraries.Where(i => i.UserId == userId && i.Id == itineraryId)
                 .Include(i => i.ItineraryLocationDatas)
                 .ThenInclude(il => il.LocationData)
