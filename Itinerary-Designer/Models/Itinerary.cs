@@ -35,6 +35,4 @@ namespace Trips.Models
             return HashCode.Combine(Id);
         }
     }
-
-   
 }

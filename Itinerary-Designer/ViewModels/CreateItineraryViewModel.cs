@@ -1,4 +1,9 @@
-﻿﻿using Trips.Models;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Common;
+using Trips.Models;
+
+namespace Trips.ViewModel;
 
 public class CreateItineraryViewModel
 {
