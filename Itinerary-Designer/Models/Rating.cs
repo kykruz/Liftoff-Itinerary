@@ -6,8 +6,4 @@ public class Rating
     public int ItemId { get; set; }
     public int Stars { get; set; } 
 
-    public Rating()
-    {
-        
-    }
 }
