@@ -1,6 +1,7 @@
 @using Trips.Models;
+@using Trips.ViewModels
 
-@model List<Review>;
+@model List<ReviewViewModel>;
 
 <h2>Review Post</h2>
 
@@ -9,9 +10,9 @@
 @foreach (var review in Model)
 {
     <div>
-        <h3>@review.Title</h3>
+        <h3>@review.Author</h3>
         <p>@review.Content</p>
         <p>Author: @review.Author</p>
         <p>Date: @review.PostedDate</p>
     </div>
-}
+}    

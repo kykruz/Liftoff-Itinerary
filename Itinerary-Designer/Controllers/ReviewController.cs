@@ -19,6 +19,7 @@ public class ReviewController : Controller
         var review = context.Reviews.ToList();
         return View(review);
     }
+    [HttpGet]
     public IActionResult Create()
     {
         ReviewViewModel reviewViewModel = new ReviewViewModel();
