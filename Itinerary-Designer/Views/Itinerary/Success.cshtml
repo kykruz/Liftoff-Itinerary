@@ -1,0 +1,42 @@
+@using Itineraries.Models
+@using LocationDatay.Models;
+@using Trips.Data;
+@using Itineraryy.Controllers;
+@model List<LocationData>;
+
+@{
+    ViewData["Title"] = "Success";
+}
+
+@{
+    ViewBag.Title = "Success";
+
+}
+
+<h1>Success!</h1>
+
+<h2>Current Trips</h2>
+
+    <h3>Selected Locations</h3>
+ 
+@* 
+    <ul>
+        @foreach (LocationData location in Model)
+        {
+           
+            <li>
+                <label for="location-name-@location.Id">Name:</label>
+                <span id="location-name-@location.Id">@location.Name</span>
+            </li>
+            }
+        }
+    </ul> *@
+
+else
+{
+    <p>No locations were selected.</p>
+}
+
+<div>
+    <a asp-controller="Itinerary" asp-action="Create">Create a Trip</a>
+</div>

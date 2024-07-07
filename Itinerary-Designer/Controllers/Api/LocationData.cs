@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Itinerary_Designer;
 using Trips.Data;
 using Trips.Models;
-using Itinerary.Models;
+using Itineraries.Models;
+using LocationDatay.Models;
 // make
 namespace Itinerary_Designer.Controllers.Api
 {

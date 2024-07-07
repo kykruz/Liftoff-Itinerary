@@ -1,0 +1,11 @@
+@using CreateItinerary.ViewModel;
+@model CreateItineraryViewModel;
+
+<form asp-controller="Itinerary" asp-action="Create" method="post">
+    <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <input type="submit" value="submit"/>
+</form>

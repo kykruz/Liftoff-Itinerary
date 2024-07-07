@@ -1,0 +1,35 @@
+@using Ratings.Models;
+@model Rating
+
+@{
+    ViewBag.Title = "Rating";
+    int itemId = ViewBag.ItemId;
+    double averageRating = ViewBag.AverageRating;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title</title>
+    <style>
+        .star {
+            font-size: 2em;
+            color: lightgray;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .selected {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <div class="rating">
+        @for (int i = 1; i <= 5; i++)
+        {
+            <a asp-action="Rate" asp-route-itemId="@itemId" asp-route-stars="@i" class="star @(i <= averageRating ? "selected" : "")">&#9733;</a>
+        }
+    </div>
+</body>
+</html>
