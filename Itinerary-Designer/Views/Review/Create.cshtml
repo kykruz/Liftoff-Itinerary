@@ -1,22 +1,23 @@
 @using Trips.Models;
-
 @model IEnumerable<Review>
 
 <form asp-controller="Review" asp-action="Create" method="post">
-    <div>
+    @foreach (var review in Model)
+    {
+        <div>
+            <label asp-for="@review.Author"></label>
+            <input asp-for="@review.Author" class="form-control" />
+            <span asp-validation-for="@review.Author" class="text-danger"></span>
+        </div>
 
-<label asp-for="@Title"></label>
-<input type="text" class="form-control"/>
-<span asp-validation-for="@Content" class="text-danger"></span>
-</div>
-<input type="submit" value="submit">
+        <div>
+            <label asp-for="@review.Content"></label>
+            <input asp-for="@review.Content" class="form-control" />
+            <span asp-validation-for="@review.Content" class="text-danger"></span>
+        </div>
+    }
+    <input type="submit" value="Submit" />
 </form>
-
-
-
-
-
-
 
 
 
