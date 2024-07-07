@@ -383,9 +383,11 @@ namespace Itinerary_Designer.Migrations
 
             modelBuilder.Entity("Trips.Models.LocationData", b =>
                 {
-                    b.HasOne("Trips.Models.Itinerary", null)
+                    b.HasOne("Trips.Models.Itinerary", "Itinerary")
                         .WithMany("LocationDatas")
                         .HasForeignKey("ItineraryId");
+
+                    b.Navigation("Itinerary");
                 });
 
             modelBuilder.Entity("Trips.Models.Itinerary", b =>

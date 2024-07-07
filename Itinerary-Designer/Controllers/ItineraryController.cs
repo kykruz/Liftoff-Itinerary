@@ -43,8 +43,13 @@ namespace Trips.Controllers
                         .AvailableLocations.Where(l => l.IsSelected)
                         .Select(l => new LocationData
                         {
-                            Id = l.Id,
+                           Id = l.Id,
                             Name = l.Name,
+                            Address = l.Address,
+                            Category = l.Category,
+                            PricePerPerson = l.PricePerPerson,
+                            Description = l.Description,
+                            Phone = l.Phone,
                             
                         })
                         .ToList()
