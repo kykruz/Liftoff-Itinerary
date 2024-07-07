@@ -1,30 +1,28 @@
 using System;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Trips.Models
 {
     public class Trip
     {
-        public string ItineraryName { get; set; }
+        public string TripName { get; set; }
 
         public int PeopleCount { get; set; }
 
         public double CalculatedCost { get; set; }
-        public List<string> SelectedEvents { get; set; } = new List<string>();
+        public List<SelectListItem>? Itineraries { get; set; } = new List<SelectListItem>();
+
+      
 
         public int Id { get; set; }
-        private static int nextId = 1;
+        
 
-        public Trip()
-        {
-            Id = nextId;
-            nextId++;
-        }
+        public Trip() {}
+        
 
         public Trip(string tripname)
         {
-            ItineraryName = tripname;
-            Id = nextId;
-            nextId++;
+            TripName = tripname;
         }
 
         public override int GetHashCode()
@@ -35,4 +33,3 @@ namespace Trips.Models
 }
 
 
-// https://github.com/Carolista/CodingEventsCSharp/tree/models

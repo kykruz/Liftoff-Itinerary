@@ -1,0 +1,19 @@
+@model List<Trips.Models.Itinerary>
+
+<h2>Created Itineraries</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <ul>
+        @foreach (var itinerary in Model)
+        {
+            <li>
+                <a asp-controller="Itinerary" asp-action="ViewLocations" asp-route-itineraryId="@itinerary.Id">@itinerary.Name</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No itineraries created yet.</p>
+}

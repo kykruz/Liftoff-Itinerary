@@ -1,0 +1,17 @@
+@using Trips.Models;
+
+@model IEnumerable<Review>;
+
+<h2>Review Post</h2>
+
+<a asp-action="Create">Create New Post</a>
+
+@foreach (var post in Model)
+{
+    <div>
+        <h3>@post.Title</h3>
+        <p>@post.Content</p>
+        <p>Author: @post.Author</p>
+        <p>Date: @post.PostedDate</p>
+    </div>
+}
