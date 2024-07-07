@@ -16,8 +16,8 @@ public class ReviewController : Controller
     }
     public IActionResult Index()
     {
-        var post = context.Reviews.ToList();
-        return View(post);
+        var review = context.Reviews.ToList();
+        return View(review);
     }
     public IActionResult Create()
     {
@@ -37,7 +37,8 @@ public class ReviewController : Controller
             
             context.Reviews.Add(review);
             await context.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            return Redirect("Index");
         }
         return View(viewModel);
     }

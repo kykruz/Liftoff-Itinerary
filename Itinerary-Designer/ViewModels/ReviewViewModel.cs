@@ -8,7 +8,7 @@ namespace Trips.ViewModels
     {
         public string? Author { get; set; }
         public List<Review>? Reviews { get; set; }
-        public string? Content { get; set; }
+        public string Content { get; set; }
     }
     
 }

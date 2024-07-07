@@ -10,7 +10,7 @@ public class Review
     [Required]
     public string? Author { get; set; }
     [Required]
-    public string? Content { get; set; }
+    public string Content { get; set; }
     [Display(Name = "Posted Date")]
     public DateTime PostedDate { get; set; }
     
