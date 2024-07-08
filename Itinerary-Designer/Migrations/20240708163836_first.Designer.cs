@@ -12,7 +12,7 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240707200113_first")]
+    [Migration("20240708163836_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -233,13 +233,35 @@ namespace Itinerary_Designer.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("Id"));
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.ToTable("Itineraries");
+                });
+
+            modelBuilder.Entity("Trips.Models.ItineraryLocationData", b =>
+                {
+                    b.Property<int>("ItineraryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocationDataId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ItineraryId", "LocationDataId");
+
+                    b.HasIndex("LocationDataId");
+
+                    b.ToTable("ItineraryLocationDatas");
                 });
 
             modelBuilder.Entity("Trips.Models.LocationData", b =>
@@ -379,18 +401,42 @@ namespace Itinerary_Designer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Trips.Models.LocationData", b =>
+            modelBuilder.Entity("Trips.Models.ItineraryLocationData", b =>
                 {
                     b.HasOne("Trips.Models.Itinerary", "Itinerary")
-                        .WithMany("LocationDatas")
-                        .HasForeignKey("ItineraryId");
+                        .WithMany("ItineraryLocationDatas")
+                        .HasForeignKey("ItineraryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Trips.Models.LocationData", "LocationData")
+                        .WithMany("ItineraryLocationDatas")
+                        .HasForeignKey("LocationDataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Itinerary");
+
+                    b.Navigation("LocationData");
+                });
+
+            modelBuilder.Entity("Trips.Models.LocationData", b =>
+                {
+                    b.HasOne("Trips.Models.Itinerary", null)
+                        .WithMany("LocationDatas")
+                        .HasForeignKey("ItineraryId");
                 });
 
             modelBuilder.Entity("Trips.Models.Itinerary", b =>
                 {
+                    b.Navigation("ItineraryLocationDatas");
+
                     b.Navigation("LocationDatas");
+                });
+
+            modelBuilder.Entity("Trips.Models.LocationData", b =>
+                {
+                    b.Navigation("ItineraryLocationDatas");
                 });
 #pragma warning restore 612, 618
         }

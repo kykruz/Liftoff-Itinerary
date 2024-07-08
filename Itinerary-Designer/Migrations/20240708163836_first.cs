@@ -76,6 +76,9 @@ namespace Itinerary_Designer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UserId = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -276,6 +279,31 @@ namespace Itinerary_Designer.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "ItineraryLocationDatas",
+                columns: table => new
+                {
+                    ItineraryId = table.Column<int>(type: "int", nullable: false),
+                    LocationDataId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItineraryLocationDatas", x => new { x.ItineraryId, x.LocationDataId });
+                    table.ForeignKey(
+                        name: "FK_ItineraryLocationDatas_Itineraries_ItineraryId",
+                        column: x => x.ItineraryId,
+                        principalTable: "Itineraries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItineraryLocationDatas_LocationDatas_LocationDataId",
+                        column: x => x.LocationDataId,
+                        principalTable: "LocationDatas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -314,6 +342,11 @@ namespace Itinerary_Designer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ItineraryLocationDatas_LocationDataId",
+                table: "ItineraryLocationDatas",
+                column: "LocationDataId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LocationDatas_ItineraryId",
                 table: "LocationDatas",
                 column: "ItineraryId");
@@ -338,7 +371,7 @@ namespace Itinerary_Designer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "LocationDatas");
+                name: "ItineraryLocationDatas");
 
             migrationBuilder.DropTable(
                 name: "Ratings");
@@ -351,6 +384,9 @@ namespace Itinerary_Designer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "LocationDatas");
 
             migrationBuilder.DropTable(
                 name: "Itineraries");
