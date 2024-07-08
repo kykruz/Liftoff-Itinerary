@@ -63,7 +63,8 @@ namespace Trips.Controllers
                     UserId = userId,
                     ItineraryLocationDatas = selectedLocationDatas
                         .Select(ld => new ItineraryLocationData { LocationData = ld })
-                        .ToList()
+                        .ToList(),
+                    Date = createItineraryViewModel.Date.Date
                 };
 
                 context.Itineraries.Add(itinerary);

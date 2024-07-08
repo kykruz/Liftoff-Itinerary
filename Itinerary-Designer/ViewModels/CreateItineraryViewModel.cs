@@ -3,6 +3,7 @@
 public class CreateItineraryViewModel
 {
     public string Name { get; set; }
+    public DateTime Date {get; set;}
     public List<LocationData> AvailableLocations { get; set; } 
     public List<int> SelectedLocationIds { get; set; } 
 
