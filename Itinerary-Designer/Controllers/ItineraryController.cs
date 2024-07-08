@@ -23,16 +23,7 @@ namespace Trips.Controllers
             return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            string userId = GetCurrentUserId();
-
-            List<Itinerary> itineraries = await context
-                .Itineraries.Where(i => i.UserId == userId)
-                .ToListAsync();
-
-            return View(itineraries);
-        }
+        
 
         [HttpGet]
         public IActionResult Create()
