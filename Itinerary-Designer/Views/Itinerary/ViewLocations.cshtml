@@ -1,5 +1,8 @@
 @model Trips.Models.Itinerary
 
+    <div>
+        <h2>@Model.Date.ToString("yyyy-MM-dd")</h2>
+    </div>
 <h2>Locations for Itinerary: @Model.Name</h2>
 
 @if (Model.ItineraryLocationDatas != null && Model.ItineraryLocationDatas.Any())
