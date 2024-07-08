@@ -34,7 +34,7 @@
             @for (int i = 1; i <= 5; i++)
             {
                 <input type="radio" id="star-@i" name="stars" value="@i" class="star @(i <= averageRating ? "selected" : "")" />
-                <label for="star-@i">&#9733;</label>
+                <label for="star-@i">@i&#9733;</label>
             }
         </div>
         <button type="submit">Submit Your Rating</button>
