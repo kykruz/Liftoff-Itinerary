@@ -36,18 +36,18 @@ namespace Trips.Controllers
             return View(itineraries);
         }
 
-       
         [HttpPost]
         public async Task<IActionResult> PreMade(int[] selectedItineraries)
         {
-       
             string userId = GetCurrentUserId();
 
             foreach (int itineraryId in selectedItineraries)
             {
-                var preMadeItinerary = PreMadeItineraries
-                    .GetPreMadeItineraries()
-                    .FirstOrDefault(i => i.Id == itineraryId);
+                List<Itinerary> preMadeItineraries = PreMadeItineraries.GetPreMadeItineraries();
+                Itinerary preMadeItinerary = preMadeItineraries.FirstOrDefault(i =>
+                    i.Id == itineraryId
+                );
+
                 if (preMadeItinerary != null)
                 {
                     List<LocationData> selectedLocationDatas = preMadeItinerary.LocationDatas;
@@ -56,11 +56,26 @@ namespace Trips.Controllers
                     {
                         Name = preMadeItinerary.Name,
                         UserId = userId,
-                        ItineraryLocationDatas = selectedLocationDatas
-                            .Select(ld => new ItineraryLocationData { LocationData = ld })
-                            .ToList(),
                         Date = DateTime.UtcNow
                     };
+
+                    foreach (LocationData locationData in selectedLocationDatas)
+                    {
+                        LocationData existingLocationData = await context.LocationDatas.FirstOrDefaultAsync(
+                            ld => ld.Id == locationData.Id
+                        );
+
+                        if (existingLocationData != null)
+                        {
+                            itinerary.ItineraryLocationDatas.Add(
+                                new ItineraryLocationData
+                                {
+                                    LocationDataId = existingLocationData.Id,
+                                    LocationData = existingLocationData
+                                }
+                            );
+                        }
+                    }
 
                     context.Itineraries.Add(itinerary);
                 }
