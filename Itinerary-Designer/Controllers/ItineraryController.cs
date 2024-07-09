@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
 
-// y
+
 namespace Trips.Controllers
 {
     [Authorize]
@@ -29,10 +29,46 @@ namespace Trips.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult PreMade()
         {
-            var itineraries = PreMadeItineraries.GetPreMadeItineraries();
+            List<Itinerary> itineraries = PreMadeItineraries.GetPreMadeItineraries();
             return View(itineraries);
+        }
+
+       
+        [HttpPost]
+        public async Task<IActionResult> PreMade(int[] selectedItineraries)
+        {
+       
+            string userId = GetCurrentUserId();
+
+            foreach (int itineraryId in selectedItineraries)
+            {
+                var preMadeItinerary = PreMadeItineraries
+                    .GetPreMadeItineraries()
+                    .FirstOrDefault(i => i.Id == itineraryId);
+                if (preMadeItinerary != null)
+                {
+                    List<LocationData> selectedLocationDatas = preMadeItinerary.LocationDatas;
+
+                    Itinerary itinerary = new Itinerary
+                    {
+                        Name = preMadeItinerary.Name,
+                        UserId = userId,
+                        ItineraryLocationDatas = selectedLocationDatas
+                            .Select(ld => new ItineraryLocationData { LocationData = ld })
+                            .ToList(),
+                        Date = DateTime.UtcNow 
+                    };
+
+                    context.Itineraries.Add(itinerary);
+                }
+            }
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Success");
         }
 
         [HttpGet]
