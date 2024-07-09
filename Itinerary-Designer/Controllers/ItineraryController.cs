@@ -108,8 +108,8 @@ namespace Trips.Controllers
             return View(itinerary);
         }
 
-        [HttpGet("delete")]
-        public IActionResult RenderDeleteItinerariesForm()
+        [HttpGet]
+        public IActionResult Delete()
         {
             string userId = GetCurrentUserId();
 
@@ -121,7 +121,7 @@ namespace Trips.Controllers
         }
 
         // Endpoint: POST http://localhost:5xxx/artworks/delete
-        [HttpPost("delete")]
+        [HttpPost]
         public async Task<IActionResult> Delete(int[] ItineraryIds)
         {
             foreach (int id in ItineraryIds)
