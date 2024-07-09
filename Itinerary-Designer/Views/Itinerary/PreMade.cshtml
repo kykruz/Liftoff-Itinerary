@@ -1,13 +1,17 @@
 @using Trips.Models
 
+@{
+    var preMadeItineraries = PreMadeItineraries.GetPreMadeItineraries();
+}
 
-<p>
-    @foreach (var itinerary in PreMadeItineraries.GetPreMadeItineraries())
+<form asp-action="PreMade" method="post">
+    @for (int i = 0; i < preMadeItineraries.Count; i++)
     {
         <div>
-            <h3>@itinerary.Name</h3>
+            <input type="checkbox" id="itinerary@i" name="selectedItineraries" value="@preMadeItineraries[i].Id">
+            <label for="itinerary@i"><strong>@preMadeItineraries[i].Name</strong></label>
             <ul>
-                @foreach (var location in itinerary.LocationDatas)
+                @foreach (var location in preMadeItineraries[i].LocationDatas)
                 {
                     <li>@location.Name - @location.Address</li>
                     <li>Category: @location.Category</li>
@@ -16,4 +20,6 @@
             </ul>
         </div>
     }
-</p>
+
+    <button type="submit">Submit Selected Itineraries</button>
+</form>
