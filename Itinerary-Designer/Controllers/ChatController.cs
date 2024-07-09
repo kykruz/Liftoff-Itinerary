@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -35,7 +36,13 @@ public async Task<IActionResult> Messaging()
   {
     if(ModelState.IsValid)
     {
-      
+       string userId = GetCurrentUserId();
+
+      List<Chat> chatLog = await context
+      .Chats.Where(ld =>
+       chatViewModel.Message.Contains(ld.UserId)
+       )
+       .ToListAsync();
     Chat chat = new Chat
     {
         Message = chatViewModel.Message,
