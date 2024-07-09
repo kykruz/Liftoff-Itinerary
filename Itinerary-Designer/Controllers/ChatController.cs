@@ -18,7 +18,8 @@ public class ChatController : Controller
 [HttpGet]
 public IActionResult Messaging()
   {
-    ChatViewModel chatViewModel = new ChatViewModel();
+    List<Chat?> chatLog = context.Chats.ToList();
+    ChatViewModel chatViewModel = new ChatViewModel(chatLog);
     return View(chatViewModel);
   }
         

@@ -1,3 +1,6 @@
+@using Trips.ViewModels;
+@using Trips.Models;
+@model ChatViewModel
 @{
     ViewData["Title"] = "Chat";
 }
@@ -7,6 +10,19 @@
         <label for="Message">Message:</label>
         <input type="text" id="Message" name="Message" class="form-control" />
     </div>
+    <br />
+    <div>
+    @foreach(Chat? chats in Model.ChatLog)
+    {
+        <div>
+            <label>
+                @chats.Message
+                @chats.Date
+            </label>
+        </div>
+    }
+</div>
+
     <br />
     <button type="submit" class="btn btn-primary">Send Message</button>
 </form>

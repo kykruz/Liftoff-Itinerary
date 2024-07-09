@@ -1,8 +1,19 @@
+using Trips.Models;
+
 namespace Trips.ViewModels;
 
 public class ChatViewModel
 {
     public string? Message { get; set; }
     public DateTime Date {get; set;}
+    public List<Chat?> ChatLog {get; set;}
+
+    public ChatViewModel (List<Chat?> chatLog)
+    {
+        ChatLog = chatLog;
+    }
+    public ChatViewModel ()
+    {
+    }
         
 }
