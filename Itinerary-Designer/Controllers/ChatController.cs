@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
 using Trips.ViewModels;
@@ -16,15 +17,15 @@ public class ChatController : Controller
   }
 
 [HttpGet]
-public IActionResult Messaging()
+public async Task<IActionResult> Messaging()
   {
-    List<Chat?> chatLog = context.Chats.ToList();
-    ChatViewModel chatViewModel = new ChatViewModel(chatLog);
+    List<Chat?> chatLog = await context.Chats.ToListAsync();
+    ChatViewModel chatViewModel = new ChatViewModel();
     return View(chatViewModel);
   }
         
 [HttpPost]
-  public IActionResult Messaging(ChatViewModel chatViewModel)
+  public async Task<IActionResult> Messaging(ChatViewModel chatViewModel)
   {
     if(ModelState.IsValid)
     {
@@ -34,9 +35,9 @@ public IActionResult Messaging()
         Date = DateTime.Now
     };
     context.Chats.Add(chat);
-    context.SaveChanges();
+    await context.SaveChangesAsync();
 
-    return View("Messaging");
+    return RedirectToAction("Messaging");
     }
 
     return View(chatViewModel);

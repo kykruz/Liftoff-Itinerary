@@ -8,12 +8,10 @@ public class ChatViewModel
     public DateTime Date {get; set;}
     public List<Chat?> ChatLog {get; set;}
 
-    public ChatViewModel (List<Chat?> chatLog)
-    {
-        ChatLog = chatLog;
-    }
     public ChatViewModel ()
     {
+        ChatLog = new List<Chat?>();
     }
+  
         
 }
