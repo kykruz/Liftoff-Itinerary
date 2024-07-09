@@ -1,6 +1,6 @@
 namespace Trips.Models;
 
-public static class PreMadeItineraries
+public class PreMadeItineraries
 {
 
 public static List<Itinerary> GetPreMadeItineraries()
@@ -54,7 +54,7 @@ public static List<Itinerary> GetPreMadeItineraries()
             
             new Itinerary
             {
-                Id = 1,
+                Id = 2,
                 Name = "Restaurant Tour",
                 LocationDatas = new List<LocationData>
                 {

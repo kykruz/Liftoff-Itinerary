@@ -37,6 +37,8 @@ namespace Trips.Data
                 .HasOne(il => il.LocationData)
                 .WithMany(ld => ld.ItineraryLocationDatas)
                 .HasForeignKey(il => il.LocationDataId);
+
+            
         }
     }
 }

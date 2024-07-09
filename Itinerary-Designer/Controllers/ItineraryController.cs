@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
+
 // y
 namespace Trips.Controllers
 {
-    [Authorize] 
+    [Authorize]
     public class ItineraryController : Controller
     {
         private readonly TripDbContext context;
@@ -23,7 +24,16 @@ namespace Trips.Controllers
             return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
         }
 
-        
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult PreMade()
+        {
+            var itineraries = PreMadeItineraries.GetPreMadeItineraries();
+            return View(itineraries);
+        }
 
         [HttpGet]
         public IActionResult Create()
@@ -64,7 +74,6 @@ namespace Trips.Controllers
                 return RedirectToAction("Success");
             }
 
-          
             createItineraryViewModel.AvailableLocations = context.LocationDatas.ToList();
             return View(createItineraryViewModel);
         }
@@ -103,7 +112,6 @@ namespace Trips.Controllers
         [HttpPost]
         public IActionResult Delete()
         {
-            
             return Redirect("/");
         }
     }

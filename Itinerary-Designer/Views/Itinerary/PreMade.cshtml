@@ -1,0 +1,19 @@
+@using Trips.Models
+
+
+<p>
+    @foreach (var itinerary in PreMadeItineraries.GetPreMadeItineraries())
+    {
+        <div>
+            <h3>@itinerary.Name</h3>
+            <ul>
+                @foreach (var location in itinerary.LocationDatas)
+                {
+                    <li>@location.Name - @location.Address</li>
+                    <li>Category: @location.Category</li>
+                    <li>Description: @location.Description</li>
+                }
+            </ul>
+        </div>
+    }
+</p>
