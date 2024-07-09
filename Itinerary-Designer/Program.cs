@@ -1,6 +1,8 @@
 using System;
 using Exchange.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 
@@ -12,28 +14,24 @@ var connectionString = "server=localhost;user=designer;password=K9l0m15?/;databa
 
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 37));
 
-builder.Services.AddDbContext<TripDbContext>(dbContextOptions => dbContextOptions.UseMySql(connectionString, serverVersion));
+builder.Services.AddDbContext<TripDbContext>(dbContextOptions =>
+    dbContextOptions.UseMySql(connectionString, serverVersion)
+);
+
 //--- end of connection syntax
 
-builder.Services.AddDefaultIdentity<IdentityUser>
-(options =>
-{
-   options.SignIn.RequireConfirmedAccount = false;
-   options.Password.RequireDigit = false;
-   options.Password.RequiredLength = 8;
-   options.Password.RequireNonAlphanumeric = false;
-   options.Password.RequireUppercase = false;
-   options.Password.RequireLowercase = false;
-}).AddEntityFrameworkStores<TripDbContext>();
-
-
-// var commentConnectionString = "server=localhost;user=designer;password=K9l0m15?/;database=comments";
-
-//  // Adjust this connection string as needed
-
-// builder.Services.AddDbContext<TripDbContext>(options =>
-//     options.UseMySql(commentConnectionString, serverVersion)
-// );
+builder
+    .Services.AddDefaultIdentity<IdentityUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 8;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<TripDbContext>();
 
 builder.Services.AddTransient<ExchangeRatesApiService>();
 
@@ -43,6 +41,35 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+   
+    var adminRoleExists = await roleManager.RoleExistsAsync("Admin");
+    if (!adminRoleExists)
+    {
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
+    }
+
+ 
+    var adminUser = await userManager.FindByEmailAsync("notkyle@notkyle.com");
+    if (adminUser == null)
+    {
+        adminUser = new IdentityUser
+        {
+            UserName = "admin@admin.com",
+            Email = "admin@admin.com"
+        };
+
+        await userManager.CreateAsync(adminUser, "adminadmin");
+
+        
+        await userManager.AddToRoleAsync(adminUser, "Admin");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
