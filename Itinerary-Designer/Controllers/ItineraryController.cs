@@ -122,7 +122,7 @@ namespace Trips.Controllers
 
         // Endpoint: POST http://localhost:5xxx/artworks/delete
         [HttpPost("delete")]
-        public async Task<IActionResult> ProcessDeleteIForm(int[] ItineraryIds)
+        public async Task<IActionResult> Delete(int[] ItineraryIds)
         {
             foreach (int id in ItineraryIds)
             {
