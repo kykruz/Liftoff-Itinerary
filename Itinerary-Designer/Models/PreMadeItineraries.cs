@@ -15,7 +15,6 @@ public static List<Itinerary> GetPreMadeItineraries()
                 {
                     new LocationData
                     {
-                        Id = 1,
                         Name = "Rio Novo",
                         Address = "Santa Croce, 278, 30135 Venezia VE, Italy",
                         Category = "Restaurant",
@@ -26,7 +25,6 @@ public static List<Itinerary> GetPreMadeItineraries()
 
                     new LocationData
                     {
-                        Id = 2,
                         Name = "Impronta",
                         Address = "Sestiere Dorsoduro, 3815, 30123 Venezia VE, Italy",
                         Category = "Restaurant",
@@ -37,7 +35,6 @@ public static List<Itinerary> GetPreMadeItineraries()
 
                     new LocationData
                     {
-                        Id = 3,
                         Name = "Osteria Antico Giardinetto",
                         Address = "Calle dei Morti, 2253, 30135 Venezia VE, Italy",
                         Category = "Restaurant",
@@ -60,7 +57,6 @@ public static List<Itinerary> GetPreMadeItineraries()
                 {
                     new LocationData
                     {
-                        Id = 1,
                         Name = "Rio Novo",
                         Address = "Santa Croce, 278, 30135 Venezia VE, Italy",
                         Category = "Restaurant",
