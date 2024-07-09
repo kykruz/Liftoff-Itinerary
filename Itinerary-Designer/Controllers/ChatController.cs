@@ -35,7 +35,7 @@ public IActionResult Messaging()
     context.Chats.Add(chat);
     context.SaveChanges();
 
-    return View("Chat");
+    return View("Messaging");
     }
 
     return View(chatViewModel);
