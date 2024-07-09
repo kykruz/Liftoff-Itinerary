@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
-// y
+
+
 namespace Trips.Controllers
 {
-    [Authorize] 
+    [Authorize]
     public class ItineraryController : Controller
     {
         private readonly TripDbContext context;
@@ -23,15 +24,51 @@ namespace Trips.Controllers
             return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult PreMade()
+        {
+            List<Itinerary> itineraries = PreMadeItineraries.GetPreMadeItineraries();
+            return View(itineraries);
+        }
+
+       
+        [HttpPost]
+        public async Task<IActionResult> PreMade(int[] selectedItineraries)
+        {
+       
             string userId = GetCurrentUserId();
 
-            List<Itinerary> itineraries = await context
-                .Itineraries.Where(i => i.UserId == userId)
-                .ToListAsync();
+            foreach (int itineraryId in selectedItineraries)
+            {
+                var preMadeItinerary = PreMadeItineraries
+                    .GetPreMadeItineraries()
+                    .FirstOrDefault(i => i.Id == itineraryId);
+                if (preMadeItinerary != null)
+                {
+                    List<LocationData> selectedLocationDatas = preMadeItinerary.LocationDatas;
 
-            return View(itineraries);
+                    Itinerary itinerary = new Itinerary
+                    {
+                        Name = preMadeItinerary.Name,
+                        UserId = userId,
+                        ItineraryLocationDatas = selectedLocationDatas
+                            .Select(ld => new ItineraryLocationData { LocationData = ld })
+                            .ToList(),
+                        Date = DateTime.UtcNow 
+                    };
+
+                    context.Itineraries.Add(itinerary);
+                }
+            }
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Success");
         }
 
         [HttpGet]
@@ -73,7 +110,6 @@ namespace Trips.Controllers
                 return RedirectToAction("Success");
             }
 
-          
             createItineraryViewModel.AvailableLocations = context.LocationDatas.ToList();
             return View(createItineraryViewModel);
         }
@@ -112,7 +148,6 @@ namespace Trips.Controllers
         [HttpPost]
         public IActionResult Delete()
         {
-            
             return Redirect("/");
         }
     }
