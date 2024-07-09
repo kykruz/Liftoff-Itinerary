@@ -20,7 +20,7 @@ public class ChatController : Controller
 public async Task<IActionResult> Messaging()
   {
     List<Chat?> chatLog = await context.Chats.ToListAsync();
-    ChatViewModel chatViewModel = new ChatViewModel();
+    ChatViewModel chatViewModel = new ChatViewModel(chatLog);
     return View(chatViewModel);
   }
         

@@ -12,6 +12,10 @@ public class ChatViewModel
     {
         ChatLog = new List<Chat?>();
     }
+    public ChatViewModel(List<Chat?> chatLog)
+    {
+        ChatLog = chatLog;
+    }
   
         
 }
