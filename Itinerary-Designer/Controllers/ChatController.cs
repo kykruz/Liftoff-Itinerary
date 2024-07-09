@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -7,10 +8,15 @@ using Trips.ViewModels;
 
 namespace Trips.Controllers;
 
+[Authorize]
 public class ChatController : Controller
 {
   private TripDbContext context;
 
+private string GetCurrentUserId()
+{
+ return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+}
   public ChatController(TripDbContext _context)
   {
     context = _context;
@@ -29,9 +35,11 @@ public async Task<IActionResult> Messaging()
   {
     if(ModelState.IsValid)
     {
+      
     Chat chat = new Chat
     {
         Message = chatViewModel.Message,
+        UserId = userId,
         Date = DateTime.Now
     };
     context.Chats.Add(chat);
