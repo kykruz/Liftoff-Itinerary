@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
 
-
 namespace Trips.Controllers
 {
     [Authorize]
@@ -145,10 +144,42 @@ namespace Trips.Controllers
             return View(itinerary);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete()
         {
+
+            string userId = GetCurrentUserId();
+
+            List<Itinerary> itineraries = context
+                .Itineraries.Where(i => i.UserId == userId)
+                .ToList();
+
+            return View("Delete", itineraries);
+        }
+
+        // Endpoint: POST http://localhost:5xxx/artworks/delete
+        [HttpPost]
+        public async Task<IActionResult> Delete(int[] ItineraryIds)
+        {
+            foreach (int id in ItineraryIds)
+            {
+                Itinerary? theItinerary = await context.Itineraries.FindAsync(id);
+                if (theItinerary != null)
+                {
+                    context.Itineraries.Remove(theItinerary); // remove one from list
+                }
+            }
+            await context.SaveChangesAsync(); // after all have been removed from the list
+
+            string userId = GetCurrentUserId();
+            List<Itinerary> itineraries = await context
+                .Itineraries.Where(i => i.UserId == userId)
+                .ToListAsync();
+
+            return View("Delete", itineraries);
+=======
             return Redirect("/");
+
         }
     }
 }
