@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<form asp-controller="Chat" asp-action="Messaging" method="Post">
+ <div class="form-group">
+        <label for="Message">Name:</label>
+        <input type="text" id="Message" name="Message" class="form-control" />
+    </div>
+</form>
