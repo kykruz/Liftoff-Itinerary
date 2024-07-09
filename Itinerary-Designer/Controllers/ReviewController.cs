@@ -7,7 +7,7 @@ using Trips.ViewModels;
 
 namespace Trips.Controllers;
 
-[Authorize(Roles = "Admin")]
+
 public class ReviewController : Controller
 {
     private readonly TripDbContext context;

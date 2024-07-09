@@ -52,7 +52,7 @@ public static List<Itinerary> GetPreMadeItineraries()
             new Itinerary
             {
                 Id = 2,
-                Name = "Restaurant Tour",
+                Name = "Bars on Bars",
                 LocationDatas = new List<LocationData>
                 {
                     new LocationData
@@ -63,8 +63,66 @@ public static List<Itinerary> GetPreMadeItineraries()
                         PricePerPerson = 18.50,
                         Description = "Compact hangout offering beer, sandwiches & snacks in a traditional, unpretentious atmosphere.",
                         Phone = "+39 041 524 2880"
-                    }
+                    },
                     
+                    new LocationData
+                    {
+                        Name = "Bar Longhi",
+                        Address = "Campiello Traghetto, 2467, 30124 Venezia VE, Italy",
+                        Category = "Bar",
+                        PricePerPerson = 19,
+                        Description = "Stylish, old-world hotel cocktail bar with views of the Grand Canal & city landmarks.",
+                        Phone = "+39 041 794611"
+                    },
+                    
+                    new LocationData
+                    {
+                        Name = "Il Mercante",
+                        Address = "Fondamenta Frari, 2564, 30125 Venezia VE, Italy",
+                        Category = "Bar",
+                        PricePerPerson = 20,
+                        Description = "Classy bar with an old-world style and sophisticated feel.",
+                        Phone = "+39 041 794611"
+                    }
+                }
+
+            },
+
+            new Itinerary
+            {
+                Id = 3,
+                Name = "Park Party",
+                LocationDatas = new List<LocationData>
+                {
+                    new LocationData
+                    {
+                        Name = "Venice Paw Park",
+                        Address = "Riva degli Schiavoni, 30303 Venezia VE, Italy",
+                        Category = "Park",
+                        PricePerPerson = 0,
+                        Description = "Fenced dog park with a beach with on-site parking, picnic tables, showers & drinking fountains.",
+                        Phone = "N/A"
+                    },
+                    
+                    new LocationData
+                    {
+                        Name = "Giardini Papadopoli",
+                        Address = "30135 Sestriere Santa Croce, Venezia Metropolitan City of Venice, Italy",
+                        Category = "Park",
+                        PricePerPerson = 0,
+                        Description = "Giardino Papadopoli is a terraced garden filled with shade trees in the Venetian sestiere of Santa Croce, between the Venezia Santa Lucia train station and Piazzale Roma.",
+                        Phone = "+39 041 274 8111"
+                    },
+                    
+                    new LocationData
+                    {
+                        Name = "Parco delle Rimembranze",
+                        Address = "Parco Rimembranze S.Elena, 30132 Venezia VE, Italy",
+                        Category = "Park",
+                        PricePerPerson = 0,
+                        Description = "Scenic retreat featuring grassy spaces, pathways, pine trees & benches facing the water.",
+                        Phone = "N/A"
+                    }
                 }
 
             }
