@@ -46,7 +46,7 @@ namespace Trips.Data
 
             // modelBuilder
             //     .Entity<ChatUser>()
-            //     .HasOne(ci => ci.UserId)
+            //     .HasOne(ci => ci.ChatUsers)
             //     .WithMany(ci => ci.ChatId)
             //     .HasForeignKey(il => il.UserId);
         }
