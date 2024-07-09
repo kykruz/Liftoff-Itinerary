@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
 using Trips.Models;
 using Trips.Data;
 using Trips.ViewModels;
 
 namespace Trips.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class ReviewController : Controller
 {
     private readonly TripDbContext context;

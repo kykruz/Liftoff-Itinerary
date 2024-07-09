@@ -59,7 +59,7 @@ namespace Trips.Controllers
                         ItineraryLocationDatas = selectedLocationDatas
                             .Select(ld => new ItineraryLocationData { LocationData = ld })
                             .ToList(),
-                        Date = DateTime.UtcNow 
+                        Date = DateTime.UtcNow
                     };
 
                     context.Itineraries.Add(itinerary);

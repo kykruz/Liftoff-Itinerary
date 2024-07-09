@@ -57,12 +57,12 @@ public static List<Itinerary> GetPreMadeItineraries()
                 {
                     new LocationData
                     {
-                        Name = "Rio Novo",
-                        Address = "Santa Croce, 278, 30135 Venezia VE, Italy",
-                        Category = "Restaurant",
-                        PricePerPerson = 25,
-                        Description = "Casual venue featuring seafood, pasta & pizzas, plus terrace dining with canal views.",
-                        Phone = "+39 041 711007"
+                        Name = "Irish Pub Santa Lucia",
+                        Address = "Rio Terà Lista di Spagna, Campo San Geremia, 282/b, 30121 Venezia VE, Italy",
+                        Category = "Bar",
+                        PricePerPerson = 18.50,
+                        Description = "Compact hangout offering beer, sandwiches & snacks in a traditional, unpretentious atmosphere.",
+                        Phone = "+39 041 524 2880"
                     }
                     
                 }
