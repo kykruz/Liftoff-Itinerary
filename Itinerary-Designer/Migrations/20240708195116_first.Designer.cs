@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240705203909_firstmigration")]
-    partial class firstmigration
+    [Migration("20240708195116_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,67 +24,6 @@ namespace Itinerary_Designer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("Itineraries.Models.Itinerary", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("LocationDatasId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LocationDatasId");
-
-                    b.ToTable("Itineraries");
-                });
-
-            modelBuilder.Entity("LocationDatay.Models.LocationData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsSelected")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<double>("PricePerPerson")
-                        .HasColumnType("double");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LocationDatas");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -286,7 +225,87 @@ namespace Itinerary_Designer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Ratings.Models.Rating", b =>
+            modelBuilder.Entity("Trips.Models.Itinerary", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int?>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Itineraries");
+                });
+
+            modelBuilder.Entity("Trips.Models.ItineraryLocationData", b =>
+                {
+                    b.Property<int>("ItineraryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocationDataId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ItineraryId", "LocationDataId");
+
+                    b.HasIndex("LocationDataId");
+
+                    b.ToTable("ItineraryLocationDatas");
+                });
+
+            modelBuilder.Entity("Trips.Models.LocationData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("ItineraryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("PricePerPerson")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItineraryId");
+
+                    b.ToTable("LocationDatas");
+                });
+
+            modelBuilder.Entity("Trips.Models.Rating", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -305,7 +324,7 @@ namespace Itinerary_Designer.Migrations
                     b.ToTable("Ratings");
                 });
 
-            modelBuilder.Entity("Reviews.Models.Review", b =>
+            modelBuilder.Entity("Trips.Models.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,7 +333,6 @@ namespace Itinerary_Designer.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Author")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Content")
@@ -325,23 +343,11 @@ namespace Itinerary_Designer.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("Itineraries.Models.Itinerary", b =>
-                {
-                    b.HasOne("LocationDatay.Models.LocationData", "LocationDatas")
-                        .WithMany()
-                        .HasForeignKey("LocationDatasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LocationDatas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -393,6 +399,44 @@ namespace Itinerary_Designer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Trips.Models.ItineraryLocationData", b =>
+                {
+                    b.HasOne("Trips.Models.Itinerary", "Itinerary")
+                        .WithMany("ItineraryLocationDatas")
+                        .HasForeignKey("ItineraryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Trips.Models.LocationData", "LocationData")
+                        .WithMany("ItineraryLocationDatas")
+                        .HasForeignKey("LocationDataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Itinerary");
+
+                    b.Navigation("LocationData");
+                });
+
+            modelBuilder.Entity("Trips.Models.LocationData", b =>
+                {
+                    b.HasOne("Trips.Models.Itinerary", null)
+                        .WithMany("LocationDatas")
+                        .HasForeignKey("ItineraryId");
+                });
+
+            modelBuilder.Entity("Trips.Models.Itinerary", b =>
+                {
+                    b.Navigation("ItineraryLocationDatas");
+
+                    b.Navigation("LocationDatas");
+                });
+
+            modelBuilder.Entity("Trips.Models.LocationData", b =>
+                {
+                    b.Navigation("ItineraryLocationDatas");
                 });
 #pragma warning restore 612, 618
         }

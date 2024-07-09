@@ -78,6 +78,15 @@ namespace Trips.Controllers
             return View(createItineraryViewModel);
         }
 
+        // [HttpGet]
+        // public IActionResult Create()
+        // {
+        //     CreateItineraryViewModel viewModel = new CreateItineraryViewModel();
+
+        //     viewModel.AvailableLocations = context.LocationDatas.ToList();
+
+        //     return View(viewModel);
+        // }
         public async Task<IActionResult> Success()
         {
             string userId = GetCurrentUserId();
@@ -109,11 +118,30 @@ namespace Trips.Controllers
             return View(itinerary);
         }
 
-        [HttpPost]
-        public IActionResult Delete()
+          [HttpGet("delete")]
+    public IActionResult RenderDeleteItinerariesForm()
+    {
+        string userId = GetCurrentUserId();
+
+        List<Itinerary> itineraries = context.Itineraries.Where(i => i.UserId == userId).ToList();
+
+        return View("Delete", itineraries);
+    }
+
+    // Endpoint: POST http://localhost:5xxx/artworks/delete
+    [HttpPost("delete")]
+    public IActionResult ProcessDeleteIForm(int[] ItineraryIds)
+    {
+        foreach (int id in ItineraryIds)
         {
-            
-            return Redirect("/");
+            Itineraries? theItinerary = context.Itineraries.Find(id);
+            if (theItinerary != null)
+            {
+                context.Itineraries.Remove(theItinerary); // remove one from list
+            }
         }
+        context.SaveChanges(); // after all have been removed from the list
+        return View(itineraries);
+    }
     }
 }
