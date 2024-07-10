@@ -44,10 +44,6 @@ namespace Trips.Data
                 .Entity<ChatUser>()
                 .HasKey(ci => new { ci.ChatId, ci.UserId });
 
-            // modelBuilder
-            //     .Entity<Image>()
-            //     .HasOne(i => i.ImageFile)
-            //     .WithMany(i => i.Review);
         }
     }
 }

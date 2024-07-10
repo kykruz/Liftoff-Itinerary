@@ -2,7 +2,7 @@
 @model Trips.ViewModels.ReviewViewModel
 
 
-<form asp-controller="Review" asp-action="Create" method="post">
+<form asp-controller="Review" asp-action="Create" method="post" enctype="multipart/form-data">
         <div class="form-group">
                 <label asp-for="Author"></label>
                 <input asp-for="Author" class="form-control" />
@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
                 <label asp-for="ImageFile"></label>
-                <input name="ImageFile" type="file" class="form-control" />
+                <input asp-for="ImageFile" type="file" class="form-control" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
         </div>
         <input type="submit" value="Submit" class="btn btn-primary" />
