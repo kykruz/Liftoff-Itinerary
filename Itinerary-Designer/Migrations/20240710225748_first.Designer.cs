@@ -12,7 +12,7 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240710211954_first")]
+    [Migration("20240710225748_first")]
     partial class first
     {
         /// <inheritdoc />
