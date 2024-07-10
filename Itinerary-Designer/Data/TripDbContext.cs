@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Trips.Models;
-using Trips.Models;
 
 namespace Trips.Data
 {
@@ -16,10 +15,12 @@ namespace Trips.Data
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<ItineraryLocationData> ItineraryLocationDatas { get; set; }
-        // public DbSet<ChatUser> ChatUsers { get; set; }
+
 
         public TripDbContext(DbContextOptions<TripDbContext> options)
-            : base(options) { }
+            : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,11 +45,6 @@ namespace Trips.Data
                 .Entity<ChatUser>()
                 .HasKey(ci => new { ci.ChatId, ci.UserId });
 
-            // modelBuilder
-            //     .Entity<ChatUser>()
-            //     .HasOne(ci => ci.ChatUsers)
-            //     .WithMany(ci => ci.ChatId)
-            //     .HasForeignKey(il => il.UserId);
         }
     }
 }

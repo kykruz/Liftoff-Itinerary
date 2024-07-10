@@ -157,7 +157,6 @@ namespace Trips.Controllers
             return View("Delete", itineraries);
         }
 
-        // Endpoint: POST http://localhost:5xxx/artworks/delete
         [HttpPost]
         public async Task<IActionResult> Delete(int[] ItineraryIds)
         {
