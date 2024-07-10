@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using Exchange.Services;
 using Itinerary_Designer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Trips.Models;
 
 namespace Trips.Controllers;
 // branchstuf

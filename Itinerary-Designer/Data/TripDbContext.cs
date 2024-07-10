@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Trips.Models;
-using Trips.Models;
 
 namespace Trips.Data
 {
@@ -19,7 +18,9 @@ namespace Trips.Data
         
 
         public TripDbContext(DbContextOptions<TripDbContext> options)
-            : base(options) { }
+            : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
