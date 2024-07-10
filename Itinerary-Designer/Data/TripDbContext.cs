@@ -15,7 +15,7 @@ namespace Trips.Data
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<ItineraryLocationData> ItineraryLocationDatas { get; set; }
-        
+
 
         public TripDbContext(DbContextOptions<TripDbContext> options)
             : base(options)
@@ -45,7 +45,6 @@ namespace Trips.Data
                 .Entity<ChatUser>()
                 .HasKey(ci => new { ci.ChatId, ci.UserId });
 
-         
         }
     }
 }
