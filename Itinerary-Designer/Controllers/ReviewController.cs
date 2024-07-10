@@ -46,7 +46,7 @@ namespace Trips.Controllers
         [Route("Review/Create")]
         public IActionResult Create(ReviewViewModel reviewViewModel)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
                 var review = new Review
                 {
