@@ -13,8 +13,7 @@ namespace Trips.ViewModels
         
         public string Content { get; set; }
         public DateTime PostedDate { get; set; }
-        // public List<Review>? Reviews { get; set; }
-
+        
         public ReviewViewModel() {}
     }
     
