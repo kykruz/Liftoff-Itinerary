@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Trips.Models;
 using Trips.Data;
+using System.Linq;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Trips.ViewModels;
@@ -11,22 +13,27 @@ using Trips.ViewModels;
 namespace Trips.Controllers
 {
     // [Authorize(Roles = "Admin")]
-    public class UserController : Controller
+     public class UserController : Controller
     {
-        private readonly TripDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserController(TripDbContext context)
+        public UserController(UserManager<IdentityUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
-{
-    // Retrieve all users from the AspNetUsers table asynchronously
-    List<User> users = await _context.Users.ToListAsync();
+        {
+            var identityUsers = _userManager.Users.ToList();
+            var users = identityUsers.Select(u => new UserViewModel
+            {
+                Id = u.Id,
+                Username = u.UserName,
+                Email = u.Email
+                // Map other properties as needed
+            }).ToList();
 
-    // Pass the list of users to the view
-    return View(users);
-}
+            return View(users); // Ensure your view expects a list of UserViewModel
+        }
     }
 }

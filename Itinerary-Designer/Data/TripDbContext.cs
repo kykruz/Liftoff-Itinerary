@@ -9,7 +9,7 @@ using Trips.Models;
 
 namespace Trips.Data
 {
-    public class TripDbContext : IdentityDbContext<User, IdentityRole, string>
+    public class TripDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         public DbSet<Itinerary> Itineraries { get; set; }
         public DbSet<LocationData> LocationDatas { get; set; }
@@ -19,23 +19,22 @@ namespace Trips.Data
         public DbSet<ItineraryLocationData> ItineraryLocationDatas { get; set; }
 
         public TripDbContext(DbContextOptions<TripDbContext> options)
-            : base(options) { }
+            : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Composite primary key for ItineraryLocationData
             modelBuilder.Entity<ItineraryLocationData>()
                 .HasKey(il => new { il.ItineraryId, il.LocationDataId });
 
-            // Defining relationship between ItineraryLocationData and Itinerary
             modelBuilder.Entity<ItineraryLocationData>()
                 .HasOne(il => il.Itinerary)
                 .WithMany(i => i.ItineraryLocationDatas)
                 .HasForeignKey(il => il.ItineraryId);
 
-            // Defining relationship between ItineraryLocationData and LocationData
             modelBuilder.Entity<ItineraryLocationData>()
                 .HasOne(il => il.LocationData)
                 .WithMany(ld => ld.ItineraryLocationDatas)
@@ -43,4 +42,3 @@ namespace Trips.Data
         }
     }
 }
-
