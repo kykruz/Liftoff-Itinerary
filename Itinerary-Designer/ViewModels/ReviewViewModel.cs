@@ -15,6 +15,7 @@ namespace Trips.ViewModels
         public IFormFile ImageFile { get; set; }
         
         public DateTime PostedDate { get; set; }
+        public string ImagePath { get; set; }
         
         public ReviewViewModel() {}
     }
