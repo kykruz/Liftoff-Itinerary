@@ -15,6 +15,7 @@ public static List<Itinerary> GetPreMadeItineraries()
                 {
                     new LocationData
                     {
+                        Id = 1,
                         Name = "Rio Novo",
                         Address = "Santa Croce, 278, 30135 Venezia VE, Italy",
                         Category = "Restaurant",
@@ -25,6 +26,7 @@ public static List<Itinerary> GetPreMadeItineraries()
 
                     new LocationData
                     {
+                        Id = 2,
                         Name = "Impronta",
                         Address = "Sestiere Dorsoduro, 3815, 30123 Venezia VE, Italy",
                         Category = "Restaurant",
@@ -35,6 +37,7 @@ public static List<Itinerary> GetPreMadeItineraries()
 
                     new LocationData
                     {
+                        Id = 3,
                         Name = "Osteria Antico Giardinetto",
                         Address = "Calle dei Morti, 2253, 30135 Venezia VE, Italy",
                         Category = "Restaurant",
@@ -57,6 +60,7 @@ public static List<Itinerary> GetPreMadeItineraries()
                 {
                     new LocationData
                     {
+                        Id = 4,
                         Name = "Irish Pub Santa Lucia",
                         Address = "Rio Terà Lista di Spagna, Campo San Geremia, 282/b, 30121 Venezia VE, Italy",
                         Category = "Bar",
@@ -67,6 +71,7 @@ public static List<Itinerary> GetPreMadeItineraries()
                     
                     new LocationData
                     {
+                        Id = 5,
                         Name = "Bar Longhi",
                         Address = "Campiello Traghetto, 2467, 30124 Venezia VE, Italy",
                         Category = "Bar",
@@ -77,6 +82,7 @@ public static List<Itinerary> GetPreMadeItineraries()
                     
                     new LocationData
                     {
+                        Id = 6,
                         Name = "Il Mercante",
                         Address = "Fondamenta Frari, 2564, 30125 Venezia VE, Italy",
                         Category = "Bar",
