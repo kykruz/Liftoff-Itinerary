@@ -16,7 +16,7 @@ namespace Trips.Data
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<ItineraryLocationData> ItineraryLocationDatas { get; set; }
-        // public DbSet<ChatUser> ChatUsers { get; set; }
+        
 
         public TripDbContext(DbContextOptions<TripDbContext> options)
             : base(options) { }
@@ -44,11 +44,7 @@ namespace Trips.Data
                 .Entity<ChatUser>()
                 .HasKey(ci => new { ci.ChatId, ci.UserId });
 
-            // modelBuilder
-            //     .Entity<ChatUser>()
-            //     .HasOne(ci => ci.ChatUsers)
-            //     .WithMany(ci => ci.ChatId)
-            //     .HasForeignKey(il => il.UserId);
+         
         }
     }
 }
