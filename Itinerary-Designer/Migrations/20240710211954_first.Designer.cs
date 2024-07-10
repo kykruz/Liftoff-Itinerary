@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240709214949_chat")]
-    partial class chat
+    [Migration("20240710211954_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -258,6 +258,9 @@ namespace Itinerary_Designer.Migrations
 
                     b.HasKey("ChatId", "UserId");
 
+                    b.HasIndex("ChatId")
+                        .IsUnique();
+
                     b.ToTable("ChatUser");
                 });
 
@@ -375,6 +378,9 @@ namespace Itinerary_Designer.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("PostedDate")
                         .HasColumnType("datetime(6)");
 
@@ -440,8 +446,8 @@ namespace Itinerary_Designer.Migrations
             modelBuilder.Entity("Trips.Models.ChatUser", b =>
                 {
                     b.HasOne("Trips.Models.Chat", "ChatLog")
-                        .WithMany()
-                        .HasForeignKey("ChatId")
+                        .WithOne("ChatUsers")
+                        .HasForeignKey("Trips.Models.ChatUser", "ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -472,6 +478,12 @@ namespace Itinerary_Designer.Migrations
                     b.HasOne("Trips.Models.Itinerary", null)
                         .WithMany("LocationDatas")
                         .HasForeignKey("ItineraryId");
+                });
+
+            modelBuilder.Entity("Trips.Models.Chat", b =>
+                {
+                    b.Navigation("ChatUsers")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Trips.Models.Itinerary", b =>

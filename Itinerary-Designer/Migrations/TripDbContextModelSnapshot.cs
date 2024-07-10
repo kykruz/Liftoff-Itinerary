@@ -376,7 +376,6 @@ namespace Itinerary_Designer.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("PostedDate")

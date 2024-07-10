@@ -6,15 +6,19 @@ using Trips.Data;
 using Trips.Models;
 using Trips.ViewModels;
 
+using Microsoft.AspNetCore.Hosting;
+
 namespace Trips.Controllers
 {
     public class ReviewController : Controller
     {
         private readonly TripDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ReviewController(TripDbContext context)
+        public ReviewController(TripDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
@@ -27,7 +31,7 @@ namespace Trips.Controllers
                     Title = r.Title,
                     Content = r.Content,
                     PostedDate = r.PostedDate,
-                    ImagePath = r.ImagePath // Ensure you map ImagePath if needed
+                    ImagePath = r.ImagePath 
                 })
                 .ToList();
 
@@ -35,7 +39,6 @@ namespace Trips.Controllers
         }
 
         [HttpGet]
-        [Route("Review/Create")]
         public IActionResult Create()
         {
             var reviewViewModel = new ReviewViewModel();
@@ -43,10 +46,9 @@ namespace Trips.Controllers
         }
 
         [HttpPost]
-        [Route("Review/Create")]
         public IActionResult Create(ReviewViewModel reviewViewModel)
         {
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var review = new Review
                 {
@@ -56,37 +58,31 @@ namespace Trips.Controllers
                     PostedDate = DateTime.Now
                 };
 
-                // Save the review entity to the database
+                
                 _context.Reviews.Add(review);
                 _context.SaveChanges();
 
-                // Handle file upload if there is a file
+               
                 if (reviewViewModel.ImageFile != null && reviewViewModel.ImageFile.Length > 0)
                 {
-                    var fileName = Path.GetFileName(reviewViewModel.ImageFile.FileName);
-                    var filePath = Path.Combine(
-                        Directory.GetCurrentDirectory(),
-                        "wwwroot/images",
-                        fileName
-                    );
+                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                    var fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(reviewViewModel.ImageFile.FileName);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         reviewViewModel.ImageFile.CopyTo(stream);
                     }
 
-                    // Update the review entity with the image path
-
+                    
                     review.ImagePath = "/images/" + fileName;
                     _context.SaveChanges(); 
-                    
-                    // Save changes to update the review entity with the image path
                 }
 
                 return RedirectToAction("Details", new { id = review.Id });
             }
 
-            // If ModelState is not valid, return the view with the same ViewModel
+            
             return View("Create", reviewViewModel);
         }
 
@@ -96,7 +92,7 @@ namespace Trips.Controllers
 
             if (review == null)
             {
-                return NotFound(); // Incase if review with given id is not found
+                return NotFound(); 
             }
 
             var reviewViewModel = new ReviewViewModel
@@ -105,7 +101,7 @@ namespace Trips.Controllers
                 Title = review.Title,
                 Content = review.Content,
                 PostedDate = review.PostedDate,
-                ImagePath = review.ImagePath // map imagepath if needed
+                ImagePath = review.ImagePath 
             };
 
             return View(reviewViewModel);
