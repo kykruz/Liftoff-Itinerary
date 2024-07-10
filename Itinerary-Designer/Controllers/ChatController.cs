@@ -24,12 +24,15 @@ private string GetCurrentUserId()
   }
 
 [HttpGet]
-public async Task<IActionResult> Messaging()
-  {
-    List<Chat?> chatLog = await context.Chats.ToListAsync();
-    ChatViewModel chatViewModel = new ChatViewModel(chatLog);
-    return View(chatViewModel);
-  }
+    public async Task<IActionResult> Messaging()
+    {
+        string userId = GetCurrentUserId();
+        List<Chat> chatLog = await context.Chats
+            .Where(c => c.UserId == userId)
+            .ToListAsync();
+        ChatViewModel chatViewModel = new ChatViewModel(chatLog);
+        return View(chatViewModel);
+    }
         
 [HttpPost]
   public async Task<IActionResult> Messaging(ChatViewModel chatViewModel)
@@ -38,11 +41,6 @@ public async Task<IActionResult> Messaging()
     {
        string userId = GetCurrentUserId();
 
-      List<Chat> chatLog = await context
-      .Chats.Where(ld =>
-       chatViewModel.Message.Contains(ld.UserId)
-       )
-       .ToListAsync();
     Chat chat = new Chat
     {
         Message = chatViewModel.Message,
