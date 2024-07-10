@@ -10,7 +10,7 @@ using Trips.ViewModels;
 
 namespace Trips.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly TripDbContext _context;
@@ -21,9 +21,12 @@ namespace Trips.Controllers
         }
 
         public async Task<IActionResult> Index()
-        {
-            List<User> users = await _context.Users.ToListAsync();
-            return View(users);
-        }
+{
+    // Retrieve all users from the AspNetUsers table asynchronously
+    List<User> users = await _context.Users.ToListAsync();
+
+    // Pass the list of users to the view
+    return View(users);
+}
     }
 }
