@@ -12,7 +12,7 @@ using Trips.ViewModels;
 
 namespace Trips.Controllers
 {
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
      public class UserController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
