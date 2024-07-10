@@ -8,6 +8,4 @@ public class Chat
     public string UserId { get; set; }
     public ChatUser ChatUsers {get; set;}
 
-        
-
 }
