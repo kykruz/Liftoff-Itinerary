@@ -12,7 +12,6 @@ public class Review
     public string? Author { get; set; }
     
     public string Content { get; set; }
-    public byte[]? ImageFile { get; set; }
     
     public DateTime PostedDate { get; set; }
     public string ImagePath { get; set; }

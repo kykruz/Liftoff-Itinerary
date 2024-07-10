@@ -13,6 +13,7 @@ public class Image
     
     public string Content { get; set; }
     public Image images { get; set; }
+    public IFormFile ImageFile { get; set; }
     
     public DateTime PostedDate { get; set; }
     
@@ -20,11 +21,12 @@ public class Image
     {
         PostedDate = DateTime.UtcNow;
     }
-    public Image(string title, string author, string content, Image image)
+    public Image(string title, string author, string content)
     {
         Title = title;
         Author = author;
         Content = content;
+        
     }
     
 }

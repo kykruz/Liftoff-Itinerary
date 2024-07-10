@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Trips.Models;
-using Trips.Models;
+
 
 namespace Trips.Data
 {
@@ -44,7 +44,10 @@ namespace Trips.Data
                 .Entity<ChatUser>()
                 .HasKey(ci => new { ci.ChatId, ci.UserId });
 
-         
+            // modelBuilder
+            //     .Entity<Image>()
+            //     .HasOne(i => i.ImageFile)
+            //     .WithMany(i => i.Review);
         }
     }
 }
