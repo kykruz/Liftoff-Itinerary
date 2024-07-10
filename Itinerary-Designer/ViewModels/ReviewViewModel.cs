@@ -12,6 +12,8 @@ namespace Trips.ViewModels
         public string? Title { get; set; }
         
         public string Content { get; set; }
+        public IFormFile ImageFile { get; set; }
+        
         public DateTime PostedDate { get; set; }
         
         public ReviewViewModel() {}

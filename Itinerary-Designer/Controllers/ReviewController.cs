@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Trips.Models;
 using Trips.Data;
 using Trips.ViewModels;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace Trips.Controllers;
 
@@ -42,13 +43,25 @@ public class ReviewController : Controller
             Review review = new Review
             {
                 Author = reviewViewModel.Author,
+                Title = reviewViewModel.Title,
                 Content = reviewViewModel.Content,
-                PostedDate = DateTime.Now,
-                Title = reviewViewModel.Title
+                PostedDate = DateTime.Now
             };
             
             context.Reviews.Add(review);
             context.SaveChanges();
+
+            if (reviewViewModel.ImageFile != null && reviewViewModel.ImageFile.Length > 0)
+            {
+                var fileName = Path.GetFileName(reviewViewModel.ImageFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    reviewViewModel.ImageFile.CopyTo(stream);
+                }
+                review.ImagePath = "/images/" + fileName;
+            }
 
             return Redirect("Create");
         }
