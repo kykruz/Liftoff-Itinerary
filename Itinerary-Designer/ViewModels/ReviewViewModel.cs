@@ -12,9 +12,11 @@ namespace Trips.ViewModels
         public string? Title { get; set; }
         
         public string Content { get; set; }
+        public IFormFile ImageFile { get; set; }
+        
         public DateTime PostedDate { get; set; }
-        // public List<Review>? Reviews { get; set; }
-
+        public string ImagePath { get; set; }
+        
         public ReviewViewModel() {}
     }
     
