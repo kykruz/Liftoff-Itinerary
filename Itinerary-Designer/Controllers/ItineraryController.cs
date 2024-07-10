@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
 
-// y
+
 namespace Trips.Controllers
 {
     [Authorize]
