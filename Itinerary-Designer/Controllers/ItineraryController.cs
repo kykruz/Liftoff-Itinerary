@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -35,11 +37,9 @@ namespace Trips.Controllers
             return View(itineraries);
         }
 
-       
         [HttpPost]
         public async Task<IActionResult> PreMade(int[] selectedItineraries)
         {
-       
             string userId = GetCurrentUserId();
 
             foreach (int itineraryId in selectedItineraries)
@@ -75,6 +75,13 @@ namespace Trips.Controllers
         {
             CreateItineraryViewModel viewModel = new CreateItineraryViewModel();
 
+            // Fetch distinct categories from LocationDatas
+            viewModel.AvailableCategories = context.LocationDatas
+                .Select(ld => ld.Category)
+                .Distinct()
+                .ToList();
+
+            // Initially load all locations
             viewModel.AvailableLocations = context.LocationDatas.ToList();
 
             return View(viewModel);
@@ -87,9 +94,12 @@ namespace Trips.Controllers
             {
                 string userId = GetCurrentUserId();
 
+                // Filter locations by selected categories
                 List<LocationData> selectedLocationDatas = await context
-                    .LocationDatas.Where(ld =>
-                        createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
+                    .LocationDatas
+                    .Where(ld =>
+                        createItineraryViewModel.SelectedLocationIds.Contains(ld.Id) &&
+                        createItineraryViewModel.SelectedCategories.Contains(ld.Category)
                     )
                     .ToListAsync();
 
@@ -109,7 +119,13 @@ namespace Trips.Controllers
                 return RedirectToAction("Success");
             }
 
+            // Reload available categories and locations
+            createItineraryViewModel.AvailableCategories = context.LocationDatas
+                .Select(ld => ld.Category)
+                .Distinct()
+                .ToList();
             createItineraryViewModel.AvailableLocations = context.LocationDatas.ToList();
+
             return View(createItineraryViewModel);
         }
 
@@ -147,7 +163,6 @@ namespace Trips.Controllers
         [HttpGet]
         public IActionResult Delete()
         {
-
             string userId = GetCurrentUserId();
 
             List<Itinerary> itineraries = context
@@ -176,8 +191,6 @@ namespace Trips.Controllers
                 .ToListAsync();
 
             return View("Delete", itineraries);
-
-
         }
     }
 }
