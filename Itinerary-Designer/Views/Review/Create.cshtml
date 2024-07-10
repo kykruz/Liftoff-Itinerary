@@ -18,11 +18,20 @@
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
         </div>
+        @if (Model.ImageFile == null)
+        {
         <div class="form-group">
                 <label asp-for="ImageFile"></label>
                 <input asp-for="ImageFile" type="file" class="form-control" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
         </div>
-        
+        }
+        else
+        {
+         <div class="form-group">
+            <label>Uploaded File:</label>
+            <p>@Model.ImageFile.FileName</p>
+        </div>
+        }
         <input type="submit" value="Submit" class="btn btn-primary" />
 </form>
