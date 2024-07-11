@@ -1,8 +1,9 @@
 @model Trips.Models.Itinerary
 
-    <div>
-        <h2>@Model.Date.ToString("yyyy-MM-dd")</h2>
-    </div>
+<div>
+    <h2>@Model.Date.ToString("yyyy-MM-dd")</h2>
+</div>
+
 <h2>Locations for Itinerary: @Model.Name</h2>
 
 @if (Model.ItineraryLocationDatas != null && Model.ItineraryLocationDatas.Any())
@@ -16,10 +17,26 @@
                 <p>Address: @il.LocationData.Address</p>
                 <p>Category: @il.LocationData.Category</p>
                 <p>Phone Number: @il.LocationData.Phone</p>
-                <p>Price Per Person: $@il.LocationData.PricePerPerson</p>
+                <p>Price Per Person: $@il.LocationData.PricePerPerson.ToString("0.00")</p>
             </li>
         }
     </ul>
+
+    <div>
+        @* Display Total Cost if calculated *@
+        @if (Model.TotalCostForAllPeople != 0)  // Check if total cost has been set
+        {
+            <div>
+                <h3>Total Cost for @Model.NumberOfPeople People: @(Model.TotalCostForAllPeople * Model.NumberOfPeople).ToString("C")</h3>
+            </div>
+        }
+        else
+        {
+            <div>
+                <h3>Total Cost for @Model.NumberOfPeople People: Calculation Pending</h3>
+            </div>
+        }
+    </div>
 }
 else
 {

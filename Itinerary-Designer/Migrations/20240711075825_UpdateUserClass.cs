@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Itinerary_Designer.Migrations
 {
     /// <inheritdoc />
-    public partial class chat : Migration
+    public partial class UpdateUserClass : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -97,7 +97,10 @@ namespace Itinerary_Designer.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserId = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TotalCostForAllLocations = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    TotalCostForAllPeople = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    NumberOfPeople = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,7 +135,9 @@ namespace Itinerary_Designer.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Content = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PostedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    PostedDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ImagePath = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -377,6 +382,12 @@ namespace Itinerary_Designer.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChatUser_ChatId",
+                table: "ChatUser",
+                column: "ChatId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

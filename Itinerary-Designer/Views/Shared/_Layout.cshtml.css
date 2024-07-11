@@ -1,6 +1,4 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
+﻿/* Styles for links */
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -8,7 +6,12 @@ a.navbar-brand {
 }
 
 a {
-  color: #0077cc;
+  color: #87B4DD; /* Default link color */
+  text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+  color: #0077cc; /* Hover color */
 }
 
 .btn-primary {
@@ -17,7 +20,8 @@ a {
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
@@ -26,12 +30,13 @@ a {
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 .25rem .75rem rgba(215, 228, 231, 0.637);
 }
 
 button.accept-policy {
@@ -46,3 +51,18 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+/* Custom link styles for .txt-light-blue class */
+.txt-light-blue {
+  color: #6d366e; /* Default text color set to purple */
+  text-decoration: none; /* Remove underline */
+}
+
+.txt-light-blue:hover {
+  color: #0077cc; /* Hover color */
+}
+
+.txt-light-blue:visited {
+  color: #ffffff; /* Text color for visited links (white) */
+}
+

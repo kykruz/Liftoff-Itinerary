@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Trips.Models;
 
-
 namespace Trips.Data
 {
     public class TripDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
@@ -16,10 +15,12 @@ namespace Trips.Data
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<ItineraryLocationData> ItineraryLocationDatas { get; set; }
-        
+
 
         public TripDbContext(DbContextOptions<TripDbContext> options)
-            : base(options) { }
+            : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

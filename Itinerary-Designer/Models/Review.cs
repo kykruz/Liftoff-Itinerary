@@ -14,7 +14,7 @@ public class Review
     public string Content { get; set; }
     
     public DateTime PostedDate { get; set; }
-    public string ImagePath { get; set; }
+    public string? ImagePath { get; set; }
     
     public Review()
     {

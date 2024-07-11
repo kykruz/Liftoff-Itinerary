@@ -276,6 +276,15 @@ namespace Itinerary_Designer.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("NumberOfPeople")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalCostForAllLocations")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("TotalCostForAllPeople")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -376,7 +385,6 @@ namespace Itinerary_Designer.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("PostedDate")

@@ -6,6 +6,21 @@
     <div class="form-group">
         <label for="Name">Name:</label>
         <input type="text" id="Name" name="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Select Categories:</label><br />
+        @foreach (var category in Model.AvailableCategories)
+        {
+            bool isChecked = Model.SelectedCategories.Contains(category);
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="SelectedCategories" value="@category" checked="@isChecked" />
+                    @category
+                </label>
+            </div>
+        }
     </div>
 
     <div class="form-group">
@@ -13,18 +28,70 @@
         @foreach (var location in Model.AvailableLocations)
         {
             bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
-            <div class="checkbox">
+            <div class="checkbox location-checkbox" data-category="@location.Category">
                 <label>
                     <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
-                    @location.Name 
+                    @location.Name
                 </label>
             </div>
         }
+        <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
     </div>
+
+    <div class="form-group">
+        <label for="NumberOfPeople">Number of People:</label>
+        <input type="number" id="NumberOfPeople" name="NumberOfPeople" class="form-control" min="1" max="10" value="@Model.NumberOfPeople" />
+    </div>
+
     <div class="form-group">
         <label for="Date">Date:</label>
         <input type="date" id="Date" name="Date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Create Itinerary</button>
 </form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Hide all location checkboxes initially
+            $('.location-checkbox').hide();
+
+            // Calculate and update total cost based on number of people and selected locations
+            $('#NumberOfPeople').change(function() {
+                var numberOfPeople = $(this).val();
+                
+                // Initialize total cost
+                var totalCost = 0;
+
+                // Calculate total cost for selected locations
+                $('.location-checkbox input:checked').each(function() {
+                    var locationId = $(this).val();
+                    var pricePerPerson = parseFloat($(this).closest('.location-checkbox').find('.price-per-person').text().replace('$', ''));
+                    totalCost += numberOfPeople * pricePerPerson;
+                });
+
+                // Update total cost input field
+                $('#TotalCost').val(totalCost.toFixed(2));
+            });
+
+            $('input[name="SelectedCategories"]').change(function() {
+                // Get selected categories
+                var selectedCategories = $('input[name="SelectedCategories"]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+
+                // Show/Hide location checkboxes based on selected categories
+                $('.location-checkbox').each(function() {
+                    var category = $(this).data('category');
+                    if (selectedCategories.includes(category)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+}
