@@ -29,9 +29,9 @@ namespace Trips.Controllers
         {
             var itineraries = new List<ItineraryViewModel>
             {
-                new ItineraryViewModel { Title = "Trip to Venice", Description = "Explore the beautiful canals of Venice.", ImageUrl = "/images/venice.jpg" },
-                new ItineraryViewModel { Title = "Trip to Paris", Description = "Visit the iconic Eiffel Tower.", ImageUrl = "/images/paris.jpg" },
-                new ItineraryViewModel { Title = "Trip to New York", Description = "Experience the bustling city life.", ImageUrl = "/images/newyork.jpg" }
+                new ItineraryViewModel { Title = "Boat Trip", Description = "Explore the beautiful canals of Venice.", ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/1/17/Panorama_of_Canal_Grande_and_Ponte_di_Rialto%2C_Venice_-_September_2017.jpg" },
+                new ItineraryViewModel { Title = "Restaurant Trip", Description = "Visit the iconic restaurants of Venice.", ImageUrl = "https://commons.wikimedia.org/wiki/File:Venice_Prosecco_and_Cicchetti.jpg" },
+                new ItineraryViewModel { Title = "Pub Trip", Description = "Experience the bustling city life with some wine.", ImageUrl = "https://commons.wikimedia.org/wiki/File:Wenecja_Venice_Venezzia_(17).jpg" }
             };
 
             return View(itineraries);
