@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
+using Trips.ViewModels;
 
 public class UsersController : Controller
 {
@@ -17,7 +18,7 @@ public class UsersController : Controller
         var users = _userManager.Users.Select(u => new UserViewModel
         {
             Id = u.Id,
-            UserName = u.UserName,
+            Username = u.UserName,
             Email = u.Email
            
         }).ToList();
