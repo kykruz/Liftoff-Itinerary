@@ -23,20 +23,11 @@
     </ul>
 
     <div>
-        @* Input for number of people *@
-        <form asp-action="CalculateTotalCost" method="post">
-            <div class="form-group">
-                <label for="NumberOfPeople">Number of People:</label>
-                <input type="number" id="NumberOfPeople" name="NumberOfPeople" class="form-control" min="1" max="10" value="1" />
-            </div>
-            <button type="submit" class="btn btn-primary">Calculate Total Cost</button>
-        </form>
-
         @* Display Total Cost if calculated *@
         @if (Model.TotalCostForAllPeople != 0)  // Check if total cost has been set
         {
             <div>
-                <h3>Total Cost: @Model.TotalCostForAllPeople.ToString("C")</h3>
+                <h3>Total Cost: @(Model.TotalCostForAllPeople * Model.NumberOfPeople).ToString("C")</h3>
                 <p>Number of People: @Model.NumberOfPeople</p>
             </div>
         }
