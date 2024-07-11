@@ -27,7 +27,7 @@
         @foreach (var location in Model.AvailableLocations)
         {
             bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
-            <div class="checkbox">
+            <div class="checkbox location-checkbox" data-category="@location.Category">
                 <label>
                     <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
                     @location.Name 
@@ -43,3 +43,29 @@
 
     <button type="submit" class="btn btn-primary">Create Itinerary</button>
 </form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Hide all location checkboxes initially
+            $('.location-checkbox').hide();
+
+            $('input[name="SelectedCategories"]').change(function() {
+                // Get selected categories
+                var selectedCategories = $('input[name="SelectedCategories"]:checked').map(function() {
+                    return $(this).val();
+                }).get();
+
+                // Show/Hide location checkboxes based on selected categories
+                $('.location-checkbox').each(function() {
+                    var category = $(this).data('category');
+                    if (selectedCategories.includes(category)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+}
