@@ -2,63 +2,63 @@
 
 <h2>Create Itinerary</h2>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label for="Name">Name:</label>
-        <input type="text" id="Name" name="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label>Select Categories:</label><br />
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="SelectedCategories" value="All" id="allCategories" checked />
-                All Categories
-            </label>
+<div class="form-container">
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label for="Name">Name:</label>
+            <input type="text" id="Name" name="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
-        @foreach (var category in Model.AvailableCategories)
-        {
-            bool isChecked = Model.SelectedCategories.Contains(category);
+
+        <div class="form-group">
+            <label>Select Categories:</label><br />
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="SelectedCategories" value="@category" checked="@isChecked" class="category-checkbox" />
-                    @category
+                    <input type="checkbox" name="SelectedCategories" value="All" id="allCategories" checked />
+                    All Categories
                 </label>
             </div>
-        }
-    </div>
-
-    <div class="form-group">
-    <label>Select Locations:</label><br />
-    @foreach (var location in Model.AvailableLocations)
-    {
-        bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
-        <div class="checkbox location-checkbox" data-category="@location.Category">
-            <label>
-                <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
-                @location.Name
-            </label>
+            @foreach (var category in Model.AvailableCategories)
+            {
+                bool isChecked = Model.SelectedCategories.Contains(category);
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="SelectedCategories" value="@category" checked="@isChecked" class="category-checkbox" />
+                        @category
+                    </label>
+                </div>
+            }
         </div>
-    }
+
+        <div class="form-group">
+            <label>Select Locations:</label><br />
+            @foreach (var location in Model.AvailableLocations)
+            {
+                bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
+                <div class="checkbox location-checkbox" data-category="@location.Category">
+                    <label>
+                        <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
+                        @location.Name
+                    </label>
+                </div>
+            }
+            <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="NumberOfPeople">Number of People:</label>
+            <input type="number" id="NumberOfPeople" name="NumberOfPeople" class="form-control" min="1" max="10" value="@Model.NumberOfPeople" />
+        </div>
+
+        <div class="form-group">
+            <label for="Date">Date:</label>
+            <input type="date" id="Date" name="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Itinerary</button>
+    </form>
 </div>
-        }
-        <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label for="NumberOfPeople">Number of People:</label>
-        <input type="number" id="NumberOfPeople" name="NumberOfPeople" class="form-control" min="1" max="10" value="@Model.NumberOfPeople" />
-    </div>
-
-    <div class="form-group">
-        <label for="Date">Date:</label>
-        <input type="date" id="Date" name="Date" class="form-control" />
-        <span asp-validation-for="Date" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Create Itinerary</button>
-</form>
 
 @section Scripts {
     <script>
