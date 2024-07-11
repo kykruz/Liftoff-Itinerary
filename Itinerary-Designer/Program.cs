@@ -56,7 +56,7 @@ using (var scope = app.Services.CreateScope())
 
  
     var adminUser = await userManager.FindByEmailAsync("notkyle@notkyle.com");
-    if (adminUser == null)
+    if (User == nulladmin)
     {
         adminUser = new IdentityUser
         {
