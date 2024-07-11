@@ -66,20 +66,6 @@
                             </li>
                         }
 
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Itinerary" asp-action="Index">Create A Trip</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Itinerary" asp-action="Success">All Itineraries</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Review Post</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index">Rate us</a>
-                        </li>
-
                         }
                         @if (User.IsInRole("Admin"))
                         {
@@ -87,9 +73,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users Details</a>
                         </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Messaging">Chat with us</a>
-                        </li>
+                     
 
                     </ul>
                 </div>

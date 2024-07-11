@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.Models;
 using Trips.Data;
+using Microsoft.AspNetCore.Authorization;
 namespace TripsController.Controllers;
 
+[Authorize]
 public class RatingController : Controller
 {
     private readonly TripDbContext context;

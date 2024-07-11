@@ -7,6 +7,7 @@ using Trips.Models;
 using Trips.ViewModels;
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Trips.Controllers
 
@@ -45,7 +46,7 @@ namespace Trips.Controllers
             var reviewViewModel = new ReviewViewModel();
             return View(reviewViewModel);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Create(ReviewViewModel reviewViewModel)
         {
