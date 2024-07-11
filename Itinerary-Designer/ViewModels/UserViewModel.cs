@@ -1,4 +1,5 @@
-namespace Trips.Models
+
+namespace Trips.ViewModels
 
 {
     public class UserViewModel
@@ -8,4 +9,5 @@ namespace Trips.Models
         public string Email { get; set; }
         // Add other properties as needed
     }
+
 }

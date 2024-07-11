@@ -1,39 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Trips.Models;
-using Trips.Data;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.AspNetCore.Authorization;
 using Trips.ViewModels;
 
-namespace Trips.Controllers
+public class UsersController : Controller
 {
-    [Authorize(Roles = "Admin")]
-     public class UserController : Controller
+    private readonly UserManager<IdentityUser> _userManager;
+
+    public UsersController(UserManager<IdentityUser> userManager)
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        _userManager = userManager;
+    }
 
-        public UserController(UserManager<IdentityUser> userManager)
+    public IActionResult Index()
+    {
+        var users = _userManager.Users.Select(u => new UserViewModel
         {
-            _userManager = userManager;
-        }
+            Id = u.Id,
+            Username = u.UserName,
+            Email = u.Email
+           
+        }).ToList();
 
-        public async Task<IActionResult> Index()
-        {
-            var identityUsers = _userManager.Users.ToList();
-            var users = identityUsers.Select(u => new UserViewModel
-            {
-                Id = u.Id,
-                Username = u.UserName,
-                Email = u.Email
-                // Map other properties as needed
-            }).ToList();
-
-            return View(users); // Ensure your view expects a list of UserViewModel
-        }
+        return View(users); 
     }
 }
