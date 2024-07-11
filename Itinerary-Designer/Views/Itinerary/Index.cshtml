@@ -19,7 +19,13 @@
 <br>
 <a href="@Url.Action("PreMade", "Itinerary")">Select a Pre-Made Itinerary!</a>
 
-<h4>Images of Venice</h4>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h4>Images of Venice</h4>
+        </div>
+    </div>
+</div>
 
 <div id="itineraryCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -62,6 +68,9 @@
     </script>
 
     <style>
+        #itineraryCarousel {
+        padding: 40px;
+    }
         /* Define max width for carousel images */
         .max-width-img {
             max-width: 100%; /* Adjust as needed */
