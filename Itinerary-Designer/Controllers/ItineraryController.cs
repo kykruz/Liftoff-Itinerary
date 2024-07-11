@@ -220,12 +220,12 @@ public IActionResult CalculateTotalCost(int itineraryId, int numberOfPeople)
     decimal totalCostForAllLocations = CalculateTotalCostForLocations(itinerary);
 
     // Calculate total cost for all selected people
-decimal totalCostForAllPeople = totalCostForAllLocations * numberOfPeople;
+    decimal totalCostForAllPeople = totalCostForAllLocations * numberOfPeople;
 
-// Update itinerary properties
-itinerary.TotalCostForAllLocations = totalCostForAllLocations;
-itinerary.TotalCostForAllPeople = totalCostForAllPeople;
-itinerary.NumberOfPeople = numberOfPeople;
+    // Update itinerary properties
+    itinerary.TotalCostForAllLocations = totalCostForAllLocations;
+    itinerary.TotalCostForAllPeople = totalCostForAllPeople;
+    itinerary.NumberOfPeople = numberOfPeople; // Update with the received value
 
     // Save changes to database
     context.SaveChanges();
@@ -234,12 +234,11 @@ itinerary.NumberOfPeople = numberOfPeople;
     return View("ViewLocations", itinerary);
 }
 
-
 // Helper method to calculate total cost for all locations
 private decimal CalculateTotalCostForLocations(Itinerary itinerary)
 {
-    // Perform your calculations and return a decimal result
-    return (decimal)itinerary.ItineraryLocationDatas.Sum(il => il.LocationData.PricePerPerson);
+    // Sum up the price per person for each location and cast to decimal
+    return (decimal)itinerary.ItineraryLocationDatas.Sum(il => (double)il.LocationData.PricePerPerson);
 }
 
 

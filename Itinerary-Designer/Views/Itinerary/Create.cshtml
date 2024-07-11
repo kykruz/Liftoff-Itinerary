@@ -55,16 +55,22 @@
             // Hide all location checkboxes initially
             $('.location-checkbox').hide();
 
-            // Calculate and update total cost based on number of people
+            // Calculate and update total cost based on number of people and selected locations
             $('#NumberOfPeople').change(function() {
                 var numberOfPeople = $(this).val();
-                var costPerPerson = 100; // Replace with your actual cost per person calculation
+                
+                // Initialize total cost
+                var totalCost = 0;
 
-                // Calculate total cost
-                var totalCost = numberOfPeople * costPerPerson;
+                // Calculate total cost for selected locations
+                $('.location-checkbox input:checked').each(function() {
+                    var locationId = $(this).val();
+                    var pricePerPerson = parseFloat($(this).closest('.location-checkbox').find('.price-per-person').text().replace('$', ''));
+                    totalCost += numberOfPeople * pricePerPerson;
+                });
 
                 // Update total cost input field
-                $('#TotalCost').val(totalCost);
+                $('#TotalCost').val(totalCost.toFixed(2));
             });
 
             $('input[name="SelectedCategories"]').change(function() {
