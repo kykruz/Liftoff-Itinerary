@@ -13,13 +13,13 @@
 <!-- Ensure Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
 
-
 <h2>Select Your Itinerary Service</h2>
-
+<br>
 <a href="@Url.Action("Create", "Itinerary")">Create Your Own!</a>
+<br>
 <a href="@Url.Action("PreMade", "Itinerary")">Select a Pre-Made Itinerary!</a>
 
-<h2>Your Itineraries</h2>
+<h4>Images of Venice</h4>
 
 <div id="itineraryCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -33,7 +33,7 @@
         @foreach (var itinerary in Model)
         {
             <div class="carousel-item @(itinerary == Model.FirstOrDefault() ? "active" : "")">
-                <img src="@itinerary.ImageUrl" class="d-block w-100" alt="@itinerary.Title">
+                <img src="@itinerary.ImageUrl" class="d-block w-100 max-width-img" alt="@itinerary.Title">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>@itinerary.Title</h5>
                     <p>@itinerary.Description</p>
@@ -54,25 +54,18 @@
 
 @section Scripts {
     <script>
-        $('.carousel').carousel({
-            interval: 2000 // Adjust the interval as needed
+        $(document).ready(function() {
+            $('.carousel').carousel({
+                interval: 1000 // Adjust the interval as needed
+            });
         });
     </script>
 
-    <script>
-    $(document).ready(function() {
-        $('.carousel').carousel({
-            interval: 2000 // Adjust the interval as needed
-        });
-    });
-</script>
-
-<style>
-    /* Define max width for carousel images */
-    .max-width-img {
-        max-width: 5%; /* Adjust as needed */
-        height: auto; /* Maintain aspect ratio */
-    }
-</style>
-
+    <style>
+        /* Define max width for carousel images */
+        .max-width-img {
+            max-width: 100%; /* Adjust as needed */
+            height: auto;
+        }
+    </style>
 }
