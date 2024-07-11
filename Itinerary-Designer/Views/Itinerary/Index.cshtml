@@ -1,5 +1,5 @@
 @using System;
-@using System.Linq; // Ensure System.Linq is imported
+@using System.Linq;
 @using Trips.Models;
 @using Trips.ViewModels; 
 @model IEnumerable<ItineraryViewModel>
@@ -66,5 +66,13 @@
         });
     });
 </script>
+
+<style>
+    /* Define max width for carousel images */
+    .max-width-img {
+        max-width: 5%; /* Adjust as needed */
+        height: auto; /* Maintain aspect ratio */
+    }
+</style>
 
 }
