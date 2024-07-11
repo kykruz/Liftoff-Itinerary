@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace Trips.Models;
 
-public class Review
+public class Image
 {
     public int Id { get; set; }
     public string? Title { get; set; }
@@ -12,19 +12,21 @@ public class Review
     public string? Author { get; set; }
     
     public string Content { get; set; }
+    public Image images { get; set; }
+    public IFormFile ImageFile { get; set; }
     
     public DateTime PostedDate { get; set; }
-    public string? ImagePath { get; set; }
     
-    public Review()
+    public Image()
     {
         PostedDate = DateTime.UtcNow;
     }
-    public Review(string title, string author, string content)
+    public Image(string title, string author, string content)
     {
         Title = title;
         Author = author;
         Content = content;
+        
     }
     
 }

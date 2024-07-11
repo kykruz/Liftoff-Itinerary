@@ -33,14 +33,6 @@ builder
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<TripDbContext>();
 
-// var commentConnectionString = "server=localhost;user=designer;password=K9l0m15?/;database=comments";
-
-//  // Adjust this connection string as needed
-
-// builder.Services.AddDbContext<TripDbContext>(options =>
-//     options.UseMySql(commentConnectionString, serverVersion)
-// );
-
 builder.Services.AddTransient<ExchangeRatesApiService>();
 
 // Add services to the container.

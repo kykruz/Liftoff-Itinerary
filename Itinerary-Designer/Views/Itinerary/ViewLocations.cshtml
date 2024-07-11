@@ -20,6 +20,11 @@
             </li>
         }
     </ul>
+    @* Calculate total cost *@
+    double totalCost = Model.ItineraryLocationDatas.Sum(il => il.LocationData.PricePerPerson);
+    <div>
+        <h3>Total Cost for all locations, per person: $@totalCost</h3>
+    </div>
 }
 else
 {
