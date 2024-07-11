@@ -4,6 +4,16 @@
 @using Trips.ViewModels; 
 @model IEnumerable<ItineraryViewModel>
 
+<!-- Ensure Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<!-- Ensure jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Ensure Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+
 <h2>Select Your Itinerary Service</h2>
 
 <a href="@Url.Action("Create", "Itinerary")">Create Your Own!</a>
@@ -48,4 +58,13 @@
             interval: 2000 // Adjust the interval as needed
         });
     </script>
+
+    <script>
+    $(document).ready(function() {
+        $('.carousel').carousel({
+            interval: 2000 // Adjust the interval as needed
+        });
+    });
+</script>
+
 }
