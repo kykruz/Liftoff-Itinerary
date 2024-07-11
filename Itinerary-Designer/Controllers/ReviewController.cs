@@ -9,6 +9,7 @@ using Trips.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Trips.Controllers
+
 {
     public class ReviewController : Controller
     {
