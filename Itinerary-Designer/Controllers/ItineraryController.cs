@@ -25,9 +25,16 @@ namespace Trips.Controllers
             return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
         }
 
-        public IActionResult Index()
+         public IActionResult Index()
         {
-            return View();
+            var itineraries = new List<ItineraryViewModel>
+            {
+                new ItineraryViewModel { Title = "Trip to Venice", Description = "Explore the beautiful canals of Venice.", ImageUrl = "/images/venice.jpg" },
+                new ItineraryViewModel { Title = "Trip to Paris", Description = "Visit the iconic Eiffel Tower.", ImageUrl = "/images/paris.jpg" },
+                new ItineraryViewModel { Title = "Trip to New York", Description = "Experience the bustling city life.", ImageUrl = "/images/newyork.jpg" }
+            };
+
+            return View(itineraries);
         }
 
         [HttpGet]
