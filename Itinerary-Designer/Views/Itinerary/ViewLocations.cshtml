@@ -17,7 +17,7 @@
                 <p>Address: @il.LocationData.Address</p>
                 <p>Category: @il.LocationData.Category</p>
                 <p>Phone Number: @il.LocationData.Phone</p>
-                <p>Price Per Person: $@il.LocationData.PricePerPerson</p>
+                <p>Price Per Person: $@il.LocationData.PricePerPerson.ToString("0.00")</p>
             </li>
         }
     </ul>
@@ -27,8 +27,13 @@
         @if (Model.TotalCostForAllPeople != 0)  // Check if total cost has been set
         {
             <div>
-                <h3>Total Cost: @(Model.TotalCostForAllPeople * Model.NumberOfPeople).ToString("C")</h3>
-                <p>Number of People: @Model.NumberOfPeople</p>
+                <h3>Total Cost for @Model.NumberOfPeople People: @(Model.TotalCostForAllPeople * Model.NumberOfPeople).ToString("C")</h3>
+            </div>
+        }
+        else
+        {
+            <div>
+                <h3>Total Cost for @Model.NumberOfPeople People: Calculation Pending</h3>
             </div>
         }
     </div>
