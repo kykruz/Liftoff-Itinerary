@@ -30,16 +30,18 @@
     </div>
 
     <div class="form-group">
-        <label>Select Locations:</label><br />
-        @foreach (var location in Model.AvailableLocations)
-        {
-            bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
-            <div class="checkbox location-checkbox" data-category="@location.Category">
-                <label>
-                    <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
-                    @location.Name
-                </label>
-            </div>
+    <label>Select Locations:</label><br />
+    @foreach (var location in Model.AvailableLocations)
+    {
+        bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
+        <div class="checkbox location-checkbox" data-category="@location.Category">
+            <label>
+                <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
+                @location.Name
+            </label>
+        </div>
+    }
+</div>
         }
         <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
     </div>
