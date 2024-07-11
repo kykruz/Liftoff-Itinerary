@@ -10,6 +10,9 @@ public class CreateItineraryViewModel
     public List<int> SelectedLocationIds { get; set; }
     public List<string> AvailableCategories { get; set; }
     public List<string> SelectedCategories { get; set; }
+    public int NumberOfPeople { get; set; }
+    public decimal TotalCost { get; set; }
+    public decimal TotalCostForAllPeople { get; set; }
 
     public CreateItineraryViewModel()
     {

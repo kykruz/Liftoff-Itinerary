@@ -1,25 +1,24 @@
-using System;
-using Trips.Models;
-
 namespace Trips.Models
 {
     public class Itinerary
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime Date {get; set;}
-        
+        public DateTime Date { get; set; }
         
         public List<LocationData> LocationDatas { get; set; } = new List<LocationData>();
-
         public List<ItineraryLocationData> ItineraryLocationDatas { get; set; } = new List<ItineraryLocationData>();
-
-        
 
         public string UserId { get; set; }
 
-        public Itinerary() {}
-        public Itinerary (string name, List<LocationData> locationData)
+        // Ensure TotalCostForAllLocations has both get and set accessors
+        public decimal TotalCostForAllLocations { get; set; }
+        public decimal TotalCostForAllPeople { get; set; }
+        public int NumberOfPeople { get; set; }
+
+        public Itinerary() { }
+
+        public Itinerary(string name, List<LocationData> locationData)
         {
             Name = name;
             LocationDatas = locationData;

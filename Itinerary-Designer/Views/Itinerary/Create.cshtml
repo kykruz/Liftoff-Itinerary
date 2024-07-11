@@ -37,6 +37,11 @@
     </div>
 
     <div class="form-group">
+        <label for="NumberOfPeople">Number of People:</label>
+        <input type="number" id="NumberOfPeople" name="NumberOfPeople" class="form-control" min="1" max="10" value="@Model.NumberOfPeople" />
+    </div>
+
+    <div class="form-group">
         <label for="Date">Date:</label>
         <input type="date" id="Date" name="Date" class="form-control" />
     </div>
@@ -49,6 +54,18 @@
         $(document).ready(function() {
             // Hide all location checkboxes initially
             $('.location-checkbox').hide();
+
+            // Calculate and update total cost based on number of people
+            $('#NumberOfPeople').change(function() {
+                var numberOfPeople = $(this).val();
+                var costPerPerson = 100; // Replace with your actual cost per person calculation
+
+                // Calculate total cost
+                var totalCost = numberOfPeople * costPerPerson;
+
+                // Update total cost input field
+                $('#TotalCost').val(totalCost);
+            });
 
             $('input[name="SelectedCategories"]').change(function() {
                 // Get selected categories

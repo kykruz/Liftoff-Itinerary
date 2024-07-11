@@ -25,7 +25,7 @@ namespace Trips.Controllers
             return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
         }
 
-         public IActionResult Index()
+        public IActionResult Index()
         {
             var itineraries = new List<ItineraryViewModel>
             {
@@ -199,5 +199,49 @@ namespace Trips.Controllers
 
             return View("Delete", itineraries);
         }
+
+        [HttpPost]
+public IActionResult CalculateTotalCost(int itineraryId, int numberOfPeople)
+{
+    string userId = GetCurrentUserId();
+
+    // Retrieve the itinerary from the database
+    var itinerary = context.Itineraries
+        .Include(i => i.ItineraryLocationDatas)
+        .ThenInclude(il => il.LocationData)
+        .FirstOrDefault(i => i.UserId == userId && i.Id == itineraryId);
+
+    if (itinerary == null)
+    {
+        return NotFound(); // Handle case where itinerary is not found
+    }
+
+    // Calculate total cost for all locations
+    decimal totalCostForAllLocations = CalculateTotalCostForLocations(itinerary);
+
+    // Calculate total cost for all selected people
+decimal totalCostForAllPeople = totalCostForAllLocations * numberOfPeople;
+
+// Update itinerary properties
+itinerary.TotalCostForAllLocations = totalCostForAllLocations;
+itinerary.TotalCostForAllPeople = totalCostForAllPeople;
+itinerary.NumberOfPeople = numberOfPeople;
+
+    // Save changes to database
+    context.SaveChanges();
+
+    // Return view with updated itinerary
+    return View("ViewLocations", itinerary);
+}
+
+
+// Helper method to calculate total cost for all locations
+private decimal CalculateTotalCostForLocations(Itinerary itinerary)
+{
+    // Perform your calculations and return a decimal result
+    return (decimal)itinerary.ItineraryLocationDatas.Sum(il => il.LocationData.PricePerPerson);
+}
+
+
     }
 }

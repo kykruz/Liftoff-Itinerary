@@ -1,8 +1,9 @@
 @model Trips.Models.Itinerary
 
-    <div>
-        <h2>@Model.Date.ToString("yyyy-MM-dd")</h2>
-    </div>
+<div>
+    <h2>@Model.Date.ToString("yyyy-MM-dd")</h2>
+</div>
+
 <h2>Locations for Itinerary: @Model.Name</h2>
 
 @if (Model.ItineraryLocationDatas != null && Model.ItineraryLocationDatas.Any())
@@ -20,10 +21,25 @@
             </li>
         }
     </ul>
-    @* Calculate total cost *@
-    double totalCost = Model.ItineraryLocationDatas.Sum(il => il.LocationData.PricePerPerson);
+
     <div>
-        <h3>Total Cost for all locations, per person: $@totalCost</h3>
+        @* Input for number of people *@
+        <form asp-action="CalculateTotalCost" method="post">
+            <div class="form-group">
+                <label for="NumberOfPeople">Number of People:</label>
+                <input type="number" id="NumberOfPeople" name="NumberOfPeople" class="form-control" min="1" max="10" value="1" />
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate Total Cost</button>
+        </form>
+
+        @* Display Total Cost if calculated *@
+        @if (Model.TotalCostForAllPeople != 0)  // Check if total cost has been set
+        {
+            <div>
+                <h3>Total Cost: @Model.TotalCostForAllPeople.ToString("C")</h3>
+                <p>Number of People: @Model.NumberOfPeople</p>
+            </div>
+        }
     </div>
 }
 else
