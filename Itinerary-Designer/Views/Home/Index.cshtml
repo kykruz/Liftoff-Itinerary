@@ -2,14 +2,26 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome, @Model.Username!</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-@if (ViewData["Error"] != null)
-{
-    <div class="alert alert-danger mt-3">
-        Error: @ViewData["Error"]
-    </div>
-}
+<style>
+    .background-image {
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a3/Canal_Grande_Chiesa_della_Salute_e_Dogana_dal_ponte_dell_Accademia.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        color: white;
+        text-align: center;
+        padding-top: 20%;
+    }
+</style>
 
+<div class="background-image">
+    <h1 class="display-4">Welcome, @Model.Username!</h1>
+    @* <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+
+    @if (ViewData["Error"] != null)
+    {
+        <div class="alert alert-danger mt-3">
+            Error: @ViewData["Error"]
+        </div>
+    }
+</div>
