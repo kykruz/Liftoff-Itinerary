@@ -51,9 +51,10 @@ namespace Trips.Controllers
 
             foreach (int itineraryId in selectedItineraries)
             {
-                var preMadeItinerary = PreMadeItineraries
+                Itinerary preMadeItinerary = PreMadeItineraries
                     .GetPreMadeItineraries()
                     .FirstOrDefault(i => i.Id == itineraryId);
+
                 if (preMadeItinerary != null)
                 {
                     List<LocationData> selectedLocationDatas = preMadeItinerary.LocationDatas;
@@ -62,11 +63,25 @@ namespace Trips.Controllers
                     {
                         Name = preMadeItinerary.Name,
                         UserId = userId,
-                        ItineraryLocationDatas = selectedLocationDatas
-                            .Select(ld => new ItineraryLocationData { LocationData = ld })
-                            .ToList(),
                         Date = DateTime.UtcNow
                     };
+
+                    foreach (LocationData locationData in selectedLocationDatas)
+                    {
+                        LocationData existingLocationData = context.LocationDatas.FirstOrDefault(
+                            ld => ld.Id == locationData.Id
+                        );
+
+                        if (existingLocationData != null)
+                        {
+                            itinerary.ItineraryLocationDatas.Add(
+                                new ItineraryLocationData
+                                {
+                                    LocationDataId = existingLocationData.Id
+                                }
+                            );
+                        }
+                    }
 
                     context.Itineraries.Add(itinerary);
                 }

@@ -30,6 +30,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+
+
+
+                        @if (!User.IsInRole("Admin"))
+                        {
+                         <li class="nav-item">
+                </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
@@ -57,6 +65,32 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Messaging">Chat with us</a>
                             </li>
                         }
+
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Itinerary" asp-action="Index">Create A Trip</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Itinerary" asp-action="Success">All Itineraries</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Review Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index">Rate us</a>
+                        </li>
+
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users Details</a>
+                        </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Messaging">Chat with us</a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
