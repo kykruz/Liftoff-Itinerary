@@ -1,0 +1,15 @@
+@using Trips.ViewModels;
+@model Trips.ViewModels.ReviewViewModel
+
+
+
+<div>
+    <h3>@Model.Title</h3>
+    <p>By: @Model.Author</p>
+    <p>@Model.Content</p>
+
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+        <img src="@Model.ImagePath" alt="Review Image" />
+    }
+</div>
