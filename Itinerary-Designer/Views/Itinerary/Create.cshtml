@@ -10,12 +10,18 @@
 
     <div class="form-group">
         <label>Select Categories:</label><br />
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="SelectedCategories" value="All" id="allCategories" checked />
+                All Categories
+            </label>
+        </div>
         @foreach (var category in Model.AvailableCategories)
         {
             bool isChecked = Model.SelectedCategories.Contains(category);
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="SelectedCategories" value="@category" checked="@isChecked" />
+                    <input type="checkbox" name="SelectedCategories" value="@category" checked="@isChecked" class="category-checkbox" />
                     @category
                 </label>
             </div>
@@ -52,13 +58,48 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            // Hide all location checkboxes initially
-            $('.location-checkbox').hide();
+            // Initially hide all location checkboxes if "All Categories" is selected
+            if ($('#allCategories').is(':checked')) {
+                $('.location-checkbox').show();
+            } else {
+                $('.location-checkbox').hide();
+            }
+
+            // Update location checkboxes based on selected categories
+            $('input[name="SelectedCategories"]').change(function() {
+                if ($(this).attr('id') === 'allCategories') {
+                    if ($(this).is(':checked')) {
+                        $('.category-checkbox').prop('checked', false);
+                        $('.location-checkbox').show();
+                    } else {
+                        $('.location-checkbox').hide();
+                    }
+                } else {
+                    $('#allCategories').prop('checked', false);
+
+                    var selectedCategories = $('input[name="SelectedCategories"]:checked').map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    if (selectedCategories.length === 0) {
+                        $('.location-checkbox').hide();
+                    } else {
+                        $('.location-checkbox').each(function() {
+                            var category = $(this).data('category');
+                            if (selectedCategories.includes(category)) {
+                                $(this).show();
+                            } else {
+                                $(this).hide();
+                            }
+                        });
+                    }
+                }
+            });
 
             // Calculate and update total cost based on number of people and selected locations
             $('#NumberOfPeople').change(function() {
                 var numberOfPeople = $(this).val();
-                
+
                 // Initialize total cost
                 var totalCost = 0;
 
@@ -71,23 +112,6 @@
 
                 // Update total cost input field
                 $('#TotalCost').val(totalCost.toFixed(2));
-            });
-
-            $('input[name="SelectedCategories"]').change(function() {
-                // Get selected categories
-                var selectedCategories = $('input[name="SelectedCategories"]:checked').map(function() {
-                    return $(this).val();
-                }).get();
-
-                // Show/Hide location checkboxes based on selected categories
-                $('.location-checkbox').each(function() {
-                    var category = $(this).data('category');
-                    if (selectedCategories.includes(category)) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
             });
         });
     </script>
