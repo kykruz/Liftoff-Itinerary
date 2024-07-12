@@ -9,9 +9,9 @@ public class Review
     public int Id { get; set; }
     public string? Title { get; set; }
     
-    public string? Author { get; set; }
+    public string? Username { get; set; }
     
-    public string Content { get; set; }
+    public string ReviewPost { get; set; }
     
     public DateTime PostedDate { get; set; }
     public string? ImagePath { get; set; }
@@ -20,11 +20,11 @@ public class Review
     {
         PostedDate = DateTime.UtcNow;
     }
-    public Review(string title, string author, string content)
+    public Review(string title, string username, string reviewPost)
     {
         Title = title;
-        Author = author;
-        Content = content;
+        Username = username;
+        ReviewPost = reviewPost;
     }
     
 }
