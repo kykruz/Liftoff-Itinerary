@@ -50,47 +50,47 @@ namespace Trips.Controllers
         }
         [Authorize]
         [HttpPost]
-        //POST Create: Handles the submission of the form. If the model is valid, it creates a new Review object, saves it to the database (_context.SaveChanges()), and handles image file uploads if provided.
-        public IActionResult Create(ReviewViewModel reviewViewModel)
+public IActionResult Create(ReviewViewModel reviewViewModel)
+{
+    if (ModelState.IsValid)
+    {
+        var review = new Review
         {
-            if (ModelState.IsValid)
+            Author = reviewViewModel.Author,
+            Title = reviewViewModel.Title,
+            Content = reviewViewModel.Content,
+            PostedDate = DateTime.Now
+        };
+
+        if (reviewViewModel.ImageFile != null && reviewViewModel.ImageFile.Length > 0)
+        {
+            var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+            var fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(reviewViewModel.ImageFile.FileName);
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                var review = new Review
-                {
-                    Author = reviewViewModel.Author,
-                    Title = reviewViewModel.Title,
-                    Content = reviewViewModel.Content,
-                    PostedDate = DateTime.Now
-                };
-
-                
-                _context.Reviews.Add(review);
-                _context.SaveChanges();
-
-               
-                if (reviewViewModel.ImageFile != null && reviewViewModel.ImageFile.Length > 0)
-                {
-                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                    var fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(reviewViewModel.ImageFile.FileName);
-                    var filePath = Path.Combine(uploadsFolder, fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        reviewViewModel.ImageFile.CopyTo(stream);
-                    }
-
-                    
-                    review.ImagePath = "/images/" + fileName;
-                    _context.SaveChanges(); 
-                }
-
-                return RedirectToAction("Details", new { id = review.Id });
+                reviewViewModel.ImageFile.CopyTo(stream);
             }
 
-            return View("Create", reviewViewModel);
+            review.ImagePath = "/images/" + fileName;
+        }
+        else
+        {
+            // If no image file provided, set a default image path or handle accordingly
+            review.ImagePath = "/images/default-image.png";
         }
 
-        //Retrieves a specific review by id and displays it in a ReviewViewModel
+        _context.Reviews.Add(review);
+        _context.SaveChanges();
+
+        return RedirectToAction("Index", "Review"); // Redirect to the review listing page
+    }
+
+    // If ModelState is not valid, return to the Create view with the model
+    return View("Create", reviewViewModel);
+}
+
         public IActionResult Details(int id)
         {
             var review = _context.Reviews.FirstOrDefault(r => r.Id == id);
