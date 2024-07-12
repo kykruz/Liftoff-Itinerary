@@ -9,9 +9,9 @@ public class Image
     public int Id { get; set; }
     public string? Title { get; set; }
     
-    public string? Author { get; set; }
+    public string? Username { get; set; }
     
-    public string Content { get; set; }
+    public string ReviewPost { get; set; }
     public Image images { get; set; }
     public IFormFile ImageFile { get; set; }
     
@@ -21,11 +21,11 @@ public class Image
     {
         PostedDate = DateTime.UtcNow;
     }
-    public Image(string title, string author, string content)
+    public Image(string title, string username, string reviewPost)
     {
         Title = title;
-        Author = author;
-        Content = content;
+        Username = username;
+        ReviewPost = reviewPost;
         
     }
     

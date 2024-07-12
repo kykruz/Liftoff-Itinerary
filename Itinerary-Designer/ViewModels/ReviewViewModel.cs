@@ -7,11 +7,11 @@ namespace Trips.ViewModels
 {
     public class ReviewViewModel
     {
-        public string? Author { get; set; }
-        
+        public string? Username { get; set; }
+        [Required(ErrorMessage = "Please enter")]
         public string? Title { get; set; }
-        
-        public string? Content { get; set; }
+        [Required(ErrorMessage = "Please enter the review content.")]
+        public string? ReviewPost { get; set; }
         public IFormFile ImageFile { get; set; }
         
         public DateTime PostedDate { get; set; }

@@ -1,0 +1,60 @@
+@model EditItineraryViewModel
+
+<h2>Edit Itinerary</h2>
+
+@using (Html.BeginForm("Edit", "Itinerary", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Date)
+        @Html.TextBoxFor(model => model.Date, "{0:yyyy-MM-dd}", new { @class = "form-control datepicker" })
+        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>Available Categories</label>
+        @foreach (var category in Model.AvailableCategories)
+        {
+            <div>
+                <input type="checkbox" name="SelectedCategories" value="@category" @(Model.SelectedCategories != null &&
+            Model.SelectedCategories.Contains(category) ? "checked" : "")>
+                @Html.Label(category)
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label>Available Locations</label>
+        @foreach (var location in Model.AvailableLocations)
+        {
+            <div>
+                <input type="checkbox" name="SelectedLocationIds" value="@location.Id" @(Model.SelectedLocationIds != null &&
+            Model.SelectedLocationIds.Contains(location.Id) ? "checked" : "")>
+                @Html.Label(location.Name)
+            </div>
+        }
+    </div>
+
+    @Html.HiddenFor(model => model.ItineraryId)
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
+    </script>
+}

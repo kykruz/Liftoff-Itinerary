@@ -1,22 +1,21 @@
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Trips.Data;
 using Trips.Models;
 using Trips.ViewModels;
 
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authorization;
-
 namespace Trips.Controllers
-
 {
     public class ReviewController : Controller
     {
         private readonly TripDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
+        // TripDbContext for database operations and IWebHostEnvironment to manage file uploads.
         public ReviewController(TripDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
@@ -25,27 +24,30 @@ namespace Trips.Controllers
 
         public IActionResult Index()
         {
+            // Retrieves all reviews from the database (_context.Reviews.ToList())
+            // and maps them to ReviewViewModels
             var reviews = _context.Reviews.ToList();
             var reviewViewModels = reviews
                 .Select(r => new ReviewViewModel
                 {
-                    Author = r.Author,
+                    Username = r.Username,
                     Title = r.Title,
-                    Content = r.Content,
+                    ReviewPost = r.ReviewPost,
                     PostedDate = r.PostedDate,
-                    ImagePath = r.ImagePath 
+                    ImagePath = r.ImagePath
                 })
                 .ToList();
-
             return View(reviewViewModels);
         }
 
         [HttpGet]
+        //GET Create: Renders the form to create a new review (Create.cshtml).
         public IActionResult Create()
         {
             var reviewViewModel = new ReviewViewModel();
             return View(reviewViewModel);
         }
+
         [Authorize]
         [HttpPost]
         public IActionResult Create(ReviewViewModel reviewViewModel)
@@ -54,21 +56,19 @@ namespace Trips.Controllers
             {
                 var review = new Review
                 {
-                    Author = reviewViewModel.Author,
+                    Username = reviewViewModel.Username,
                     Title = reviewViewModel.Title,
-                    Content = reviewViewModel.Content,
+                    ReviewPost = reviewViewModel.ReviewPost,
                     PostedDate = DateTime.Now
                 };
 
-                
-                _context.Reviews.Add(review);
-                _context.SaveChanges();
-
-               
                 if (reviewViewModel.ImageFile != null && reviewViewModel.ImageFile.Length > 0)
                 {
                     var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                    var fileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(reviewViewModel.ImageFile.FileName);
+                    var fileName =
+                        Guid.NewGuid().ToString()
+                        + "_"
+                        + Path.GetFileName(reviewViewModel.ImageFile.FileName);
                     var filePath = Path.Combine(uploadsFolder, fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
@@ -76,15 +76,21 @@ namespace Trips.Controllers
                         reviewViewModel.ImageFile.CopyTo(stream);
                     }
 
-                    
                     review.ImagePath = "/images/" + fileName;
-                    _context.SaveChanges(); 
+                }
+                else
+                {
+                    // If no image file provided, set a default image path or handle accordingly
+                    review.ImagePath = "/images/default-image.png";
                 }
 
-                return RedirectToAction("Details", new { id = review.Id });
+                _context.Reviews.Add(review);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Review"); // Redirect to the review listing page
             }
 
-            
+            // If ModelState is not valid, return to the Create view with the model
             return View("Create", reviewViewModel);
         }
 
@@ -94,29 +100,129 @@ namespace Trips.Controllers
 
             if (review == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             var reviewViewModel = new ReviewViewModel
             {
-                Author = review.Author,
+                Username = review.Username,
                 Title = review.Title,
-                Content = review.Content,
+                ReviewPost = review.ReviewPost,
                 PostedDate = review.PostedDate,
-                ImagePath = review.ImagePath 
+                ImagePath = review.ImagePath
             };
 
             return View(reviewViewModel);
         }
-
         public IActionResult Edit()
         {
             return View();
         }
-
         public IActionResult Delete()
         {
             return View();
         }
+
+        // [Authorize]
+        // public IActionResult Edit(int id)
+        // {
+        //     var review = _context.Reviews.FirstOrDefault(r => r.Id == id);
+        //     if (review == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     var reviewViewModel = new ReviewViewModel
+        //     {
+        //         // Id = review.Id, // Assuming you add Id property in ReviewViewModel
+        //         Username = review.Username,
+        //         Title = review.Title,
+        //         ReviewPost = review.ReviewPost,
+        //         PostedDate = review.PostedDate,
+        //         ImagePath = review.ImagePath
+        //     };
+
+        //     return View(reviewViewModel);
+        // }
+
+        // // POST: Edit
+        // [HttpPost]
+        // [Authorize]
+        // public IActionResult Edit(ReviewViewModel reviewViewModel)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         var review = _context.Reviews.FirstOrDefault(r => r.Username == reviewViewModel.Username);
+        //         if (review == null)
+        //         {
+        //             return NotFound();
+        //         }
+
+        //         review.Username = reviewViewModel.Username;
+        //         review.Title = reviewViewModel.Title;
+        //         review.ReviewPost = reviewViewModel.ReviewPost;
+
+        //         // Handle image upload if a new file is provided
+        //         if (reviewViewModel.ImageFile != null && reviewViewModel.ImageFile.Length > 0)
+        //         {
+        //             var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+        //             var fileName =
+        //                 Guid.NewGuid().ToString()
+        //                 + "_"
+        //                 + Path.GetFileName(reviewViewModel.ImageFile.FileName);
+        //             var filePath = Path.Combine(uploadsFolder, fileName);
+
+        //             using (var stream = new FileStream(filePath, FileMode.Create))
+        //             {
+        //                 reviewViewModel.ImageFile.CopyTo(stream);
+        //             }
+
+        //             review.ImagePath = "/images/" + fileName;
+        //         }
+
+        //         _context.SaveChanges();
+
+        //         return RedirectToAction("Index");
+        //     }
+
+        //     return View(reviewViewModel);
+        // }
+
+        // // GET: Delete
+        // [Authorize]
+        // public IActionResult Delete(int id)
+        // {
+        //     var review = _context.Reviews.FirstOrDefault(r => r.Id == id);
+        //     if (review == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     var reviewViewModel = new ReviewViewModel
+        //     {
+        //         // Id = review.Id,
+        //         Title = review.Title,
+        //         // Other properties as needed for confirmation
+        //     };
+
+        //     return View(reviewViewModel);
+        // }
+
+        // // POST: Delete
+        // [HttpPost, ActionName("Delete")]
+        // [Authorize]
+        // public IActionResult DeleteConfirmed(int id)
+        // {
+        //     var review = _context.Reviews.FirstOrDefault(r => r.Id == id);
+        //     if (review == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     _context.Reviews.Remove(review);
+        //     _context.SaveChanges();
+
+        //     return RedirectToAction("Index");
+        // }
     }
 }
