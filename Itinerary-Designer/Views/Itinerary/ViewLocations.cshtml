@@ -28,6 +28,13 @@
     <div>
         <h3>Total Cost for all locations, per person: $@totalCostPerPerson.ToString("0.00")</h3>
     </div>
+
+    @* Calculate total cost per itinerary *@
+    decimal totalCostPerItinerary = totalCostPerPerson * Model.NumberOfPeople;
+
+    <div>
+        <h3>Total Cost for @Model.NumberOfPeople People: @totalCostPerItinerary.ToString("C")</h3>
+    </div>
 }
 else
 {
@@ -35,6 +42,7 @@ else
 }
 
 <a asp-action="Edit" asp-route-itineraryId="@Model.Id">Edit Itinerary</a>
+
 
 
 

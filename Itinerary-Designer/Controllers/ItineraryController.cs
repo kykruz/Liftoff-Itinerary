@@ -101,6 +101,14 @@ namespace Trips.Controllers
                         }
                     }
 
+                    // Calculate total cost per person for selected locations
+                    decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
+
+                    // Calculate total cost per itinerary
+                    decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
+
+                    itinerary.TotalCostPerItinerary = totalCostPerItinerary; // Set total cost per itinerary
+
                     context.Itineraries.Add(itinerary);
                 }
             }
@@ -152,6 +160,14 @@ namespace Trips.Controllers
                     NumberOfPeople = createItineraryViewModel.NumberOfPeople, // Set the number of people here
                     NumberOfPets = numberOfPets // Set the number of pets here
                 };
+
+                // Calculate total cost per person for selected locations
+                decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
+
+                // Calculate total cost per itinerary
+                decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
+
+                itinerary.TotalCostPerItinerary = totalCostPerItinerary; // Set total cost per itinerary
 
                 // Add itinerary to context and save changes
                 context.Itineraries.Add(itinerary);
@@ -313,6 +329,14 @@ namespace Trips.Controllers
                         new ItineraryLocationData { LocationDataId = locationData.Id }
                     );
                 }
+
+                // Calculate total cost per person for selected locations
+                decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
+
+                // Calculate total cost per itinerary
+                decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
+
+                itinerary.TotalCostPerItinerary = totalCostPerItinerary; // Set total cost per itinerary
 
                 await context.SaveChangesAsync();
 

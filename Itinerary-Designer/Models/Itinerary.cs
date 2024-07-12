@@ -8,7 +8,7 @@ namespace Trips.Models
         public int NumberOfPets { get; set; }
         public List<LocationData> LocationDatas { get; set; } = new List<LocationData>();
         public List<ItineraryLocationData> ItineraryLocationDatas { get; set; } = new List<ItineraryLocationData>();
-
+        public decimal TotalCostPerItinerary { get; set; }
         public string UserId { get; set; }
 
         // Ensure TotalCostForAllLocations has both get and set accessors
