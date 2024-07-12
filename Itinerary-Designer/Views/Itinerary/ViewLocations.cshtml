@@ -23,8 +23,8 @@
     </ul>
 
     <div>
-        @* Display Total Cost if calculated *@
-        @if (Model.TotalCostForAllPeople != 0)  // Check if total cost has been set
+       
+        @if (Model.TotalCostForAllPeople != 0)  
         {
             <div>
                 <h3>Total Cost for @Model.NumberOfPeople People: @(Model.TotalCostForAllPeople * Model.NumberOfPeople).ToString("C")</h3>
@@ -42,3 +42,5 @@ else
 {
     <p>No locations found for this itinerary.</p>
 }
+
+<a asp-action="Edit" asp-route-itineraryId="@Model.Id">Edit Itinerary</a>
