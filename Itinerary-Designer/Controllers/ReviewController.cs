@@ -16,7 +16,7 @@ namespace Trips.Controllers
     {
         private readonly TripDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
+        // TripDbContext for database operations and IWebHostEnvironment to manage file uploads.
         public ReviewController(TripDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
@@ -25,6 +25,8 @@ namespace Trips.Controllers
 
         public IActionResult Index()
         {
+            // Retrieves all reviews from the database (_context.Reviews.ToList())
+            // and maps them to ReviewViewModels
             var reviews = _context.Reviews.ToList();
             var reviewViewModels = reviews
                 .Select(r => new ReviewViewModel
@@ -36,11 +38,11 @@ namespace Trips.Controllers
                     ImagePath = r.ImagePath 
                 })
                 .ToList();
-
             return View(reviewViewModels);
         }
 
         [HttpGet]
+        //GET Create: Renders the form to create a new review (Create.cshtml).
         public IActionResult Create()
         {
             var reviewViewModel = new ReviewViewModel();
@@ -48,6 +50,7 @@ namespace Trips.Controllers
         }
         [Authorize]
         [HttpPost]
+        //POST Create: Handles the submission of the form. If the model is valid, it creates a new Review object, saves it to the database (_context.SaveChanges()), and handles image file uploads if provided.
         public IActionResult Create(ReviewViewModel reviewViewModel)
         {
             if (ModelState.IsValid)
@@ -84,10 +87,10 @@ namespace Trips.Controllers
                 return RedirectToAction("Details", new { id = review.Id });
             }
 
-            
             return View("Create", reviewViewModel);
         }
 
+        //Retrieves a specific review by id and displays it in a ReviewViewModel
         public IActionResult Details(int id)
         {
             var review = _context.Reviews.FirstOrDefault(r => r.Id == id);
