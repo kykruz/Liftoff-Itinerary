@@ -25,8 +25,7 @@ public class CreateItineraryViewModel
 
     public decimal TotalCost { get; set; }
 
-    public decimal TotalCostForAllPeople { get; set; }
-
+     public int NumberOfPets { get; set; }  
     public CreateItineraryViewModel()
     {
         AvailableLocations = new List<LocationData>();

@@ -45,10 +45,20 @@
             <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
-            <label for="NumberOfPeople">Number of People:</label>
-            <input type="number" id="NumberOfPeople" name="NumberOfPeople" class="form-control" min="1" max="10" value="@Model.NumberOfPeople" />
-        </div>
+         <div class="form-group">
+        <label asp-for="NumberOfPeople">Number of People:</label>
+        <input asp-for="NumberOfPeople" type="number" class="form-control" />
+        <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+    </div>
+
+      <div class="form-group">
+        <<label for="NumberOfPets">Number of Pets:</label>
+    <select asp-for="NumberOfPets" class="form-control" id="NumberOfPets">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>
+    </div>
 
         <div class="form-group">
             <label for="Date">Date:</label>

@@ -5,7 +5,7 @@ namespace Trips.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
-        
+        public int NumberOfPets { get; set; }
         public List<LocationData> LocationDatas { get; set; } = new List<LocationData>();
         public List<ItineraryLocationData> ItineraryLocationDatas { get; set; } = new List<ItineraryLocationData>();
 
