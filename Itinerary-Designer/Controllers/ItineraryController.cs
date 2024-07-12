@@ -125,46 +125,50 @@ namespace Trips.Controllers
             return View(viewModel);
         }
 
-       [HttpPost]
-public async Task<IActionResult> Create(CreateItineraryViewModel createItineraryViewModel, int numberOfPets)
-{
-    if (ModelState.IsValid)
-    {
-        string userId = GetCurrentUserId();
-
-        List<LocationData> selectedLocationDatas = await context
-            .LocationDatas.Where(ld =>
-                createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
-                && createItineraryViewModel.SelectedCategories.Contains(ld.Category)
-            )
-            .ToListAsync();
-
-        Itinerary itinerary = new Itinerary
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateItineraryViewModel createItineraryViewModel, int numberOfPets)
         {
-            Name = createItineraryViewModel.Name,
-            UserId = userId,
-            ItineraryLocationDatas = selectedLocationDatas
-                .Select(ld => new ItineraryLocationData { LocationData = ld })
-                .ToList(),
-            Date = createItineraryViewModel.Date.Date,
-            NumberOfPets = numberOfPets // Set the number of pets here
-        };
+            if (ModelState.IsValid)
+            {
+                string userId = GetCurrentUserId();
 
-        context.Itineraries.Add(itinerary);
-        await context.SaveChangesAsync();
+                // Retrieve selected location datas based on user's selection
+                List<LocationData> selectedLocationDatas = await context
+                    .LocationDatas.Where(ld =>
+                        createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
+                        && createItineraryViewModel.SelectedCategories.Contains(ld.Category)
+                    )
+                    .ToListAsync();
 
-        return RedirectToAction("Success");
-    }
+                // Create new Itinerary object
+                Itinerary itinerary = new Itinerary
+                {
+                    Name = createItineraryViewModel.Name,
+                    UserId = userId,
+                    ItineraryLocationDatas = selectedLocationDatas
+                        .Select(ld => new ItineraryLocationData { LocationData = ld })
+                        .ToList(),
+                    Date = createItineraryViewModel.Date.Date,
+                    NumberOfPeople = createItineraryViewModel.NumberOfPeople, // Set the number of people here
+                    NumberOfPets = numberOfPets // Set the number of pets here
+                };
 
-    createItineraryViewModel.AvailableCategories = context
-        .LocationDatas.Select(ld => ld.Category)
-        .Distinct()
-        .ToList();
-    createItineraryViewModel.AvailableLocations = context.LocationDatas.ToList();
+                // Add itinerary to context and save changes
+                context.Itineraries.Add(itinerary);
+                await context.SaveChangesAsync();
 
-    return View(createItineraryViewModel);
-}
+                return RedirectToAction("Success");
+            }
 
+            // If ModelState is not valid, re-populate view model and return the view with errors
+            createItineraryViewModel.AvailableCategories = context
+                .LocationDatas.Select(ld => ld.Category)
+                .Distinct()
+                .ToList();
+            createItineraryViewModel.AvailableLocations = context.LocationDatas.ToList();
+
+            return View(createItineraryViewModel);
+        }
 
         public async Task<IActionResult> Success()
         {

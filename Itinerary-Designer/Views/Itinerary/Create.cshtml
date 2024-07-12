@@ -40,25 +40,27 @@
                         <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
                         @location.Name
                     </label>
+                    <span class="price-per-person">$@location.PricePerPerson.ToString("0.00")</span> per person
                 </div>
             }
             <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
         </div>
 
-         <div class="form-group">
-        <label asp-for="NumberOfPeople">Number of People:</label>
-        <input asp-for="NumberOfPeople" type="number" class="form-control" />
-        <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+    <label asp-for="NumberOfPeople">Number of People:</label>
+    <input asp-for="NumberOfPeople" type="number" class="form-control" />
+    <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+</div>
 
-      <div class="form-group">
-        <<label for="NumberOfPets">Number of Pets:</label>
-    <select asp-for="NumberOfPets" class="form-control" id="NumberOfPets">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-    </select>
-    </div>
+
+        <div class="form-group">
+            <label asp-for="NumberOfPets">Number of Pets:</label>
+            <select asp-for="NumberOfPets" class="form-control" id="NumberOfPets">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
 
         <div class="form-group">
             <label for="Date">Date:</label>
