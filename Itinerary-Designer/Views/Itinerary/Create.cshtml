@@ -10,7 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        .even-row {
+        .even-row-category {
+            background-color: rgba(255, 193, 7, 0.1); /* Slightly light yellow background */
+        }
+
+        .even-row-location {
             background-color: rgba(0, 123, 255, 0.1); /* Slightly light blue background */
         }
     </style>
@@ -38,7 +42,7 @@
                 {
                     var category = Model.AvailableCategories[i];
                     bool isChecked = Model.SelectedCategories.Contains(category);
-                    <div class="checkbox @((i % 2 == 0) ? "even-row" : "")">
+                    <div class="checkbox @((i % 2 == 0) ? "even-row-category" : "")">
                         <label>
                             <input type="checkbox" name="SelectedCategories" value="@category" checked="@isChecked"
                                 class="category-checkbox" />
@@ -54,7 +58,7 @@
                 {
                     var location = Model.AvailableLocations[i];
                     bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
-                    <div class="checkbox location-checkbox @((i % 2 == 0) ? "even-row" : "")" data-category="@location.Category">
+                    <div class="checkbox location-checkbox @((i % 2 == 0) ? "even-row-location" : "")" data-category="@location.Category">
                         <label>
                             <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
                             @location.Name
@@ -111,11 +115,6 @@
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label>Total Cost:</label>
-                <input type="text" id="TotalCost" name="TotalCost" class="form-control" readonly />
-            </div>
-
             <button type="submit" class="btn btn-primary">Create Itinerary</button>
         </form>
     </div>
@@ -162,24 +161,6 @@
                             });
                         }
                     }
-                });
-
-                // Calculate and update total cost based on number of people and selected locations
-                $('#NumberOfPeople').change(function () {
-                    var numberOfPeople = $(this).val();
-
-                    // Initialize total cost
-                    var totalCost = 0;
-
-                    // Calculate total cost for selected locations
-                    $('.location-checkbox input:checked').each(function () {
-                        var locationId = $(this).val();
-                        var pricePerPerson = parseFloat($(this).closest('.location-checkbox').find('.price-per-person').text().replace('$', ''));
-                        totalCost += numberOfPeople * pricePerPerson;
-                    });
-
-                    // Update total cost input field
-                    $('#TotalCost').val(totalCost.toFixed(2));
                 });
             });
         </script>
