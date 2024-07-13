@@ -51,31 +51,31 @@
                             <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
                             @location.Name
                         </label>
-                        <span class="price-per-person">$@location.PricePerPerson.ToString("0.00")</span> per person
+                        @* <span class="price-per-person">$@location.PricePerPerson.ToString("0.00")</span> per person *@
 
                         @if (location.Category == "Restaurant")
                         {
-                            <i class="bi bi-egg-fried"></i>
+                            <i class="bi bi-egg-fried float-start"></i>
                         }
                         else if (location.Category == "Bar")
                         {
-                            <i class="bi bi-cup-straw"></i>
+                            <i class="bi bi-cup-straw float-start"></i>
                         }
                         else if (location.Category == "Boat Ride")
                         {
-                            <i class="bi bi-droplet-half"></i>
+                            <i class="bi bi-droplet-half float-start"></i>
                         }
                         else if (location.Category == "Park")
                         {
-                            <i class="bi bi-tree-fill"></i>
+                            <i class="bi bi-tree-fill float-start"></i>
                         }
                         else if (location.Category == "Landmark")
                         {
-                            <i class="bi bi-pin-map-fill"></i>
+                            <i class="bi bi-pin-map-fill float-start"></i>
                         }
                         else
                         {
-                            <i class="bi bi-airplane-engines"></i>
+                            <i class="bi bi-airplane-engines float-start"></i>
                         }
                     </div>
                 }
