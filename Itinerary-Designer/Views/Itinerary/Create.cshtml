@@ -21,7 +21,7 @@
 </head>
 <body>
     <h2>Create Itinerary</h2>
-
+<br>
     <div class="form-container">
         <form asp-action="Create" method="post">
             <div class="form-group">
@@ -29,9 +29,10 @@
                 <input type="text" id="Name" name="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-
+<br>
             <div class="form-group">
                 <label>Select Categories:</label><br />
+                <br>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="SelectedCategories" value="All" id="allCategories" checked />
@@ -51,9 +52,10 @@
                     </div>
                 }
             </div>
-
+            <br>
             <div class="form-group">
                 <label>Select Locations:</label><br />
+                <br>
                 @for (var i = 0; i < Model.AvailableLocations.Count; i++)
                 {
                     var location = Model.AvailableLocations[i];
@@ -94,12 +96,13 @@
                 <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
             </div>
 
+            <br>
             <div class="form-group">
                 <label asp-for="NumberOfPeople">Number of People:</label>
                 <input asp-for="NumberOfPeople" type="number" class="form-control" id="NumberOfPeople" />
                 <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
             </div>
-
+            <br>
             <div class="form-group">
                 <label asp-for="NumberOfPets">Number of Pets:</label>
                 <select asp-for="NumberOfPets" class="form-control" id="NumberOfPets">
@@ -108,13 +111,13 @@
                     <option value="2">2</option>
                 </select>
             </div>
-
+            <br>
             <div class="form-group">
                 <label for="Date">Date:</label>
                 <input type="date" id="Date" name="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-
+            <br>
             <button type="submit" class="btn btn-primary">Create Itinerary</button>
         </form>
     </div>
