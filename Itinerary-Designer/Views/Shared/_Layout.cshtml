@@ -11,75 +11,64 @@
         .bg-light-blue {
             background-color: #87B4DD; /* Light blue color */
         }
+        .navbar-admin {
+            background-color: lightcoral !important; /* Light red color */
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light-blue border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="https://i.imgur.com/nJKS51G.jpg" alt="Logo" style="height: 70px; padding: 10px;" />
-Itinerary Designer</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <partial name="_LoginPartial" />
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-
-
-
-                        @if (!User.IsInRole("Admin"))
-                        {
-                         <li class="nav-item">
-                </li>
-
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light @(User.IsInRole("Admin") ? "navbar-admin" : "bg-light-blue") border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="https://i.imgur.com/nJKS51G.jpg" alt="Logo" style="height: 70px; padding: 10px;" />
+                Itinerary Designer
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <partial name="_LoginPartial" />
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item"></li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users Details</a>
-                            </li>
-                        }
-                        @if (!User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Itinerary" asp-action="Index">Create An Itinerary</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Itinerary" asp-action="Success">All Itineraries</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Review Post</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index">Rate us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Messaging">Chat with us</a>
-                            </li>
-                        }
-
-                        }
-                        @if (User.IsInRole("Admin"))
-                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Itinerary" asp-action="Index">Create An Itinerary</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Itinerary" asp-action="Success">All Itineraries</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Review" asp-action="Index">Review Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index">Rate us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Messaging">Chat with us</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users Details</a>
                         </li>
-                        }
-                     
-
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
