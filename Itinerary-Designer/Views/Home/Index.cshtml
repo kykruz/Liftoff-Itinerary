@@ -2,26 +2,53 @@
     ViewData["Title"] = "Home Page";
 }
 
-<style>
-    .background-image {
-        background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a3/Canal_Grande_Chiesa_della_Salute_e_Dogana_dal_ponte_dell_Accademia.jpg');
-        background-size: cover;
-        background-position: center;
-        height: 100vh;
-        color: white;
-        text-align: center;
-        padding-top: 20%;
-    }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Playwrite+AT:wght@100;200;300;400&display=swap" rel="stylesheet">
 
-<div class="background-image">
-    <h1 class="display-4">Venice is Waiting for you,</h1>
-    <h6 class="display-4">@Model.Username!</h6>
+    <!-- Your additional head content -->
+    <!-- Add any other meta tags, stylesheets, or scripts here -->
+</head>
+<body>
+    <style>
+        .background-image {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a3/Canal_Grande_Chiesa_della_Salute_e_Dogana_dal_ponte_dell_Accademia.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            padding-top: 20%;
+            font-family: 'Playwrite AT', cursive; /* Use Playwrite AT font */
+        }
 
-    @if (ViewData["Error"] != null)
-    {
-        <div class="alert alert-danger mt-3">
-            Error: @ViewData["Error"]
-        </div>
-    }
-</div>
+        .welcome-message {
+            font-size: 3rem; /* Example font size */
+            font-weight: 300; /* Example font weight */
+            margin-bottom: 1rem; /* Example margin */
+        }
+    </style>
+
+    <div class="background-image">
+        <h1 class="display-4 welcome-message">Venice is Waiting for you,</h1>
+        <h6 class="display-4 welcome-message">@Model.Username!</h6>
+
+        @if (ViewData["Error"] != null)
+        {
+            <div class="alert alert-danger mt-3">
+                Error: @ViewData["Error"]
+            </div>
+        }
+    </div>
+
+    <!-- Add any scripts or additional content after your main content -->
+</body>
+</html>
