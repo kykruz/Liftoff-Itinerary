@@ -74,7 +74,7 @@ button.accept-policy {
     background-color: lightcoral !important;
 }
 
-.background-image {
+/* .background-image {
   background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a3/Canal_Grande_Chiesa_della_Salute_e_Dogana_dal_ponte_dell_Accademia.jpg');
   background-size: cover;
   background-attachment: fixed; /* This creates the parallax effect */
@@ -86,4 +86,4 @@ button.accept-policy {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
+} */
