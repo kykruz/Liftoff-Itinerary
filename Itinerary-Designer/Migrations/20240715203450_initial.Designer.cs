@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240712161011_UpdateUserClass")]
-    partial class UpdateUserClass
+    [Migration("20240715203450_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -264,6 +264,31 @@ namespace Itinerary_Designer.Migrations
                     b.ToTable("ChatUser");
                 });
 
+            modelBuilder.Entity("Trips.Models.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("Trips.Models.Itinerary", b =>
                 {
                     b.Property<int>("Id")
@@ -337,6 +362,9 @@ namespace Itinerary_Designer.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsPetFriendly")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("ItineraryId")
                         .HasColumnType("int");
