@@ -108,10 +108,11 @@
 
             <br>
             <div class="form-group">
-                <label asp-for="NumberOfPeople">Number of People:</label>
-                <input asp-for="NumberOfPeople" type="number" class="form-control" id="NumberOfPeople" />
-                <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
-            </div>
+    <label asp-for="NumberOfPeople">Number of People:</label>
+    <input asp-for="NumberOfPeople" type="number" class="form-control" id="NumberOfPeople" min="1" />
+    <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+</div>
+
             <br>
             <div class="form-group">
                 <label asp-for="NumberOfPets">Number of Pets:</label>
