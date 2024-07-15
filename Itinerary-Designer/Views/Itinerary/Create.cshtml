@@ -1,135 +1,184 @@
 @model CreateItineraryViewModel
 
-<h2>Create Itinerary</h2>
+<!DOCTYPE html>
+<html>
 
-<div class="form-container">
-    <form asp-action="Create" method="post">
-        <div class="form-group">
-            <label for="Name">Name:</label>
-            <input type="text" id="Name" name="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Itinerary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-        <div class="form-group">
-            <label>Select Categories:</label><br />
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="SelectedCategories" value="All" id="allCategories" checked />
-                    All Categories
-                </label>
+    <style>
+        .even-row-category {
+            background-color: rgba(255, 193, 7, 0.1);
+            /* Slightly light yellow background */
+        }
+
+        .even-row-location {
+            background-color: rgba(0, 123, 255, 0.1);
+            /* Slightly light blue background */
+        }
+
+        .form-container {
+            max-width: 70%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Create Itinerary</h2>
+    <br>
+    <div class="form-container">
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label for="Name">Name:</label>
+                <input type="text" id="Name" name="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            @foreach (var category in Model.AvailableCategories)
-            {
-                bool isChecked = Model.SelectedCategories.Contains(category);
+            <br>
+            <div class="form-group">
+                <label>Select Categories:</label><br />
+                <br>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="SelectedCategories" value="@category" checked="@isChecked" class="category-checkbox" />
-                        @category
+                        <input type="checkbox" name="SelectedCategories" value="All" id="allCategories" checked />
+                        All Categories
                     </label>
                 </div>
-            }
-        </div>
-
-        <div class="form-group">
-            <label>Select Locations:</label><br />
-            @foreach (var location in Model.AvailableLocations)
-            {
-                bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
-                <div class="checkbox location-checkbox" data-category="@location.Category">
-                    <label>
-                        <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
-                        @location.Name
-                    </label>
-                    <span class="price-per-person">$@location.PricePerPerson.ToString("0.00")</span> per person
-                </div>
-            }
-            <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-    <label asp-for="NumberOfPeople">Number of People:</label>
-    <input asp-for="NumberOfPeople" type="number" class="form-control" />
-    <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
-</div>
-
-
-        <div class="form-group">
-            <label asp-for="NumberOfPets">Number of Pets:</label>
-            <select asp-for="NumberOfPets" class="form-control" id="NumberOfPets">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="Date">Date:</label>
-            <input type="date" id="Date" name="Date" class="form-control" />
-            <span asp-validation-for="Date" class="text-danger"></span>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Create Itinerary</button>
-    </form>
-</div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function() {
-            // Initially hide all location checkboxes if "All Categories" is selected
-            if ($('#allCategories').is(':checked')) {
-                $('.location-checkbox').show();
-            } else {
-                $('.location-checkbox').hide();
-            }
-
-            // Update location checkboxes based on selected categories
-            $('input[name="SelectedCategories"]').change(function() {
-                if ($(this).attr('id') === 'allCategories') {
-                    if ($(this).is(':checked')) {
-                        $('.category-checkbox').prop('checked', false);
-                        $('.location-checkbox').show();
-                    } else {
-                        $('.location-checkbox').hide();
-                    }
-                } else {
-                    $('#allCategories').prop('checked', false);
-
-                    var selectedCategories = $('input[name="SelectedCategories"]:checked').map(function() {
-                        return $(this).val();
-                    }).get();
-
-                    if (selectedCategories.length === 0) {
-                        $('.location-checkbox').hide();
-                    } else {
-                        $('.location-checkbox').each(function() {
-                            var category = $(this).data('category');
-                            if (selectedCategories.includes(category)) {
-                                $(this).show();
-                            } else {
-                                $(this).hide();
-                            }
-                        });
-                    }
+                @for (var i = 0; i < Model.AvailableCategories.Count; i++)
+                {
+                    var category = Model.AvailableCategories[i];
+                    bool isChecked = Model.SelectedCategories.Contains(category);
+                    <div class="checkbox @((i % 2 == 0) ? "even-row-category" : "")">
+                        <label>
+                            <input type="checkbox" name="SelectedCategories" value="@category" checked="@isChecked"
+                                class="category-checkbox" />
+                            @category
+                        </label>
+                    </div>
                 }
-            });
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Select Locations:</label><br />
+                <br>
+                @for (var i = 0; i < Model.AvailableLocations.Count; i++)
+                {
+                    var location = Model.AvailableLocations[i];
+                    bool isChecked = Model.SelectedLocationIds.Contains(location.Id);
+                     <div class="checkbox location-checkbox @((i % 2 == 0) ? "even-row-location" : "")"
+                        data-category="@location.Category">
+                        <label>
+                            <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
+                            @location.Name
+                        </label>
+                        @* <span class="price-per-person">$@location.PricePerPerson.ToString("0.00")</span> per person *@
+                        @if (location.Category == "Restaurant")
+                        {
+                            <i class="bi bi-egg-fried float-start"></i>
+                        }
+                        else if (location.Category == "Bar")
+                        {
+                            <i class="bi bi-cup-straw float-start"></i>
+                        }
+                        else if (location.Category == "Boat Ride")
+                {
+                    <i class="bi bi-droplet-half float-start"></i>
+                }
+                        else if (location.Category == "Park")
+                        {
+                            <i class="bi bi-tree-fill float-start"></i>
+                        }
+                        else if (location.Category == "Landmark")
+                        {
+                            <i class="bi bi-pin-map-fill float-start"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-airplane-engines float-start"></i>
+                        }
+                    </div>
+                }
+                <span asp-validation-for="SelectedLocationIds" class="text-danger"></span>
+            </div>
 
-            // Calculate and update total cost based on number of people and selected locations
-            $('#NumberOfPeople').change(function() {
-                var numberOfPeople = $(this).val();
+            <br>
+            <div class="form-group">
+                <label asp-for="NumberOfPeople">Number of People:</label>
+                <input asp-for="NumberOfPeople" type="number" class="form-control" id="NumberOfPeople" />
+                <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="NumberOfPets">Number of Pets:</label>
+                <select asp-for="NumberOfPets" class="form-control" id="NumberOfPets">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="Date">Date:</label>
+                <input type="date" id="Date" name="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Create Itinerary</button>
 
-                // Initialize total cost
-                var totalCost = 0;
+        </form>
+    </div>
 
-                // Calculate total cost for selected locations
-                $('.location-checkbox input:checked').each(function() {
-                    var locationId = $(this).val();
-                    var pricePerPerson = parseFloat($(this).closest('.location-checkbox').find('.price-per-person').text().replace('$', ''));
-                    totalCost += numberOfPeople * pricePerPerson;
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                // Initially hide all location checkboxes if "All Categories" is selected
+                if ($('#allCategories').is(':checked')) {
+                    $('.location-checkbox').show();
+                } else {
+                    $('.location-checkbox').hide();
+                }
+
+                // Update location checkboxes based on selected categories
+                $('input[name="SelectedCategories"]').change(function () {
+                    if ($(this).attr('id') === 'allCategories') {
+                        if ($(this).is(':checked')) {
+                            $('.category-checkbox').prop('checked', false);
+                            $('.location-checkbox').show();
+                        } else {
+                            $('.location-checkbox').hide();
+                        }
+                    } else {
+                        $('#allCategories').prop('checked', false);
+
+                        var selectedCategories = $('input[name="SelectedCategories"]:checked').map(function () {
+                            return $(this).val();
+                        }).get();
+
+                        if (selectedCategories.length === 0) {
+                            $('.location-checkbox').hide();
+                        } else {
+                            $('.location-checkbox').each(function () {
+                                var category = $(this).data('category');
+                                if (selectedCategories.includes(category)) {
+                                    $(this).show();
+                                } else {
+                                    $(this).hide();
+                                }
+                            });
+                        }
+                    }
                 });
-
-                // Update total cost input field
-                $('#TotalCost').val(totalCost.toFixed(2));
             });
-        });
-    </script>
-}
+        </script>
+    }
+</body>
+
+</html>

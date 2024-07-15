@@ -1,20 +1,98 @@
-@using Trips.Models;
+@using Trips.Models
 @using Trips.ViewModels
 
-@model List<ReviewViewModel>;
+@model List<ReviewViewModel>
 
-<h2>Review Post</h2>
+<head>
+    <!-- Ensure Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
-<a asp-action="Create">Create New Post</a>
+    <!-- Import Google Font: Dancing Script -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
-@foreach (var review in Model)
-{
-    <div>
-        <h3>@review.Username</h3>
-        <p>@review.Title</p>
-        <p>@review.ReviewPost</p>
-        <img src="@review.ImagePath" alt="Review Image" /> 
-        <p>Username: @review.Username</p>
-        <p>Date: @review.PostedDate</p>
+    <!-- Ensure Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+    <!-- Ensure jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Ensure Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Include AOS (Animate on Scroll) library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #343a40;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .review {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .review:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .review .username {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review .date {
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .review img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 data-aos="fade-up">Review Posts</h2>
+
+        <a asp-action="Create" class="btn btn-primary mb-3" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-plus"></i> Create New Post
+        </a>
+
+        @foreach (var review in Model)
+        {
+            <div class="review" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="username">@review.Username</h3>
+                <p>@review.Title</p>
+                <p>@review.ReviewPost</p>
+                @if (!string.IsNullOrEmpty(review.ImagePath))
+                {
+                    <img src="@review.ImagePath" alt="Review Image" />
+                }
+                <p class="date">Date: @review.PostedDate.ToString("yyyy-MM-dd")</p>
+            </div>
+        }
     </div>
-}    
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                AOS.init({
+                    duration: 800,
+                });
+            });
+        </script>
+    }
+</body>

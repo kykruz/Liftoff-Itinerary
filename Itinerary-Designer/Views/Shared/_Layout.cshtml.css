@@ -66,3 +66,24 @@ button.accept-policy {
   color: #ffffff; /* Text color for visited links (white) */
 }
 
+ .bg-light-blue {
+   background-color: #87B4DD; /* Light blue color */
+}
+
+.navbar-admin {
+    background-color: lightcoral !important;
+}
+
+/* .background-image {
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a3/Canal_Grande_Chiesa_della_Salute_e_Dogana_dal_ponte_dell_Accademia.jpg');
+  background-size: cover;
+  background-attachment: fixed; /* This creates the parallax effect */
+  /* background-position: center;
+  height: 100vh;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+} */ */
