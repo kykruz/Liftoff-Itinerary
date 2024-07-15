@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Trips.Data;
 
@@ -12,11 +11,9 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240712161011_UpdateUserClass")]
-    partial class UpdateUserClass
+    partial class TripDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,6 +233,9 @@ namespace Itinerary_Designer.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<bool>("IsAdminResponse")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Message")
                         .HasColumnType("longtext");
 
@@ -262,6 +262,31 @@ namespace Itinerary_Designer.Migrations
                         .IsUnique();
 
                     b.ToTable("ChatUser");
+                });
+
+            modelBuilder.Entity("Trips.Models.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("Trips.Models.Itinerary", b =>
@@ -461,7 +486,7 @@ namespace Itinerary_Designer.Migrations
             modelBuilder.Entity("Trips.Models.ChatUser", b =>
                 {
                     b.HasOne("Trips.Models.Chat", "ChatLog")
-                        .WithOne("ChatUsers")
+                        .WithOne("ChatUser")
                         .HasForeignKey("Trips.Models.ChatUser", "ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -497,7 +522,7 @@ namespace Itinerary_Designer.Migrations
 
             modelBuilder.Entity("Trips.Models.Chat", b =>
                 {
-                    b.Navigation("ChatUsers")
+                    b.Navigation("ChatUser")
                         .IsRequired();
                 });
 

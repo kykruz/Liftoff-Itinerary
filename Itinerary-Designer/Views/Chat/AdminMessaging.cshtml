@@ -1,0 +1,48 @@
+@using Trips.ViewModels;
+@using Trips.Models;
+@model ChatViewModel
+
+
+@{
+    ViewData["Title"] = "Admin Chat Messages";
+}
+
+<div class="container mt-4 chat-container">
+    <h2 class="text-center mb-4" style="font-family: 'Dancing Script', cursive;">Admin Chat Messages</h2>
+
+    <div>
+        @if (Model.ChatLog != null && Model.ChatLog.Any())
+        {
+            foreach (var chat in Model.ChatLog)
+            {
+                <div class="chat-message">
+                    <label>@chat.Message - @chat.Date.ToString("yyyy-MM-dd HH:mm:ss")</label>
+                    @if (!chat.IsAdminResponse)
+                    {
+                        <!-- Option to respond -->
+                        <form asp-controller="Chat" asp-action="AdminMessaging" method="post">
+                            <input type="text" name="Message" value="Reply" />
+                            <button type="submit" class="btn btn-secondary">Reply</button>
+                        </form>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <p>No chat messages available.</p>
+        }
+    </div>
+
+    <hr />
+
+    <h2 class="text-center mt-4 mb-3" style="font-family: 'Dancing Script', cursive;">Send a Message</h2>
+
+    <form asp-controller="Chat" asp-action="AdminMessaging" method="post">
+        <div class="form-group">
+            <label for="Message">Message:</label>
+            <input type="text" id="Message" name="Message" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
