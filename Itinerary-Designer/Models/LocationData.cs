@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Trips.Models;
 
 public class LocationData
@@ -9,9 +13,9 @@ public class LocationData
     public double PricePerPerson { get; set; }
     public string Description { get; set; }
     public string Phone { get; set; }
+    public bool IsPetFriendly { get; set; }
 
     public List<ItineraryLocationData> ItineraryLocationDatas { get; set; } = new List<ItineraryLocationData>();
-
 
     public LocationData(
         int id,
@@ -30,10 +34,11 @@ public class LocationData
         PricePerPerson = pricePerPerson;
         Description = description;
         Phone = phone;
+        IsPetFriendly = LocationUtilities.IsPetFriendly(name);
     }
 
     public LocationData() { }
-
+    /*
     public static implicit operator List<object>(LocationData v)
     {
         throw new NotImplementedException();
@@ -42,5 +47,15 @@ public class LocationData
     internal LocationData Where(Func<object, object> value)
     {
         throw new NotImplementedException();
+    }
+    */
+}
+
+public static class LocationUtilities
+{
+    public static bool IsPetFriendly(string locationName)
+    {
+        string[] petFriendlyKeywords = { "park", "doge", "parco", "pet" };
+        return petFriendlyKeywords.Any(keyword => locationName.ToLower().Contains(keyword));
     }
 }
