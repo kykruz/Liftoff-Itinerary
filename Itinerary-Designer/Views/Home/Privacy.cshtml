@@ -1,12 +1,66 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>This is our logo that you can not use without permission.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Fallback font */
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        img {
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
 
-<div style="text-align:center;">
-    <img src="https://i.imgur.com/nJKS51G.jpg" alt="Itinerary Designer Logo" style="max-width:100%; height:auto;">
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+
+    <p>This is our logo that you cannot use without permission.</p>
+
+    <div style="text-align:center;">
+        <img src="https://i.imgur.com/nJKS51G.jpg" alt="Itinerary Designer Logo">
+    </div>
 </div>
 
+</body>
+</html>
 
