@@ -18,6 +18,11 @@ private string GetCurrentUserId()
 {
  return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 }
+private string GetCurrentEmail()
+{
+    return User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+}
+
   public ContactController(TripDbContext _context)
   {
     context = _context;
@@ -37,10 +42,12 @@ private string GetCurrentUserId()
     if(ModelState.IsValid)
     {
        string userId = GetCurrentUserId();
+       string email = GetCurrentEmail();
 
     Contact contact = new Contact
     {
         Message = contactViewModel.Message,
+        Email = email,
         UserId = userId,
         Date = DateTime.Now
     };
