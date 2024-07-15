@@ -74,7 +74,7 @@ public class ChatController : Controller
     public async Task<IActionResult> AdminMessaging()
     {
         List<Chat> chatLog = await context
-            .Chats.Include(c => c.ChatUser) // Include related user information if needed
+            .Chats.Include(c => c.ChatUser) 
             .OrderByDescending(c => c.Date)
             .ToListAsync();
 
@@ -84,7 +84,7 @@ public class ChatController : Controller
 
     [Authorize(Roles = "Admin")]
     [HttpPost]
-    public async Task<IActionResult> AdminMessaging(ChatViewModel chatViewModel)
+    public async Task<IActionResult> AdminMessaging(ChatViewModel chatViewModel, int originalChatId)
     {
         if (ModelState.IsValid)
         {
@@ -95,9 +95,10 @@ public class ChatController : Controller
             {
                 Email = email,
                 Message = chatViewModel.Message,
-                UserId = userId, // Admin is responding
+                UserId = userId,
                 Date = DateTime.Now,
-                IsAdminResponse = true
+                IsAdminResponse = true,
+                OriginalChatId = originalChatId 
             };
 
             context.Chats.Add(chat);
@@ -108,6 +109,4 @@ public class ChatController : Controller
 
         return View(chatViewModel);
     }
-
-   
 }

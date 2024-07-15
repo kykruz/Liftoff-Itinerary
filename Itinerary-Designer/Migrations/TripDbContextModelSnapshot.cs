@@ -234,19 +234,26 @@ namespace Itinerary_Designer.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("IsAdminResponse")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("OriginalChatId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OriginalChatId");
 
                     b.ToTable("Chats");
                 });
@@ -484,6 +491,15 @@ namespace Itinerary_Designer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Trips.Models.Chat", b =>
+                {
+                    b.HasOne("Trips.Models.Chat", "OriginalChat")
+                        .WithMany()
+                        .HasForeignKey("OriginalChatId");
+
+                    b.Navigation("OriginalChat");
                 });
 
             modelBuilder.Entity("Trips.Models.ChatUser", b =>

@@ -75,18 +75,24 @@ namespace Itinerary_Designer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Email = table.Column<string>(type: "longtext", nullable: true)
+                    Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Message = table.Column<string>(type: "longtext", nullable: true)
+                    Message = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserId = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsAdminResponse = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    IsAdminResponse = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    OriginalChatId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Chats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Chats_Chats_OriginalChatId",
+                        column: x => x.OriginalChatId,
+                        principalTable: "Chats",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -408,6 +414,11 @@ namespace Itinerary_Designer.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chats_OriginalChatId",
+                table: "Chats",
+                column: "OriginalChatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChatUser_ChatId",

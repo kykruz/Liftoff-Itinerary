@@ -1,5 +1,4 @@
-@using Trips.ViewModels;
-@using Trips.Models;
+@using Trips.ViewModels
 @model ChatViewModel
 
 <!DOCTYPE html>
@@ -7,13 +6,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Chat Messages</title>
+    <title>Admin Chat Messages</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            /* Example of fallback font */
         }
 
         .chat-container {
@@ -52,32 +50,45 @@
 </head>
 
 <body>
-
-
     <div class="container mt-4 chat-container">
-        <h2 class="text-center mb-4" style="font-family: 'Dancing Script', cursive;">Chat Messages</h2>
-
+        <h2 class="text-center mb-4" style="font-family: 'Dancing Script', cursive;">Admin Chat Messages</h2>
         <div>
             @if (Model.ChatLog != null && Model.ChatLog.Any())
             {
+                string currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
                 foreach (var chat in Model.ChatLog)
                 {
-                    <div class="chat-message">
-                        <label>@chat.Message - @chat.Date.ToString("yyyy-MM-dd HH:mm:ss")</label>
-                        <p>Sent by: @chat.Email</p>
-                    </div>
+                    @if (chat.IsAdminResponse && chat.OriginalChat != null && chat.OriginalChat.UserId == currentUserId)
+                    {
+                        <div class="chat-message">
+                            <label>Original Message:</label>
+                            <p>@chat.OriginalChat.Message - @chat.OriginalChat.Date.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                            <hr />
+                            <label>Admin Response:</label>
+                            <p>@chat.Message - @chat.Date.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                        </div>
+                    }
+                    else if (!chat.IsAdminResponse && chat.OriginalChat != null && chat.OriginalChat.UserId == currentUserId)
+                    {
+                        <div class="chat-message">
+                            <label>Original Message:</label>
+                            <p>@chat.OriginalChat.Message - @chat.OriginalChat.Date.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                            <hr />
+                            <label>Waiting for Admin Response...</label>
+                        </div>
+                    }
                 }
             }
             else
             {
-                <p>No chat messages available.</p>
+                <p>No admin chat messages available.</p>
             }
         </div>
 
         <hr />
 
         <h2 class="text-center mt-4 mb-3" style="font-family: 'Dancing Script', cursive;">Send a Message</h2>
-
         <form asp-controller="Chat" asp-action="Messaging" method="post">
             <div class="form-group">
                 <label for="Message">Message:</label>
@@ -86,5 +97,6 @@
             <button type="submit" class="btn btn-primary">Send Message</button>
         </form>
     </div>
-
 </body>
+
+</html>
