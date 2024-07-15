@@ -52,5 +52,12 @@ private string GetCurrentUserId()
 
     return View(contactViewModel);
   }
+[Authorize(Roles ="Admin")]
+  [HttpGet]
+    public IActionResult ViewContact()
+    {
+       List<Contact> contact = context.Contacts.ToList();
+        return View(contact);
+    }
         
 }
