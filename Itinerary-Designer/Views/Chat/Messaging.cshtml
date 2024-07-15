@@ -59,23 +59,25 @@
 
                 foreach (var chat in Model.ChatLog)
                 {
-                    @if (chat.IsAdminResponse && chat.OriginalChat != null && chat.OriginalChat.UserId == currentUserId)
+                    @if (chat.UserId == currentUserId && !chat.IsAdminResponse)
                     {
                         <div class="chat-message">
-                            <label>Original Message:</label>
-                            <p>@chat.OriginalChat.Message - @chat.OriginalChat.Date.ToString("yyyy-MM-dd HH:mm:ss")</p>
-                            <hr />
-                            <label>Admin Response:</label>
+                            <label>Your Message:</label>
                             <p>@chat.Message - @chat.Date.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                            <hr />
+                            @if (chat.OriginalChat != null && chat.OriginalChat.IsAdminResponse)
+                            {
+                                <label>Admin Response:</label>
+                                <p>@chat.OriginalChat.Message - @chat.OriginalChat.Date.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                            }
+            
                         </div>
                     }
-                    else if (!chat.IsAdminResponse && chat.OriginalChat != null && chat.OriginalChat.UserId == currentUserId)
+                    else if (chat.IsAdminResponse && chat.OriginalChat != null && chat.OriginalChat.UserId == currentUserId)
                     {
                         <div class="chat-message">
-                            <label>Original Message:</label>
-                            <p>@chat.OriginalChat.Message - @chat.OriginalChat.Date.ToString("yyyy-MM-dd HH:mm:ss")</p>
-                            <hr />
-                            <label>Waiting for Admin Response...</label>
+                            <label>Admin Response:</label>
+                            <p>@chat.Message - @chat.Date.ToString("yyyy-MM-dd HH:mm:ss")</p>
                         </div>
                     }
                 }
