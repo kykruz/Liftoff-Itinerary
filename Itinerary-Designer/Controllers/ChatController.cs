@@ -6,13 +6,24 @@ using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
 using Trips.ViewModels;
-// 
+
+//
 namespace Trips.Controllers;
 
 [Authorize]
 public class ChatController : Controller
 {
     private readonly TripDbContext context;
+
+    private string GetCurrentUserId()
+    {
+        return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    }
+
+    private string GetCurrentUserEmail()
+    {
+        return User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+    }
 
     public ChatController(TripDbContext _context)
     {
@@ -23,8 +34,8 @@ public class ChatController : Controller
     public async Task<IActionResult> Messaging()
     {
         string userId = GetCurrentUserId();
-        List<Chat> chatLog = await context.Chats
-            .Where(c => c.UserId == userId || c.IsAdminResponse)
+        List<Chat> chatLog = await context
+            .Chats.Where(c => c.UserId == userId || c.IsAdminResponse)
             .OrderBy(c => c.Date)
             .ToListAsync();
 
@@ -38,9 +49,11 @@ public class ChatController : Controller
         if (ModelState.IsValid)
         {
             string userId = GetCurrentUserId();
+            string email = GetCurrentUserEmail();
 
             Chat chat = new Chat
             {
+                Email = email,
                 Message = chatViewModel.Message,
                 UserId = userId,
                 Date = DateTime.Now,
@@ -60,8 +73,8 @@ public class ChatController : Controller
     [HttpGet]
     public async Task<IActionResult> AdminMessaging()
     {
-        List<Chat> chatLog = await context.Chats
-            .Include(c => c.ChatUser) // Include related user information if needed
+        List<Chat> chatLog = await context
+            .Chats.Include(c => c.ChatUser) // Include related user information if needed
             .OrderByDescending(c => c.Date)
             .ToListAsync();
 
@@ -75,12 +88,14 @@ public class ChatController : Controller
     {
         if (ModelState.IsValid)
         {
-            string adminUserId = GetCurrentUserId();
+            string userId = GetCurrentUserId();
+            string email = GetCurrentUserEmail();
 
             Chat chat = new Chat
             {
+                Email = email,
                 Message = chatViewModel.Message,
-                UserId = adminUserId, // Admin is responding
+                UserId = userId, // Admin is responding
                 Date = DateTime.Now,
                 IsAdminResponse = true
             };
@@ -94,8 +109,5 @@ public class ChatController : Controller
         return View(chatViewModel);
     }
 
-    private string GetCurrentUserId()
-    {
-        return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-    }
+   
 }

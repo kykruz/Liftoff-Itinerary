@@ -19,6 +19,11 @@
                     <label>@chat.Message - @chat.Date.ToString("yyyy-MM-dd HH:mm:ss")</label>
                     @if (!chat.IsAdminResponse)
                     {
+                    <p>Sent by: @chat.Email</p>
+                    }
+                    
+                    @if (!chat.IsAdminResponse)
+                    {
                         <!-- Option to respond -->
                         <form asp-controller="Chat" asp-action="AdminMessaging" method="post">
                             <input type="text" name="Message" value="Reply" />
@@ -26,6 +31,7 @@
                         </form>
                     }
                 </div>
+                <br> 
             }
         }
         else
@@ -36,7 +42,7 @@
 
     <hr />
 
-    <h2 class="text-center mt-4 mb-3" style="font-family: 'Dancing Script', cursive;">Send a Message</h2>
+    @* <h2 class="text-center mt-4 mb-3" style="font-family: 'Dancing Script', cursive;">Send a Message</h2>
 
     <form asp-controller="Chat" asp-action="AdminMessaging" method="post">
         <div class="form-group">
@@ -44,5 +50,5 @@
             <input type="text" id="Message" name="Message" class="form-control" />
         </div>
         <button type="submit" class="btn btn-primary">Send Message</button>
-    </form>
+    </form> *@
 </div>

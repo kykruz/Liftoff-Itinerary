@@ -12,7 +12,7 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240715175145_first")]
+    [Migration("20240715182558_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -235,6 +235,9 @@ namespace Itinerary_Designer.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("IsAdminResponse")
                         .HasColumnType("tinyint(1)");

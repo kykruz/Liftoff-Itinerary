@@ -233,6 +233,9 @@ namespace Itinerary_Designer.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
                     b.Property<bool>("IsAdminResponse")
                         .HasColumnType("tinyint(1)");
 
