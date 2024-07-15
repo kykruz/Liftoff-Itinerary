@@ -1,24 +1,114 @@
 @model List<Trips.Models.Itinerary>
 
-<h2>Created Itineraries</h2>
+<head>
+    <!-- Import Google Font: Dancing Script -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
-@if (Model != null && Model.Count > 0)
-{
-    <ul>
-        @foreach (var itinerary in Model)
-        {
-            <li>
-                <a asp-controller="Itinerary" asp-action="ViewLocations" asp-route-itineraryId="@itinerary.Id">@itinerary.Name</a>
-            </li>
+    <!-- Ensure Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- Ensure jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+    <!-- Ensure Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Include AOS (Animate on Scroll) library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            color: #343a40;
+            text-align: center;
+            margin-top: 20px;
         }
-    </ul>
-}
-else
-{
-    <p>No itineraries created yet.</p>
-}
 
-<div>
-    <!-- Link to delete view -->
-    <a asp-controller="Itinerary" asp-action="Delete">Delete Itineraries</a>
-</div>
+        .itinerary-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .itinerary-list li {
+            margin: 10px 0;
+        }
+
+        .itinerary-list a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .itinerary-list a:hover {
+            text-decoration: underline;
+        }
+
+        .no-itineraries {
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .btn-action {
+            margin: 10px;
+            display: inline-block;
+        }
+
+        .btn-action svg {
+            margin-right: 5px;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 data-aos="fade-up">Created Itineraries</h2>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <ul class="itinerary-list" data-aos="fade-up" data-aos-delay="200">
+                @foreach (var itinerary in Model)
+                {
+                    <li>
+                        <a asp-controller="Itinerary" asp-action="ViewLocations" asp-route-itineraryId="@itinerary.Id">@itinerary.Name</a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="no-itineraries" data-aos="fade-up" data-aos-delay="200">No itineraries created yet.</p>
+        }
+
+        <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+            <a asp-controller="Itinerary" asp-action="Index" class="btn-action">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
+                    <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7" />
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                </svg>
+                Create Itineraries
+            </a>
+            <br>
+            <a asp-controller="Itinerary" asp-action="Delete" class="btn-action">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-minus" viewBox="0 0 16 16">
+                    <path d="M5.5 9.5A.5.5 0 0 1 6 9h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5" />
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                </svg>
+                Delete Itineraries
+            </a>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                AOS.init({
+                    duration: 800,
+                });
+            });
+        </script>
+    }
+</body>

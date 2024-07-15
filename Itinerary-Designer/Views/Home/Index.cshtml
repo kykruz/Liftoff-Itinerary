@@ -1,27 +1,54 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Dancing+Script:wght@400..700&family=Playwrite+AT:ital,wght@0,100..400;1,100..400&family=Playwrite+RO:wght@100..400&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 
-<style>
-    .background-image {
-        background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a3/Canal_Grande_Chiesa_della_Salute_e_Dogana_dal_ponte_dell_Accademia.jpg');
-        background-size: cover;
-        background-position: center;
-        height: 100vh;
-        color: white;
-        text-align: center;
-        padding-top: 20%;
-    }
-</style>
+    <!-- Additional CSS -->
+    <style>
+        @* .background-image {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a3/Canal_Grande_Chiesa_della_Salute_e_Dogana_dal_ponte_dell_Accademia.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            padding-top: 20%;
+            font-family: 'Dancing Script', cursive; /* Use Dancing Script for the welcome message */
+        } *@
 
-<div class="background-image">
-    <h1 class="display-4">Welcome, @Model.Username!</h1>
-    @* <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
-
-    @if (ViewData["Error"] != null)
+        .welcome-message {
+            font-size: 3rem; /* Example font size */
+            font-weight: 400; /* Example font weight */
+            margin-bottom: 1rem; /* Example margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image">
+         @if (User.IsInRole("Admin"))
     {
-        <div class="alert alert-danger mt-3">
-            Error: @ViewData["Error"]
-        </div>
+        <h1 class="display-4 welcome-message">Welcome back, @Model.Username!</h1>
     }
-</div>
+    else
+    {
+        <h1 class="display-4 welcome-message">Venice is Waiting for you, @Model.Username!</h1>
+    }
+
+        @if (ViewData["Error"] != null)
+        {
+            <div class="alert alert-danger mt-3">
+                Error: @ViewData["Error"]
+            </div>
+        }
+    </div>
+
+    <!-- Add any scripts or additional content after your main content -->
+</body>
+</html>

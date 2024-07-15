@@ -1,0 +1,27 @@
+
+@using Trips.Models;
+@model List<Contact>;
+
+<h2>Reported Issues:</h2>
+@if(Model.Count > 0)
+{
+
+ <ul>
+    @foreach (var issue in Model)
+    {
+        <li>
+            <div>
+                <strong>Email:</strong> @issue.Email <br />
+                <strong>Message:</strong> @issue.Message <br />
+                <strong>Date:</strong> @issue.Date
+            </div>
+        </li>
+    }
+</ul>
+
+}
+else
+{
+    <p>No reported Issues</p>
+}
+
