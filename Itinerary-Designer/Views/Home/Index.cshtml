@@ -32,8 +32,14 @@
 </head>
 <body>
     <div class="background-image">
-        <h1 class="display-4 welcome-message">Venice is Waiting for you,</h1>
-        <h6 class="display-4 welcome-message">@Model.Username!</h6>
+         @if (User.IsInRole("Admin"))
+    {
+        <h1 class="display-4 welcome-message">Welcome back, @Model.Username!</h1>
+    }
+    else
+    {
+        <h1 class="display-4 welcome-message">Venice is Waiting for you, @Model.Username!</h1>
+    }
 
         @if (ViewData["Error"] != null)
         {
