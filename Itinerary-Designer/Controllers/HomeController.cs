@@ -52,8 +52,8 @@ public class HomeController : Controller
     {
         try
         {
-            ConvertRequest request = new ConvertRequest(fromCurrency, toCurrency, amount);
-            ConvertResponse response = await _exchangeRatesApi.ConvertAsync(request);
+            Exchange.Services.ConvertRequest request = new Exchange.Services.ConvertRequest(fromCurrency, toCurrency, amount);
+            Exchange.Services.ConvertResponse response = await _exchangeRatesApi.ConvertAsync(request);
 
             //Preparing data to pass to the View
             ViewData["Amount"] = amount;
