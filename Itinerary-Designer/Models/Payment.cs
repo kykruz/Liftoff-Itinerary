@@ -1,22 +1,24 @@
-public class PaymentModel
+namespace Trips.Models
 {
-    public string? UserId { get; set; }
-    public int CreditCardNumber { get; set; }
-    public int ExpirationDate { get; set; }
-    public int CVV { get; set; }
-   
-    public PaymentModel() {}
-
-    public PaymentModel(string userId, int creditCardNumber, int expirationDate, int cVV)
+    public class PaymentModel
     {
-    UserId = userId;
-    CreditCardNumber = creditCardNumber;
-    ExpirationDate = expirationDate;
-    CVV = cVV;
-    }
-}
+        public string? UserId { get; set; }
+        public string CreditCardNumber { get; set; }
+        public string ExpirationDate { get; set; } // MM/YY or MM/YYYY format
+        public string CVV { get; set; }
 
-       public class ConvertRequest
+        public PaymentModel() {}
+
+        public PaymentModel(string userId, string creditCardNumber, string expirationDate, string cVV)
+        {
+            UserId = userId;
+            CreditCardNumber = creditCardNumber;
+            ExpirationDate = expirationDate;
+            CVV = cVV;
+        }
+    }
+
+    public class ConvertRequest
     {
         public string FromCurrency { get; set; }
         public string ToCurrency { get; set; }
@@ -34,3 +36,4 @@ public class PaymentModel
     {
         public double Result { get; set; }
     }
+}

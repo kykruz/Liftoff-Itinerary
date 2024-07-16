@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Trips.Models; // Assuming this is where PaymentModel is defined
+using Trips.Models;
 
 namespace Exchange.Services
 {

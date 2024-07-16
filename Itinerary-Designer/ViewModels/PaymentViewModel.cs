@@ -1,12 +1,9 @@
-using Trips.Models;
-
-public class Payment
+namespace Trips.Models
 {
-    public string? UserId { get; set; }
-    public int CreditCardNumber { get; set; }
-    public int ExpirationDate { get; set; }
-    public int CVV { get; set; }
-   
-   public Payment() {}
+    public class PaymentViewModel
+    {
+        public PaymentModel? PaymentModel { get; set; }
+        public ConvertRequest? ConvertRequest { get; set; }
+        public ConvertResponse? ConvertResponse { get; set; }
+    }
 }
-

@@ -1,54 +1,89 @@
-using Microsoft.AspNetCore.Mvc;
-using Exchange.Services;
-using Trips.Models; 
 using System;
 using System.Threading.Tasks;
+using Exchange.Services;
+using Microsoft.AspNetCore.Mvc;
+using Trips.Models;
 
-public class PaymentController : Controller
+namespace Trips.Controllers
 {
-    private readonly ExchangeRatesApiService _exchangeService;
-
-    public PaymentController(ExchangeRatesApiService exchangeService)
+    public class PaymentController : Controller
     {
-        _exchangeService = exchangeService;
-    }
+        private readonly ExchangeRatesApiService _exchangeService;
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> ProcessPayment(PaymentModel payment)
-    {
-        if (!ModelState.IsValid)
+        public PaymentController(ExchangeRatesApiService exchangeService)
         {
-            // If model state is not valid, return to the form with errors
-            return View("Index", payment); // Pass payment model back to view with errors
+            _exchangeService = exchangeService;
         }
 
-        try
+        public IActionResult Index()
         {
-            // Call your external API here to process the payment asynchronously
-            var result = await _exchangeService.ProcessPaymentAsync(payment);
+            return View(new PaymentViewModel());
+        }
 
-            if (result.Success)
+        [HttpPost]
+        public async Task<IActionResult> ProcessPayment(PaymentViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
             {
-                // If payment successful, redirect to payment result page
-                return RedirectToAction("PaymentResult", new { success = true });
+                // If model state is not valid, return to the form with errors
+
+                return View("Index", viewModel); 
+                
+                // Pass payment model back to view with errors
             }
-            else
+
+            try
             {
-                // If payment failed, handle accordingly (possibly show error message)
-                ModelState.AddModelError(string.Empty, "Payment processing failed. Please try again.");
-                return View("Index", payment); // Return to payment form with error message
+                // Call your external API here to process the payment asynchronously
+
+                var result = await _exchangeService.ProcessPaymentAsync(viewModel.PaymentModel);
+
+                if (result.Success)
+                {
+                    // If payment successful, redirect to payment result page
+
+                    return RedirectToAction("PaymentResult", new { success = true });
+                }
+                else
+                {
+                    // If payment failed, handle accordingly (possibly show error message)
+
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Payment processing failed. Please try again.");
+                    return View("Index", viewModel); 
+                    
+                    // Return to payment form with error message
+                }
+            }
+            catch (Exception)
+            {
+                // Log the exception and handle it gracefully
+
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Payment processing encountered an error. Please try again later."
+                );
+                return View("Index", viewModel); 
+                
+                // Return to payment form with error message
+
             }
         }
-        catch (Exception ex)
+        [HttpPost]
+        public async Task<IActionResult> ConvertCurrency(PaymentViewModel viewModel)
         {
-            // Log the exception and handle it gracefully
-            ModelState.AddModelError(string.Empty, "Payment processing encountered an error. Please try again later.");
-            return View("Index", payment); // Return to payment form with error message
+            try
+            {
+                var result = await _exchangeService.ConvertAsync(viewModel.ConvertRequest);
+                viewModel.ConvertResponse = result;
+                return View("Index", viewModel);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, "Currency conversion encountered an error. Please try again later.");
+                return View("Index", viewModel);
+            }
         }
     }
 }
