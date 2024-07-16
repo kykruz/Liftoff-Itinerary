@@ -15,6 +15,7 @@ namespace Trips.Data
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Contact> Contacts {get; set;}
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<PaymentModel> PaymentModel { get; set; }
         public DbSet<ItineraryLocationData> ItineraryLocationDatas { get; set; }
 
 
