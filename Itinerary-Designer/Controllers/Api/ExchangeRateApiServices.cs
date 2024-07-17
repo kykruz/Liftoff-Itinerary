@@ -7,10 +7,10 @@ namespace Exchange.Services
     public class ExchangeRatesApiService
     {
         private readonly HttpClient _httpClient;
-        //private readonly string _apiKey = "osBudYFRdkNVt6966P10CnRGMpEDIZK3";
-        private readonly string _apiKey = "89c0b6c4827a64f200d14ebe5745077d";
-        //private readonly string _baseUrl = "https://api.exchangeratesapi.io/";
-        private readonly string _baseUrl = "http://api.currencylayer.com/";
+        private readonly string _apiKey = "osBudYFRdkNVt6966P10CnRGMpEDIZK3";
+        
+        private readonly string _baseUrl = "https://api.exchangeratesapi.io/";
+        
 
         public ExchangeRatesApiService()
         {

@@ -1,8 +1,7 @@
 using System;
 using Exchange.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 
@@ -47,26 +46,19 @@ using (var scope = app.Services.CreateScope())
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-   
     var adminRoleExists = await roleManager.RoleExistsAsync("Admin");
     if (!adminRoleExists)
     {
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
 
- 
     var adminUser = await userManager.FindByEmailAsync("notkyle@notkyle.com");
     if (adminUser == null)
     {
-        adminUser = new IdentityUser
-        {
-            UserName = "admin@admin.com",
-            Email = "admin@admin.com"
-        };
+        adminUser = new IdentityUser { UserName = "admin@admin.com", Email = "admin@admin.com" };
 
         await userManager.CreateAsync(adminUser, "adminadmin");
 
-        
         await userManager.AddToRoleAsync(adminUser, "Admin");
     }
 }
@@ -93,14 +85,19 @@ app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Inde
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapRazorPages();
+    endpoints.MapControllers();
+
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
 
     endpoints.MapControllerRoute(
         name: "users",
         pattern: "User/{action=Index}/{id?}",
-        defaults: new { controller = "Users", action = "Index" });
+        defaults: new { controller = "Users", action = "Index" }
+    );
 });
 
 app.Run();

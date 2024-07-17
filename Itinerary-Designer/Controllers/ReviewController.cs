@@ -61,9 +61,10 @@ namespace Trips.Controllers
                     ReviewPost = reviewViewModel.ReviewPost,
                     PostedDate = DateTime.Now
                 };
-
+                //checking if a file is present
                 if (reviewViewModel.ImageFile != null && reviewViewModel.ImageFile.Length > 0)
                 {
+                    //sets up the upload directory
                     var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
                     var fileName =
                         Guid.NewGuid().ToString()
