@@ -60,6 +60,15 @@
             height: auto;
             margin-top: 10px;
         }
+        .audio-controls {
+            margin: 20px 0;
+            text-align: : center;
+        }
+
+        .audio-controls button,
+        .audio-controls select {
+            maragin: 5px
+        }
     </style>
 </head>
 
@@ -68,6 +77,17 @@
         <source src="/assets/So Smooth - Danny Kean_Doug Maxwell.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    <div class="audio-controls">
+        <button onclick="playAudio()" class="btn btn-success"><i class="fas fa-play"></i> Play</button>
+        <button onclick="pauseAudio()" class="btn btn-warning"><i class="fas fa-pause"></i> Pause</button>
+        <button onclick="nextSong()" class="btn btn-info"><i class="fas fa-forward"></i> Next Song</button>
+        <br>
+        <select id="songSelector" class="form-control" style="display: inline-block; width: auto;" onchange="changeSong()">
+            <option value="/assets/So Smooth - Danny Kean_Doug Maxwell.mp3">So Smooth</option>
+            <option value="/assets/Meneate las Pompis - Jovenes Viejos.mp3">Meneate Las Pompis</option>
+            <option value="/assets/Mas Basico Cabron - Jovenes Viejos.mp3">Mas Basico Cabron</option>
+        </select>
+    </div>
     <div class="container">
         <h2 data-aos="fade-up">Review Posts</h2>
 
@@ -97,6 +117,44 @@
                     duration: 800,
                 });
             });
+
+             let currentSongIndex = 0;
+            const songs = [
+                '/assets/So Smooth - Danny Kean_Doug Maxwell.mp3',
+                '/assets/Meneate las Pompis - Jovenes Viejos.mp3',
+                '/assets/Mas Basico Cabron - Jovenes Viejos.mp3'
+            ];
+
+            const audioElement = document.getElementById('backgroundMusic');
+
+            function playAudio() {
+                audioElement.play();
+            }
+
+            function pauseAudio() {
+                audioElement.pause();
+            }
+
+            function nextSong() {
+                currentSongIndex = (currentSongIndex + 1) % songs.length;
+                audioElement.src = songs[currentSongIndex];
+                audioElement.play();
+                updateSongSelector();
+            }
+
+            function changeSong() {
+                const songSelector = document.getElementById('songSelector');
+                audioElement.src = songSelector.value;
+                audioElement.play();
+            }
+
+            function updateSongSelector() {
+                const songSelector = document.getElementById('songSelector');
+                songSelector.value = songs[currentSongIndex];
+            }
+
+            // Initialize the song selector with the current song
+            updateSongSelector()
         </script>
     }
 </body>
