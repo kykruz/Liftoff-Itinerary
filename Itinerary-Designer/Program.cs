@@ -34,9 +34,13 @@ builder
 
 builder.Services.AddTransient<ExchangeRatesApiService>();
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
+// Add services to the container.
+builder.Services.AddControllersWithViews(); 
+builder.Services.AddHttpClient();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -75,8 +79,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseSwagger();
 app.UseSwaggerUI();
+
 app.UseAuthorization();
 
 app.MapRazorPages();
