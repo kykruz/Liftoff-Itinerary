@@ -13,6 +13,7 @@ namespace Trips.Controllers;
 public class HomeController : Controller
 {
     private readonly WeatherService _weatherService;
+    private readonly ExchangeRatesApiService _exchangeRatesApi;
 
     public HomeController()
     {
