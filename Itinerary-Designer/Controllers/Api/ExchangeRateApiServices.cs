@@ -1,16 +1,18 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Exchange.Services
 {
-    public class ExchangeRatesApiService
+    public class ExchangeRatesApiService : ControllerBase
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey = "osBudYFRdkNVt6966P10CnRGMpEDIZK3";
         
-        private readonly string _baseUrl = "https://api.exchangeratesapi.io/";
-        
+        private readonly string _baseUrl = "https://api.apilayer.com/exchangerates_data";
+//         https://api.apilayer.com/exchangerates_data/convert?to={to}&from={from}&amount={amount}");
+// client.Timeout = -1;
 
         public ExchangeRatesApiService()
         {
@@ -43,4 +45,5 @@ namespace Exchange.Services
     {
         public double Result { get; set; }
     }
+    
 }

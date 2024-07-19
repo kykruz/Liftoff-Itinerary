@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240715224709_first")]
-    partial class first
+    [Migration("20240718162544_Kiill")]
+    partial class Kiill
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -375,6 +375,9 @@ namespace Itinerary_Designer.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsPetFriendly")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("ItineraryId")
                         .HasColumnType("int");

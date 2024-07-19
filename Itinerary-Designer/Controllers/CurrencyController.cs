@@ -17,7 +17,7 @@ namespace Exchange.Controllers
         [HttpGet("currency")]
         public async Task<IActionResult> ConvertCurrency(string fromCurrency, string toCurrency, double amount)
         {
-            try
+            /*try
             {
                 var request = new ConvertRequest(fromCurrency, toCurrency, amount);
                 var response = await _exchangeRatesApi.ConvertAsync(request);
@@ -34,7 +34,38 @@ namespace Exchange.Controllers
             {
                 ViewData["Error"] = ex.Message;
                 return View("Index");
+            }*/
+            using (var httpClient = new HttpClient())
+        {
+        string apiUrl = $"https://api.apilayer.com/exchangerates_data/convert?to={toCurrency}&from={fromCurrency}&amount={amount}";
+        var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
+
+    
+        request.Headers.Add("apikey", "osBudYFRdkNVt6966P10CnRGMpEDIZK3");
+        try
+        {
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+
+                return Ok(json);
             }
+            else
+            {
+                return StatusCode(
+                    (int)response.StatusCode,
+                    "Error fetching data from external API"
+                );
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+        }
         }
     }
 }
