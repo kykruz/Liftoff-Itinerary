@@ -29,7 +29,7 @@
 </head>
 <body>
     <div>
-        <h3>Our customers average rated experience: @averageRating</h3>
+        <h3>Our customers average rated experience: @averageRating.ToString("0.00")</h3>
     </div>
 
     <form method="post" asp-controller="Rating" asp-action="Rate">

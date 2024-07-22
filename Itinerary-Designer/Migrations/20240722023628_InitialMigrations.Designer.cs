@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240715224709_first")]
-    partial class first
+    [Migration("20240722023628_InitialMigrations")]
+    partial class InitialMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -329,7 +329,13 @@ namespace Itinerary_Designer.Migrations
                     b.Property<decimal>("TotalCostForAllPeople")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<decimal>("TotalCostInEur")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<decimal>("TotalCostPerItinerary")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<decimal>("TotalCostPerItineraryEUR")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("UserId")
@@ -375,6 +381,9 @@ namespace Itinerary_Designer.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsPetFriendly")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("ItineraryId")
                         .HasColumnType("int");

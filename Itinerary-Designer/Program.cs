@@ -32,11 +32,19 @@ builder
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<TripDbContext>();
 
-builder.Services.AddTransient<ExchangeRatesApiService>();
+builder.Services.AddHttpClient<ExchangeRatesApiService>();
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-
+builder.Services.AddControllersWithViews(); 
+// builder.Services.AddHttpClient();
+// builder.Services.AddHttpClient<ExchangeRatesApiService>(client =>
+// {
+//     client.BaseAddress = new Uri("https://api.exchangeratesapi.io/"); // Set the correct base URL
+// });
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -71,11 +79,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapRazorPages();

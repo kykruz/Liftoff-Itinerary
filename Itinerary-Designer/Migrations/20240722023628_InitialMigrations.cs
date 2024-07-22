@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Itinerary_Designer.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class InitialMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -127,11 +127,13 @@ namespace Itinerary_Designer.Migrations
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     NumberOfPets = table.Column<int>(type: "int", nullable: false),
                     TotalCostPerItinerary = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    TotalCostPerItineraryEUR = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     UserId = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TotalCostForAllLocations = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     TotalCostForAllPeople = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    NumberOfPeople = table.Column<int>(type: "int", nullable: false)
+                    NumberOfPeople = table.Column<int>(type: "int", nullable: false),
+                    TotalCostInEur = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -340,6 +342,7 @@ namespace Itinerary_Designer.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Phone = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsPetFriendly = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ItineraryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
