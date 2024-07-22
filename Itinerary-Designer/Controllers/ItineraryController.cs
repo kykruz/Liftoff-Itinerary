@@ -359,6 +359,8 @@ namespace Trips.Controllers
 
                 itinerary.TotalCostPerItinerary = totalCostPerItinerary; // Set total cost per itinerary
 
+                //maybe something needs to be here?
+                
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("ViewLocations", new { itineraryId = itinerary.Id });
@@ -420,7 +422,7 @@ namespace Trips.Controllers
             decimal totalCostInEur = response.ConvertedAmount;
 
             Console.WriteLine($"Total cost for all people (USD): {totalCostForAllPeople}");
-             Console.WriteLine($"Converted amount (EUR): {totalCostInEur}");
+            Console.WriteLine($"Converted amount (EUR): {totalCostInEur}");
 
             // Save the EUR cost in the itinerary
             itinerary.TotalCostInEur = totalCostInEur;
