@@ -1,5 +1,6 @@
 @model Trips.Models.Itinerary
 
+
 <div>
     <h2>@Model.Date.ToString("yyyy-MM-dd")</h2>
 </div>
@@ -34,7 +35,7 @@
 
     <div>
         <h3>Total Cost for @Model.NumberOfPeople People: $@totalCostPerItinerary.ToString("0.00")</h3>
-        <h3>Total Cost in EUR: €@Model.TotalCostInEur.ToString("0.00")</h3>
+        <h3 id="totalCostInEur">Total Cost in EUR: €@Model.TotalCostInEur.ToString("0.00")</h3>
     </div>
 }
 else
@@ -42,10 +43,28 @@ else
     <p>No locations found for this itinerary.</p>
 }
 
+<button id="updateCostButton">Update Total Cost in EUR</button>
 <a asp-action="Edit" asp-route-itineraryId="@Model.Id">Edit Itinerary</a>
 <br>
 <a asp-action="Success" asp-route-itineraryId="@Model.Id">View all Itineraries</a>
 
-
+@section Scripts {
+    <script>
+        document.getElementById("updateCostButton").addEventListener("click", function() {
+            fetch(`/api/ExchangeRateApi`, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.totalCostInEur !== undefined) {
+                    document.getElementById("totalCostInEur").innerText = `Total Cost in EUR: €${data.totalCostInEur.toFixed(2)}`;
+                } else {
+                    console.error('Invalid response data', data);
+                }
+            })
+            .catch(error => console.error('Error fetching total cost in EUR:', error));
+        });
+    </script>
+}
 
 
