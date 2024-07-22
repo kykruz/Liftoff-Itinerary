@@ -17,24 +17,7 @@ namespace Exchange.Controllers
         [HttpGet("currency")]
         public async Task<IActionResult> ConvertCurrency(string fromCurrency, string toCurrency, double amount)
         {
-            /*try
-            {
-                var request = new ConvertRequest(fromCurrency, toCurrency, amount);
-                var response = await _exchangeRatesApi.ConvertAsync(request);
-
-                // Preparing data to pass to the View
-                ViewData["Amount"] = amount;
-                ViewData["FromCurrency"] = fromCurrency;
-                ViewData["ToCurrency"] = toCurrency;
-                ViewData["ConvertedAmount"] = response.Result;
-
-                return View("Index");
-            }
-            catch (Exception ex)
-            {
-                ViewData["Error"] = ex.Message;
-                return View("Index");
-            }*/
+            
             using (var httpClient = new HttpClient())
         {
         string apiUrl = $"https://api.apilayer.com/exchangerates_data/convert?to={toCurrency}&from={fromCurrency}&amount={amount}";

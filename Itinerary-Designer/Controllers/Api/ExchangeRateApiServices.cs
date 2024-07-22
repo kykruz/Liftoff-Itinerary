@@ -2,8 +2,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Trips.Models;
 using RestSharp;
+using Trips.Models;
 
 namespace Exchange.Services
 {
@@ -25,9 +25,14 @@ namespace Exchange.Services
         }
 
         [HttpGet("convert")]
-        public async Task<ConvertResponse> ConvertAsync(string fromCurrency, string toCurrency, double amount)
+        public async Task<ConvertResponse> ConvertAsync(
+            string fromCurrency,
+            string toCurrency,
+            double amount
+        )
         {
-        string apiUrl = $"{_baseUrl}/convert?to={toCurrency}&from={fromCurrency}&amount={amount}";
+            string apiUrl =
+                $"{_baseUrl}/convert?to={toCurrency}&from={fromCurrency}&amount={amount}";
             var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
             request.Headers.Add("apikey", _apiKey);
 
@@ -40,48 +45,15 @@ namespace Exchange.Services
             }
             else
             {
-                throw new HttpRequestException($"Error fetching data from API: {response.ReasonPhrase}");
+                throw new HttpRequestException(
+                    $"Error fetching data from API: {response.ReasonPhrase}"
+                );
             }
         }
-    
-        //     var url =
-        //         $"{_baseUrl}/convert?to={request.ToCurrency}&from={request.FromCurrency}&amount={request.Amount}&apiKey={_apiKey}";
-        //     var response = await _httpClient.GetStringAsync(url);
-        //     return JsonConvert.DeserializeObject<ConvertResponse>(response);
+    }
 
-        // var client = new RestClient ($"{_baseUrl}/convert?to={request.ToCurrency}&from={request.FromCurrency}&amount={request.Amount}");
-        // var restRequest = new RestRequest("convert", Method.Get);
-        //     restRequest.AddQueryParameter("from", request.FromCurrency);
-        //     restRequest.AddQueryParameter("to", request.ToCurrency);
-        //     restRequest.AddQueryParameter("amount", request.Amount.ToString());
-        //     restRequest.AddQueryParameter("apikey", _apiKey);
-        //     restRequest.Timeout = TimeSpan.FromSeconds(10); 
-
-        // RestResponse response = await client.ExecuteAsync(restRequest);
-        // if(!response.IsSuccessful)
-        // {
-        //     throw new Exception($"Error fetching conversion data: {response.ErrorMessage}");
-        // } 
-        // return JsonConvert.DeserializeObject<ConvertResponse>(response.Content);
-
-
-
-        }
-
-        // [HttpGet("rate")]
-        // public async Task<decimal> GetUsdToEurRateAsync()
-        // {
-        //     var url = $"{_baseUrl}/latest?symbols=EUR&base=USD&apikey={_apiKey}";
-        //     var response = await _httpClient.GetStringAsync(url);
-        //     var data = JsonConvert.DeserializeObject<ExchangeRateResponse>(response);
-        //     return data.Rates["EUR"];
-        // }
-
-        public class ExchangeRateResponse
-        {
-            public Dictionary<string, decimal> Rates { get; set; }
-        }
+    public class ExchangeRateResponse
+    {
+        public Dictionary<string, decimal> Rates { get; set; }
+    }
 }
-
-
-
