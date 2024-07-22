@@ -403,7 +403,7 @@ namespace Trips.Controllers
             decimal totalCostInEur = totalCostForAllPeople * usdToEurRate;
 
             // Save the EUR cost in the itinerary
-            // itinerary.TotalCostInEur = totalCostInEur;
+            itinerary.TotalCostInEur = totalCostInEur;
 
             await context.SaveChangesAsync();
 

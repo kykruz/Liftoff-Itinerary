@@ -16,6 +16,7 @@ namespace Trips.Models
         public decimal TotalCostForAllLocations { get; set; }
         public decimal TotalCostForAllPeople { get; set; }
         public int NumberOfPeople { get; set; }
+        public decimal TotalCostInEur { get; set; }
 
         public Itinerary() { }
 
