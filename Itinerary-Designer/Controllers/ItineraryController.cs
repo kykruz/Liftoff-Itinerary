@@ -373,7 +373,7 @@ namespace Trips.Controllers
             return View(editViewModel);
         }
 
-        [HttpPatch]
+        [HttpPost]
         public async Task<IActionResult> CalculateTotalCost(int itineraryId, int numberOfPeople)
         {
             string userId = GetCurrentUserId();
