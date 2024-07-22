@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
+using Exchange.Services; // Add this to use ExchangeRatesApiService
 
 namespace Trips.Controllers
 {
@@ -14,10 +15,12 @@ namespace Trips.Controllers
     public class ItineraryController : Controller
     {
         private readonly TripDbContext context;
+        private readonly ExchangeRatesApiService _exchangeRatesApiService; // Add this
 
-        public ItineraryController(TripDbContext dbContext)
+        public ItineraryController(TripDbContext dbContext, ExchangeRatesApiService exchangeRatesApiService)
         {
             context = dbContext;
+            _exchangeRatesApiService = exchangeRatesApiService; // Add this
         }
 
         private string GetCurrentUserId()
@@ -134,75 +137,75 @@ namespace Trips.Controllers
         }
 
         [HttpPost]
-public async Task<IActionResult> Create(CreateItineraryViewModel createItineraryViewModel, int numberOfPets)
-{
-    if (ModelState.IsValid)
-    {
-        string userId = GetCurrentUserId();
-
-        // Check if "All Categories" is selected
-        if (createItineraryViewModel.SelectedCategories != null && createItineraryViewModel.SelectedCategories.Contains("All"))
+        public async Task<IActionResult> Create(CreateItineraryViewModel createItineraryViewModel, int numberOfPets)
         {
-            // If "All" is selected, include all available categories
-            createItineraryViewModel.SelectedCategories = await context.LocationDatas
-                .Select(ld => ld.Category)
+            if (ModelState.IsValid)
+            {
+                string userId = GetCurrentUserId();
+
+                // Check if "All Categories" is selected
+                if (createItineraryViewModel.SelectedCategories != null && createItineraryViewModel.SelectedCategories.Contains("All"))
+                {
+                    // If "All" is selected, include all available categories
+                    createItineraryViewModel.SelectedCategories = await context.LocationDatas
+                        .Select(ld => ld.Category)
+                        .Distinct()
+                        .ToListAsync();
+                }
+
+                // If "All Categories" is selected, include all location IDs
+                if (createItineraryViewModel.SelectedCategories.Contains("All"))
+                {
+                    createItineraryViewModel.SelectedLocationIds = await context.LocationDatas
+                        .Select(ld => ld.Id)
+                        .ToListAsync();
+                }
+
+                // Retrieve selected location datas based on user's selection
+                List<LocationData> selectedLocationDatas = await context
+                    .LocationDatas.Where(ld =>
+                        createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
+                        && createItineraryViewModel.SelectedCategories.Contains(ld.Category)
+                    )
+                    .ToListAsync();
+
+                // Create new Itinerary object
+                Itinerary itinerary = new Itinerary
+                {
+                    Name = createItineraryViewModel.Name,
+                    UserId = userId,
+                    ItineraryLocationDatas = selectedLocationDatas
+                        .Select(ld => new ItineraryLocationData { LocationData = ld })
+                        .ToList(),
+                    Date = createItineraryViewModel.Date.Date,
+                    NumberOfPeople = createItineraryViewModel.NumberOfPeople,
+                    NumberOfPets = numberOfPets
+                };
+
+                // Calculate total cost per person for selected locations
+                decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
+
+                // Calculate total cost per itinerary
+                decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
+
+                itinerary.TotalCostPerItinerary = totalCostPerItinerary;
+
+                // Add itinerary to context and save changes
+                context.Itineraries.Add(itinerary);
+                await context.SaveChangesAsync();
+
+                return RedirectToAction("Success");
+            }
+
+            // If ModelState is not valid, re-populate view model and return the view with errors
+            createItineraryViewModel.AvailableCategories = await context
+                .LocationDatas.Select(ld => ld.Category)
                 .Distinct()
                 .ToListAsync();
+            createItineraryViewModel.AvailableLocations = await context.LocationDatas.ToListAsync();
+
+            return View(createItineraryViewModel);
         }
-
-        // If "All Categories" is selected, include all location IDs
-        if (createItineraryViewModel.SelectedCategories.Contains("All"))
-        {
-            createItineraryViewModel.SelectedLocationIds = await context.LocationDatas
-                .Select(ld => ld.Id)
-                .ToListAsync();
-        }
-
-        // Retrieve selected location datas based on user's selection
-        List<LocationData> selectedLocationDatas = await context
-            .LocationDatas.Where(ld =>
-                createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
-                && createItineraryViewModel.SelectedCategories.Contains(ld.Category)
-            )
-            .ToListAsync();
-
-        // Create new Itinerary object
-        Itinerary itinerary = new Itinerary
-        {
-            Name = createItineraryViewModel.Name,
-            UserId = userId,
-            ItineraryLocationDatas = selectedLocationDatas
-                .Select(ld => new ItineraryLocationData { LocationData = ld })
-                .ToList(),
-            Date = createItineraryViewModel.Date.Date,
-            NumberOfPeople = createItineraryViewModel.NumberOfPeople,
-            NumberOfPets = numberOfPets
-        };
-
-        // Calculate total cost per person for selected locations
-        decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
-
-        // Calculate total cost per itinerary
-        decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
-
-        itinerary.TotalCostPerItinerary = totalCostPerItinerary;
-
-        // Add itinerary to context and save changes
-        context.Itineraries.Add(itinerary);
-        await context.SaveChangesAsync();
-
-        return RedirectToAction("Success");
-    }
-
-    // If ModelState is not valid, re-populate view model and return the view with errors
-    createItineraryViewModel.AvailableCategories = await context
-        .LocationDatas.Select(ld => ld.Category)
-        .Distinct()
-        .ToListAsync();
-    createItineraryViewModel.AvailableLocations = await context.LocationDatas.ToListAsync();
-
-    return View(createItineraryViewModel);
-}
 
         public async Task<IActionResult> Success()
         {
@@ -371,14 +374,14 @@ public async Task<IActionResult> Create(CreateItineraryViewModel createItinerary
         }
 
         [HttpPost]
-        public IActionResult CalculateTotalCost(int itineraryId, int numberOfPeople)
+        public async Task<IActionResult> CalculateTotalCost(int itineraryId, int numberOfPeople)
         {
             string userId = GetCurrentUserId();
 
-            var itinerary = context
+            var itinerary = await context
                 .Itineraries.Include(i => i.ItineraryLocationDatas)
                 .ThenInclude(il => il.LocationData)
-                .FirstOrDefault(i => i.UserId == userId && i.Id == itineraryId);
+                .FirstOrDefaultAsync(i => i.UserId == userId && i.Id == itineraryId);
 
             if (itinerary == null)
             {
@@ -393,7 +396,16 @@ public async Task<IActionResult> Create(CreateItineraryViewModel createItinerary
             itinerary.TotalCostForAllPeople = totalCostForAllPeople;
             itinerary.NumberOfPeople = numberOfPeople;
 
-            context.SaveChanges();
+            // Get the USD to EUR exchange rate
+            decimal usdToEurRate = await _exchangeRatesApiService.GetUsdToEurRateAsync();
+
+            // Convert the total cost to EUR
+            decimal totalCostInEur = totalCostForAllPeople * usdToEurRate;
+
+            // Save the EUR cost in the itinerary
+            // itinerary.TotalCostInEur = totalCostInEur;
+
+            await context.SaveChangesAsync();
 
             return View("ViewLocations", itinerary);
         }

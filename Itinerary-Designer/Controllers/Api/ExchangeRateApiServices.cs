@@ -9,10 +9,11 @@ namespace Exchange.Services
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey = "osBudYFRdkNVt6966P10CnRGMpEDIZK3";
-        
+
         private readonly string _baseUrl = "https://api.apilayer.com/exchangerates_data";
-//         https://api.apilayer.com/exchangerates_data/convert?to={to}&from={from}&amount={amount}");
-// client.Timeout = -1;
+
+        //         https://api.apilayer.com/exchangerates_data/convert?to={to}&from={from}&amount={amount}");
+        // client.Timeout = -1;
 
         public ExchangeRatesApiService()
         {
@@ -21,9 +22,23 @@ namespace Exchange.Services
 
         public async Task<ConvertResponse> ConvertAsync(ConvertRequest request)
         {
-            var url = $"{_baseUrl}/convert?from={request.FromCurrency}&to={request.ToCurrency}&amount={request.Amount}&apiKey={_apiKey}";
+            var url =
+                $"{_baseUrl}/convert?from={request.FromCurrency}&to={request.ToCurrency}&amount={request.Amount}&apiKey={_apiKey}";
             var response = await _httpClient.GetStringAsync(url);
             return JsonConvert.DeserializeObject<ConvertResponse>(response);
+        }
+
+        public async Task<decimal> GetUsdToEurRateAsync()
+        {
+            var url = $"{_baseUrl}/latest?symbols=EUR&base=USD&apikey={_apiKey}";
+            var response = await _httpClient.GetStringAsync(url);
+            var data = JsonConvert.DeserializeObject<ExchangeRateResponse>(response);
+            return data.Rates["EUR"];
+        }
+
+        public class ExchangeRateResponse
+        {
+            public Dictionary<string, decimal> Rates { get; set; }
         }
     }
 
@@ -45,5 +60,4 @@ namespace Exchange.Services
     {
         public double Result { get; set; }
     }
-    
 }
