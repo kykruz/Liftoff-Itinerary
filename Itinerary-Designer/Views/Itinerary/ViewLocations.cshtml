@@ -1,5 +1,6 @@
 @model Trips.Models.Itinerary
 
+
 <div>
     <h2>@Model.Date.ToString("yyyy-MM-dd")</h2>
 </div>
@@ -24,7 +25,7 @@
 
     @* Calculate total cost per person for all locations *@
     decimal totalCostPerPerson = (decimal)Model.ItineraryLocationDatas.Sum(il => il.LocationData.PricePerPerson);
-
+    <p>@Model</p>
     <div>
         <h3>Total Cost for all locations, per person: $@totalCostPerPerson.ToString("0.00")</h3>
     </div>
@@ -33,7 +34,8 @@
     decimal totalCostPerItinerary = totalCostPerPerson * Model.NumberOfPeople;
 
     <div>
-        <h3>Total Cost for @Model.NumberOfPeople People: @totalCostPerItinerary.ToString("C")</h3>
+        <h3>Total Cost for @Model.NumberOfPeople People: $@totalCostPerItinerary.ToString("0.00")</h3>
+        <h3 id="totalCostInEur">Total Cost in EUR: €@Model.TotalCostInEur.ToString("0.00")</h3>
     </div>
 }
 else
@@ -41,10 +43,17 @@ else
     <p>No locations found for this itinerary.</p>
 }
 
+
+<form asp-action="CalculateTotalCost" asp-controller="Itinerary" method="post">
+    <input type="hidden" name="itineraryId" value="@Model.Id" />
+    <input type="hidden" name="numberOfPeople" value="@Model.NumberOfPeople" />
+    <button type="submit" id="updateCostButton">Update Total Cost in EUR</button>
+</form>
+
+
 <a asp-action="Edit" asp-route-itineraryId="@Model.Id">Edit Itinerary</a>
 <br>
 <a asp-action="Success" asp-route-itineraryId="@Model.Id">View all Itineraries</a>
-
 
 
 
