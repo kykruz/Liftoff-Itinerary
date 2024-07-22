@@ -393,17 +393,22 @@ namespace Trips.Controllers
             decimal totalCostForAllPeople = totalCostForAllLocations * numberOfPeople;
 
             itinerary.TotalCostForAllLocations = totalCostForAllLocations;
+
             itinerary.TotalCostForAllPeople = totalCostForAllPeople;
+
             itinerary.NumberOfPeople = numberOfPeople;
 
             // Get the USD to EUR exchange rate
             decimal usdToEurRate = await _exchangeRatesApiService.GetUsdToEurRateAsync();
 
+            Console.WriteLine($"Fetched USD to EUR exchange rate: {usdToEurRate}");
             // Convert the total cost to EUR
             decimal totalCostInEur = totalCostForAllPeople * usdToEurRate;
 
             // Save the EUR cost in the itinerary
             itinerary.TotalCostInEur = totalCostInEur;
+
+            Console.WriteLine($"Total cost in EUR: {totalCostInEur}");
 
             await context.SaveChangesAsync();
 
