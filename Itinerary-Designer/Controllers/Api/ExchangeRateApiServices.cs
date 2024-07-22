@@ -2,9 +2,13 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Trips.Models;
+using RestSharp;
 
 namespace Exchange.Services
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ExchangeRatesApiService : ControllerBase
     {
         private readonly HttpClient _httpClient;
@@ -15,49 +19,69 @@ namespace Exchange.Services
         //         https://api.apilayer.com/exchangerates_data/convert?to={to}&from={from}&amount={amount}");
         // client.Timeout = -1;
 
-        public ExchangeRatesApiService()
+        public ExchangeRatesApiService(HttpClient httpClient, IConfiguration configuration)
         {
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
         }
 
-        public async Task<ConvertResponse> ConvertAsync(ConvertRequest request)
+        [HttpGet("convert")]
+        public async Task<ConvertResponse> ConvertAsync(string fromCurrency, string toCurrency, double amount)
         {
-            var url =
-                $"{_baseUrl}/convert?from={request.FromCurrency}&to={request.ToCurrency}&amount={request.Amount}&apiKey={_apiKey}";
-            var response = await _httpClient.GetStringAsync(url);
-            return JsonConvert.DeserializeObject<ConvertResponse>(response);
+        string apiUrl = $"{_baseUrl}/convert?to={toCurrency}&from={fromCurrency}&amount={amount}";
+            var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
+            request.Headers.Add("apikey", _apiKey);
+
+            HttpResponseMessage response = await _httpClient.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<ConvertResponse>(json);
+            }
+            else
+            {
+                throw new HttpRequestException($"Error fetching data from API: {response.ReasonPhrase}");
+            }
+        }
+    
+        //     var url =
+        //         $"{_baseUrl}/convert?to={request.ToCurrency}&from={request.FromCurrency}&amount={request.Amount}&apiKey={_apiKey}";
+        //     var response = await _httpClient.GetStringAsync(url);
+        //     return JsonConvert.DeserializeObject<ConvertResponse>(response);
+
+        // var client = new RestClient ($"{_baseUrl}/convert?to={request.ToCurrency}&from={request.FromCurrency}&amount={request.Amount}");
+        // var restRequest = new RestRequest("convert", Method.Get);
+        //     restRequest.AddQueryParameter("from", request.FromCurrency);
+        //     restRequest.AddQueryParameter("to", request.ToCurrency);
+        //     restRequest.AddQueryParameter("amount", request.Amount.ToString());
+        //     restRequest.AddQueryParameter("apikey", _apiKey);
+        //     restRequest.Timeout = TimeSpan.FromSeconds(10); 
+
+        // RestResponse response = await client.ExecuteAsync(restRequest);
+        // if(!response.IsSuccessful)
+        // {
+        //     throw new Exception($"Error fetching conversion data: {response.ErrorMessage}");
+        // } 
+        // return JsonConvert.DeserializeObject<ConvertResponse>(response.Content);
+
+
+
         }
 
-        public async Task<decimal> GetUsdToEurRateAsync()
-        {
-            var url = $"{_baseUrl}/latest?symbols=EUR&base=USD&apikey={_apiKey}";
-            var response = await _httpClient.GetStringAsync(url);
-            var data = JsonConvert.DeserializeObject<ExchangeRateResponse>(response);
-            return data.Rates["EUR"];
-        }
+        // [HttpGet("rate")]
+        // public async Task<decimal> GetUsdToEurRateAsync()
+        // {
+        //     var url = $"{_baseUrl}/latest?symbols=EUR&base=USD&apikey={_apiKey}";
+        //     var response = await _httpClient.GetStringAsync(url);
+        //     var data = JsonConvert.DeserializeObject<ExchangeRateResponse>(response);
+        //     return data.Rates["EUR"];
+        // }
 
         public class ExchangeRateResponse
         {
             public Dictionary<string, decimal> Rates { get; set; }
         }
-    }
-
-    public class ConvertRequest
-    {
-        public string FromCurrency { get; set; }
-        public string ToCurrency { get; set; }
-        public double Amount { get; set; }
-
-        public ConvertRequest(string fromCurrency, string toCurrency, double amount)
-        {
-            FromCurrency = fromCurrency;
-            ToCurrency = toCurrency;
-            Amount = amount;
-        }
-    }
-
-    public class ConvertResponse
-    {
-        public double Result { get; set; }
-    }
 }
+
+
+

@@ -24,6 +24,7 @@ namespace Trips.Models
         {
             Name = name;
             LocationDatas = locationData;
+            
         }
 
         public override string ToString()

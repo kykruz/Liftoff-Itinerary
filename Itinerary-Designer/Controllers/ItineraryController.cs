@@ -373,12 +373,12 @@ namespace Trips.Controllers
             return View(editViewModel);
         }
 
-        [HttpPost]
+        [HttpPatch]
         public async Task<IActionResult> CalculateTotalCost(int itineraryId, int numberOfPeople)
         {
             string userId = GetCurrentUserId();
 
-            var itinerary = await context
+            Itinerary itinerary = await context
                 .Itineraries.Include(i => i.ItineraryLocationDatas)
                 .ThenInclude(il => il.LocationData)
                 .FirstOrDefaultAsync(i => i.UserId == userId && i.Id == itineraryId);
@@ -391,26 +391,50 @@ namespace Trips.Controllers
             decimal totalCostForAllLocations = CalculateTotalCostForLocations(itinerary);
 
             decimal totalCostForAllPeople = totalCostForAllLocations * numberOfPeople;
+            
 
+
+            // Get the USD to EUR exchange rate
+            // decimal usdToEurRate = await _exchangeRatesApiService.GetUsdToEurRateAsync();
+          
+            string FromCurrency = "USD";
+            string ToCurrency = "EUR";
+
+            ConvertResponse response;
+            try
+            {
+                response = await _exchangeRatesApiService.ConvertAsync(FromCurrency, ToCurrency, (double)totalCostForAllPeople);
+                Console.WriteLine(response.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+             return StatusCode(500, "Error converting currency.");
+            }
+            
+            if(response == null)
+            {
+                return StatusCode(500, "Error converting currency.");
+            }
+            
+            decimal totalCostInEur = response.ConvertedAmount;
+
+            Console.WriteLine($"Total cost for all people (USD): {totalCostForAllPeople}");
+             Console.WriteLine($"Converted amount (EUR): {totalCostInEur}");
+
+            // Save the EUR cost in the itinerary
+            itinerary.TotalCostInEur = totalCostInEur;
+            
             itinerary.TotalCostForAllLocations = totalCostForAllLocations;
 
             itinerary.TotalCostForAllPeople = totalCostForAllPeople;
 
             itinerary.NumberOfPeople = numberOfPeople;
 
-            // Get the USD to EUR exchange rate
-            decimal usdToEurRate = await _exchangeRatesApiService.GetUsdToEurRateAsync();
+            Console.WriteLine($"Total cost in EUR: {response.ConvertedAmount}");
 
-            Console.WriteLine($"Fetched USD to EUR exchange rate: {usdToEurRate}");
-            // Convert the total cost to EUR
-            decimal totalCostInEur = totalCostForAllPeople * usdToEurRate;
-
-            // Save the EUR cost in the itinerary
-            itinerary.TotalCostInEur = totalCostInEur;
-
-            Console.WriteLine($"Total cost in EUR: {totalCostInEur}");
-
-            await context.SaveChangesAsync();
+        
+            context.SaveChanges();
 
             return View("ViewLocations", itinerary);
         }
