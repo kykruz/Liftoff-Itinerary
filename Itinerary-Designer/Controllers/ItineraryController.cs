@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
-using Exchange.Services; // Add this to use ExchangeRatesApiService
+using Exchange.Services; 
 
 namespace Trips.Controllers
 {
@@ -15,12 +15,12 @@ namespace Trips.Controllers
     public class ItineraryController : Controller
     {
         private readonly TripDbContext context;
-        private readonly ExchangeRatesApiService _exchangeRatesApiService; // Add this
+        private readonly ExchangeRatesApiService _exchangeRatesApiService; 
 
         public ItineraryController(TripDbContext dbContext, ExchangeRatesApiService exchangeRatesApiService)
         {
             context = dbContext;
-            _exchangeRatesApiService = exchangeRatesApiService; // Add this
+            _exchangeRatesApiService = exchangeRatesApiService;
         }
 
         private string GetCurrentUserId()
@@ -104,13 +104,13 @@ namespace Trips.Controllers
                         }
                     }
 
-                    // Calculate total cost per person for selected locations
+                    
                     decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
 
-                    // Calculate total cost per itinerary
+                   
                     decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
 
-                    itinerary.TotalCostPerItinerary = totalCostPerItinerary; // Set total cost per itinerary
+                    itinerary.TotalCostPerItinerary = totalCostPerItinerary; 
 
                     context.Itineraries.Add(itinerary);
                 }
@@ -143,17 +143,17 @@ namespace Trips.Controllers
             {
                 string userId = GetCurrentUserId();
 
-                // Check if "All Categories" is selected
+                
                 if (createItineraryViewModel.SelectedCategories != null && createItineraryViewModel.SelectedCategories.Contains("All"))
                 {
-                    // If "All" is selected, include all available categories
+                    
                     createItineraryViewModel.SelectedCategories = await context.LocationDatas
                         .Select(ld => ld.Category)
                         .Distinct()
                         .ToListAsync();
                 }
 
-                // If "All Categories" is selected, include all location IDs
+                
                 if (createItineraryViewModel.SelectedCategories.Contains("All"))
                 {
                     createItineraryViewModel.SelectedLocationIds = await context.LocationDatas
@@ -161,7 +161,7 @@ namespace Trips.Controllers
                         .ToListAsync();
                 }
 
-                // Retrieve selected location datas based on user's selection
+                
                 List<LocationData> selectedLocationDatas = await context
                     .LocationDatas.Where(ld =>
                         createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
@@ -169,7 +169,7 @@ namespace Trips.Controllers
                     )
                     .ToListAsync();
 
-                // Create new Itinerary object
+                
                 Itinerary itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
@@ -182,22 +182,22 @@ namespace Trips.Controllers
                     NumberOfPets = numberOfPets
                 };
 
-                // Calculate total cost per person for selected locations
+                
                 decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
 
-                // Calculate total cost per itinerary
+                
                 decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
 
                 itinerary.TotalCostPerItinerary = totalCostPerItinerary;
 
-                // Add itinerary to context and save changes
+                
                 context.Itineraries.Add(itinerary);
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("Success");
             }
 
-            // If ModelState is not valid, re-populate view model and return the view with errors
+            
             createItineraryViewModel.AvailableCategories = await context
                 .LocationDatas.Select(ld => ld.Category)
                 .Distinct()
@@ -351,15 +351,15 @@ namespace Trips.Controllers
                     );
                 }
 
-                // Calculate total cost per person for selected locations
+                
                 decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
 
-                // Calculate total cost per itinerary
+                
                 decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
 
-                itinerary.TotalCostPerItinerary = totalCostPerItinerary; // Set total cost per itinerary
+                itinerary.TotalCostPerItinerary = totalCostPerItinerary; 
 
-                //maybe something needs to be here?
+                
                 
                 await context.SaveChangesAsync();
 
@@ -396,9 +396,6 @@ namespace Trips.Controllers
             
 
 
-            // Get the USD to EUR exchange rate
-            // decimal usdToEurRate = await _exchangeRatesApiService.GetUsdToEurRateAsync();
-          
             string FromCurrency = "USD";
             string ToCurrency = "EUR";
 
@@ -424,7 +421,7 @@ namespace Trips.Controllers
             Console.WriteLine($"Total cost for all people (USD): {totalCostForAllPeople}");
             Console.WriteLine($"Converted amount (EUR): {totalCostInEur}");
 
-            // Save the EUR cost in the itinerary
+            
             itinerary.TotalCostInEur = totalCostInEur;
             
             itinerary.TotalCostForAllLocations = totalCostForAllLocations;
