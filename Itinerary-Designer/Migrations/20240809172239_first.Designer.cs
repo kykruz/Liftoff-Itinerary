@@ -12,8 +12,8 @@ using Trips.Data;
 namespace Itinerary_Designer.Migrations
 {
     [DbContext(typeof(TripDbContext))]
-    [Migration("20240722023628_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20240809172239_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

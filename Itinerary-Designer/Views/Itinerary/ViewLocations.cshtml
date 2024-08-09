@@ -25,7 +25,7 @@
 
     @* Calculate total cost per person for all locations *@
     decimal totalCostPerPerson = (decimal)Model.ItineraryLocationDatas.Sum(il => il.LocationData.PricePerPerson);
-    <p>@Model</p>
+   
     <div>
         <h3>Total Cost for all locations, per person: $@totalCostPerPerson.ToString("0.00")</h3>
     </div>
