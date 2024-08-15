@@ -42,7 +42,7 @@
             <br>
             <div class="form-group">
                 <label>Select Categories:</label><br />
-                <br>
+            
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="SelectedCategories" value="All" id="allCategories" checked />
@@ -65,7 +65,7 @@
             <br>
             <div class="form-group">
                 <label>Select Locations:</label><br />
-                <br>
+        
                 @for (var i = 0; i < Model.AvailableLocations.Count; i++)
                 {
                     var location = Model.AvailableLocations[i];
@@ -112,20 +112,11 @@
                 <input asp-for="NumberOfPeople" type="number" class="form-control" id="NumberOfPeople" min="1" />
                 <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
             </div>
-
-            <br>
-            <div class="form-group">
-                <label asp-for="NumberOfPets">Number of Pets:</label>
-                <select asp-for="NumberOfPets" class="form-control" id="NumberOfPets">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-            </div>
+           
             <br>
             <div class="form-group">
                 <label for="Date">Date:</label>
-                <input type="date" id="Date" name="Date" class="form-control" />
+                <input type="date" id="Date" name="Date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <br>
