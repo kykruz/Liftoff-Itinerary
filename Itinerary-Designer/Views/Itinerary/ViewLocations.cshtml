@@ -11,30 +11,30 @@
 {
     <ul>
         @foreach (var il in Model.ItineraryLocationDatas)
-        {
-            <li>
-                <strong>@il.LocationData.Name</strong>
-                <p>@il.LocationData.Description</p>
-                <p>Address: @il.LocationData.Address</p>
-                <p>Category: @il.LocationData.Category</p>
-                <p>Phone Number: @il.LocationData.Phone</p>
-                <p>Price Per Person: $@il.LocationData.PricePerPerson.ToString("0.00")</p>
-            </li>
-        }
+    {
+        <li>
+            <strong>@il.LocationData.Name</strong>
+            <div>-Description: @il.LocationData.Description</div>
+            <div>-Address: @il.LocationData.Address</div>
+            <div>-Category: @il.LocationData.Category</div>
+            <div>-Phone Number: @il.LocationData.Phone</div>
+            <div>-Price Per Person: $@il.LocationData.PricePerPerson.ToString("0.00")</div>
+        </li>
+    }
     </ul>
 
     @* Calculate total cost per person for all locations *@
     decimal totalCostPerPerson = (decimal)Model.ItineraryLocationDatas.Sum(il => il.LocationData.PricePerPerson);
    
     <div>
-        <h3>Total Cost for all locations, per person: $@totalCostPerPerson.ToString("0.00")</h3>
+        <h3>Total Cost Per Person for All Locations: $@totalCostPerPerson.ToString("0.00")</h3>
     </div>
 
     @* Calculate total cost per itinerary *@
     decimal totalCostPerItinerary = totalCostPerPerson * Model.NumberOfPeople;
 
     <div>
-        <h3>Total Cost for @Model.NumberOfPeople People: $@totalCostPerItinerary.ToString("0.00")</h3>
+        <h3>Total Cost For @Model.NumberOfPeople People: $@totalCostPerItinerary.ToString("0.00")</h3>
         @* <h3 id="totalCostInEur">Total Cost in EUR: €@Model.TotalCostInEur.ToString("0.00")</h3> *@
     </div>
 }
@@ -53,7 +53,7 @@ else
 
 <a asp-action="Edit" asp-route-itineraryId="@Model.Id">Edit Itinerary</a>
 <br>
-<a asp-action="Success" asp-route-itineraryId="@Model.Id">View all Itineraries</a>
+<a asp-action="Success" asp-route-itineraryId="@Model.Id">View All Itineraries</a>
 
 
 
