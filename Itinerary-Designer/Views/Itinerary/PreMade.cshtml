@@ -4,6 +4,20 @@
     var preMadeItineraries = PreMadeItineraries.GetPreMadeItineraries();
 }
 
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    h2 {
+        font-family: 'Dancing Script', cursive;
+        color: #343a40;
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+</style>
+
+<h2>Select PreMade Itineraries</h2>
+<br>
+
 <form asp-action="PreMade" method="post">
     @for (int i = 0; i < preMadeItineraries.Count; i++)
     {
@@ -14,8 +28,9 @@
                 @foreach (var location in preMadeItineraries[i].LocationDatas)
                 {
                     <li>@location.Name - @location.Address</li>
-                    <li>Category: @location.Category</li>
-                    <li>Description: @location.Description</li>
+                    <div>-Description: @location.Description</div>
+                    <div>-Category: @location.Category</div>
+                    
                 }
             </ul>
         </div>

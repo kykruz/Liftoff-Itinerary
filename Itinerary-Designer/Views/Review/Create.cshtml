@@ -2,22 +2,22 @@
 
 <form asp-controller="Review" asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label asp-for="Username"></label>
+        <label asp-for="Username">Your Name</label>
         <input asp-for="Username" class="form-control" />
         <span asp-validation-for="Username" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Title"></label>
+        <label asp-for="Title">Review Title</label>
         <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="ReviewPost"></label>
+        <label asp-for="ReviewPost">Provide A Description</label>
         <textarea asp-for="ReviewPost" class="form-control"></textarea>
         <span asp-validation-for="ReviewPost" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="ImageFile"></label>
+        <label asp-for="ImageFile">Upload An Image</label>
         <input asp-for="ImageFile" type="file" class="form-control" />
         <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
