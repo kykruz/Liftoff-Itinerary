@@ -37,7 +37,7 @@
             <div>
                 <input type="checkbox" name="SelectedLocationIds" value="@location.Id" @(Model.SelectedLocationIds != null &&
             Model.SelectedLocationIds.Contains(location.Id) ? "checked" : "")>
-                @Html.Label(location.Name)
+                @Html.Label(location.Name) - @location.Description
             </div>
         }
     </div>
