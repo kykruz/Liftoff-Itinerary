@@ -82,7 +82,7 @@
                         data-category="@location.Category">
                         <label>
                             <input type="checkbox" name="SelectedLocationIds" value="@location.Id" checked="@isChecked" />
-                            @location.Name
+                            @location.Name - @location.Description
                         </label>
                         @* <span class="price-per-person">$@location.PricePerPerson.ToString("0.00")</span> per person *@
                         @if (location.Category == "Restaurant")
