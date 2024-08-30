@@ -133,7 +133,9 @@ namespace Itinerary_Designer.Migrations
                     TotalCostForAllLocations = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     TotalCostForAllPeople = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     NumberOfPeople = table.Column<int>(type: "int", nullable: false),
-                    TotalCostInEur = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    TotalCostInEur = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Latitude = table.Column<double>(type: "double", nullable: false),
+                    Longitude = table.Column<double>(type: "double", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -343,6 +345,8 @@ namespace Itinerary_Designer.Migrations
                     Phone = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     IsPetFriendly = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Latitude = table.Column<double>(type: "double", nullable: false),
+                    Longitude = table.Column<double>(type: "double", nullable: false),
                     ItineraryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Exchange.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trips.Data;
 using Trips.Models;
-using Exchange.Services; 
 
 namespace Trips.Controllers
 {
@@ -15,9 +15,12 @@ namespace Trips.Controllers
     public class ItineraryController : Controller
     {
         private readonly TripDbContext context;
-        private readonly ExchangeRatesApiService _exchangeRatesApiService; 
+        private readonly ExchangeRatesApiService _exchangeRatesApiService;
 
-        public ItineraryController(TripDbContext dbContext, ExchangeRatesApiService exchangeRatesApiService)
+        public ItineraryController(
+            TripDbContext dbContext,
+            ExchangeRatesApiService exchangeRatesApiService
+        )
         {
             context = dbContext;
             _exchangeRatesApiService = exchangeRatesApiService;
@@ -104,13 +107,12 @@ namespace Trips.Controllers
                         }
                     }
 
-                    
-                    decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
+                    decimal totalCostPerPerson = (decimal)
+                        selectedLocationDatas.Sum(ld => ld.PricePerPerson);
 
-                   
                     decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
 
-                    itinerary.TotalCostPerItinerary = totalCostPerItinerary; 
+                    itinerary.TotalCostPerItinerary = totalCostPerItinerary;
 
                     context.Itineraries.Add(itinerary);
                 }
@@ -137,31 +139,33 @@ namespace Trips.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateItineraryViewModel createItineraryViewModel, int numberOfPets)
+        public async Task<IActionResult> Create(
+            CreateItineraryViewModel createItineraryViewModel,
+            int numberOfPets
+        )
         {
             if (ModelState.IsValid)
             {
                 string userId = GetCurrentUserId();
 
-                
-                if (createItineraryViewModel.SelectedCategories != null && createItineraryViewModel.SelectedCategories.Contains("All"))
+                if (
+                    createItineraryViewModel.SelectedCategories != null
+                    && createItineraryViewModel.SelectedCategories.Contains("All")
+                )
                 {
-                    
-                    createItineraryViewModel.SelectedCategories = await context.LocationDatas
-                        .Select(ld => ld.Category)
+                    createItineraryViewModel.SelectedCategories = await context
+                        .LocationDatas.Select(ld => ld.Category)
                         .Distinct()
                         .ToListAsync();
                 }
 
-                
                 if (createItineraryViewModel.SelectedCategories.Contains("All"))
                 {
-                    createItineraryViewModel.SelectedLocationIds = await context.LocationDatas
-                        .Select(ld => ld.Id)
+                    createItineraryViewModel.SelectedLocationIds = await context
+                        .LocationDatas.Select(ld => ld.Id)
                         .ToListAsync();
                 }
 
-                
                 List<LocationData> selectedLocationDatas = await context
                     .LocationDatas.Where(ld =>
                         createItineraryViewModel.SelectedLocationIds.Contains(ld.Id)
@@ -169,7 +173,6 @@ namespace Trips.Controllers
                     )
                     .ToListAsync();
 
-                
                 Itinerary itinerary = new Itinerary
                 {
                     Name = createItineraryViewModel.Name,
@@ -182,22 +185,25 @@ namespace Trips.Controllers
                     NumberOfPets = numberOfPets
                 };
 
-                
-                decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
+                foreach (var locationData in selectedLocationDatas)
+                {
+                    itinerary.Latitude = locationData.Latitude;
+                    itinerary.Longitude = locationData.Longitude;
+                    break; // Assign the latitude and longitude from the first location in the list
+                }
 
-                
+                decimal totalCostPerPerson = (decimal)
+                    selectedLocationDatas.Sum(ld => ld.PricePerPerson);
                 decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
 
                 itinerary.TotalCostPerItinerary = totalCostPerItinerary;
 
-                
                 context.Itineraries.Add(itinerary);
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("Success");
             }
 
-            
             createItineraryViewModel.AvailableCategories = await context
                 .LocationDatas.Select(ld => ld.Category)
                 .Distinct()
@@ -351,16 +357,13 @@ namespace Trips.Controllers
                     );
                 }
 
-                
-                decimal totalCostPerPerson = (decimal)selectedLocationDatas.Sum(ld => ld.PricePerPerson);
+                decimal totalCostPerPerson = (decimal)
+                    selectedLocationDatas.Sum(ld => ld.PricePerPerson);
 
-                
                 decimal totalCostPerItinerary = totalCostPerPerson * itinerary.NumberOfPeople;
 
-                itinerary.TotalCostPerItinerary = totalCostPerItinerary; 
+                itinerary.TotalCostPerItinerary = totalCostPerItinerary;
 
-                
-                
                 await context.SaveChangesAsync();
 
                 return RedirectToAction("ViewLocations", new { itineraryId = itinerary.Id });
@@ -393,8 +396,6 @@ namespace Trips.Controllers
             decimal totalCostForAllLocations = CalculateTotalCostForLocations(itinerary);
 
             decimal totalCostForAllPeople = totalCostForAllLocations * numberOfPeople;
-            
-
 
             string FromCurrency = "USD";
             string ToCurrency = "EUR";
@@ -402,28 +403,31 @@ namespace Trips.Controllers
             ConvertResponse response;
             try
             {
-                response = await _exchangeRatesApiService.ConvertAsync(FromCurrency, ToCurrency, (double)totalCostForAllPeople);
+                response = await _exchangeRatesApiService.ConvertAsync(
+                    FromCurrency,
+                    ToCurrency,
+                    (double)totalCostForAllPeople
+                );
                 Console.WriteLine(response.ToString());
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Exception: {ex.Message}");
-             return StatusCode(500, "Error converting currency.");
+                return StatusCode(500, "Error converting currency.");
             }
-            
-            if(response == null)
+
+            if (response == null)
             {
                 return StatusCode(500, "Error converting currency.");
             }
-            
+
             decimal totalCostInEur = response.ConvertedAmount;
 
             Console.WriteLine($"Total cost for all people (USD): {totalCostForAllPeople}");
             Console.WriteLine($"Converted amount (EUR): {totalCostInEur}");
 
-            
             itinerary.TotalCostInEur = totalCostInEur;
-            
+
             itinerary.TotalCostForAllLocations = totalCostForAllLocations;
 
             itinerary.TotalCostForAllPeople = totalCostForAllPeople;
@@ -432,7 +436,6 @@ namespace Trips.Controllers
 
             Console.WriteLine($"Total cost in EUR: {response.ConvertedAmount}");
 
-        
             context.SaveChanges();
 
             return View("ViewLocations", itinerary);

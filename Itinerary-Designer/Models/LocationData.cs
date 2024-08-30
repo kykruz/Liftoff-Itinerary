@@ -14,6 +14,9 @@ namespace Trips.Models
         public string Phone { get; set; }
         public bool IsPetFriendly { get; set; }
 
+        public double Latitude { get; set; }
+    public double Longitude { get; set; }
+
         public List<ItineraryLocationData> ItineraryLocationDatas { get; set; } = new List<ItineraryLocationData>();
 
         public LocationData(

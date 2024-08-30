@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Trips.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc;
+using Trips.Models;
 
 public class CreateItineraryViewModel
 {
@@ -25,8 +25,9 @@ public class CreateItineraryViewModel
     public int NumberOfPeople { get; set; }
 
     public decimal TotalCost { get; set; }
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
 
-     public int NumberOfPets { get; set; }  
     public CreateItineraryViewModel()
     {
         AvailableLocations = new List<LocationData>();
