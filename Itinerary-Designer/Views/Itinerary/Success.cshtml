@@ -73,14 +73,15 @@
                 @foreach (var itinerary in Model)
                 {
                     <li>
-                        <a asp-controller="Itinerary" asp-action="ViewLocations" asp-route-itineraryId="@itinerary.Id">@itinerary.Name</a>
+                        <a asp-controller="Itinerary" asp-action="ViewLocations" asp-route-itineraryId="@itinerary.Id"
+                        >• @itinerary.Name</a>
                     </li>
                 }
             </ul>
         }
         else
         {
-            <p class="no-itineraries" data-aos="fade-up" data-aos-delay="200">No itineraries created yet.</p>
+            <p class="no-itineraries" data-aos="fade-up" data-aos-delay="200">No Itineraries Have Been Created!.</p>
         }
 
         <div class="text-center" data-aos="fade-up" data-aos-delay="400">
