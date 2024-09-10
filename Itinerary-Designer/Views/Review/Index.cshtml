@@ -103,49 +103,7 @@
 
     @section Scripts {
         <script>
-            $(document).ready(function () {
-                AOS.init({
-                    duration: 800,
-                });
-            });
-
-             let currentSongIndex = 0;
-            const songs = [
-                '/assets/So Smooth - Danny Kean_Doug Maxwell.mp3',
-                '/assets/Meneate las Pompis - Jovenes Viejos.mp3',
-                '/assets/Mas Basico Cabron - Jovenes Viejos.mp3'
-            ];
-
-            const audioElement = document.getElementById('backgroundMusic');
-
-            function playAudio() {
-                audioElement.play();
-            }
-
-            function pauseAudio() {
-                audioElement.pause();
-            }
-
-            function nextSong() {
-                currentSongIndex = (currentSongIndex + 1) % songs.length;
-                audioElement.src = songs[currentSongIndex];
-                audioElement.play();
-                updateSongSelector();
-            }
-
-            function changeSong() {
-                const songSelector = document.getElementById('songSelector');
-                audioElement.src = songSelector.value;
-                audioElement.play();
-            }
-
-            function updateSongSelector() {
-                const songSelector = document.getElementById('songSelector');
-                songSelector.value = songs[currentSongIndex];
-            }
-
-            // Initialize the song selector with the current song
-            updateSongSelector()
+            
         </script>
     }
 </body>
