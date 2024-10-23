@@ -1,7 +1,7 @@
  @model Trips.ViewModels.ReviewViewModel
 
 <form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Id" />
+    <input type="hidden" />
     <div>
         <label asp-for="Title"></label>
         <input asp-for="Title" />
@@ -17,6 +17,6 @@
         <input type="file" asp-for="ImageFile" />
     </div>
     <div>
-        <button type="submit">Save Changes</button>
+        <button type="submit">Save Changes </button>
     </div>
 </form>
